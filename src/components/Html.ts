@@ -1,3 +1,4 @@
+import { Style, StyleOpts } from "./Style"
 
 interface Attributes {
     class: string
@@ -52,7 +53,12 @@ export class Html<T> {
     
     private touchedElements: Array<any>=[]
 
-    public root(opts: {key: string, child: string | Element | Array<Element>, style?: string, onClick?: ()=>void }) {
+    public root(opts: {
+        key: string,
+        child: string | Element | Array<Element>, 
+        style?: string, 
+        onClick?: ()=>void 
+        }) {
         //console.log(this.cleanFactory)
         if(!this.rootElement) {
             console.log(`mount root ${opts.key}`)
@@ -85,10 +91,19 @@ export class Html<T> {
         return this.rootElement
     }
 
-    public input(opts: {key: keyof T, value?: string, style?: string, onChange?: (e:any)=>void}) {
+    public input(opts: {
+        key: keyof T,
+        value?: string, 
+        style?: string, 
+        onChange?: (e:any)=>void, 
+        getNode?: (el: HTMLElement)=>void
+        }) {
         let elem: Element;
         if(!this.elements[opts.key as any]) {
             elem = this.mountInput(opts.key, opts.value, opts.style, opts.onChange)
+            if(opts.getNode) {
+                opts.getNode(elem.node)
+            }
         }
         else {
             elem = this.updateInput(opts.key, opts.value, opts.style, opts.onChange )
@@ -97,14 +112,34 @@ export class Html<T> {
         return elem 
     }
 
-    public div(opts: {key: keyof T, child: string | Element | Array<Element>, style?: string, onClick?: ()=>void }) {
+    public div(opts: {
+        key: keyof T, 
+        child: string | Element | Array<Element>, 
+        style?: StyleOpts,
+        if?: boolean,  
+        onClick?: ()=>void,
+        getNode?: (el: HTMLElement) => void }) {
+
         let elem: Element;
+        let styleString: string
+        if(opts.style) {
+             styleString = new Style().makeStyle(opts.style)
+        }
         if(!this.elements[opts.key as any]) {
-            elem = this.mountElement(opts.key, opts.child, opts.style, opts.onClick)
+            if(opts.if !== undefined && !opts.if) {
+                return
+            }
+            elem = this.mountElement(opts.key, opts.child, styleString, opts.onClick)
+            if(opts.getNode) {
+                opts.getNode(elem.node)
+            }
         }
         else {
-           
-            elem = this.updateElement(opts.key, opts.child, opts.style, opts.onClick )
+           if(opts.if !== undefined && !opts.if) {
+               this.unmountElement(opts.key as any) 
+               return
+           }
+            elem = this.updateElement(opts.key, opts.child, styleString, opts.onClick )
         }
         this.touchedElements.push(opts.key); 
         return elem  

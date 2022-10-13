@@ -21,13 +21,13 @@ export const SmallComponent = (props: {
             html.div({
                 'child': props.title,
                 'key': 'title',
-                style: 'font-size: 12px;',
+                style: {fontSize: '12px'},
                 onClick: props.onClick  
             }),
             html.div({
                 'child': props.subtitle,
                 'key': 'subtitle',
-                style: 'font-size: 10px;',
+                style: {fontSize: '10px'},
             }),
         ]
     })
