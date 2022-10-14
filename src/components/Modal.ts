@@ -7,12 +7,14 @@ interface Keys {
 
 
 const html = new Html<Keys>()
-export const Modal = (props?: any) => {
+export const Modal = (show: boolean, onClick: ()=> void) => {
     // синхронизировать state callbac  
     html.root({ //добавть controller - unmount(), update(), node,
         'key': 'modal',
         'child': [
             html.div({
+                if: show,
+                onClick,
                 'key': 'background',
                 'child': '',
                 'style': {

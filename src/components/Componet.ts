@@ -9,12 +9,14 @@ interface Opts {
     displayInput: 'displayInput'
     click: 'CLICK',
     key_child_2: 'key_child_2'
-    input: 'input'
+    input: 'input',
+    key_child_3: 'key_child_3'
 }  
 
 
 const html = new Html<Opts>();//here insert context and opts
 const ac = new State<Array<string>>();//think how to share in between components
+const modalState = new State<boolean>();//think how to share in between components
 const is = new State<string>();
 const c = new Keep<Logic>();
 
@@ -33,6 +35,7 @@ class Logic {
 // implement new Controller which's instance can controll component from outside
 export const Component = (props?: any)  => {
     const { state, setState } = ac.useState([], Component)
+    const { state: modalOpen, setState: setModalOpen } = modalState.useState(false, Component)
     const { state: inputValue, setState: setInputValue } = is.useState('initialInput', Component)
     const api = c.useController(() => new Logic(), (c) => c.passState(state))
     const deleteSmall = (index: number) => {
@@ -58,6 +61,14 @@ export const Component = (props?: any)  => {
                 }
             }),
             html.div({
+                'child': 'OPEN MODAL',
+                'key': 'key_child_3',
+                style: {color: 'blue'},
+                onClick: () => {
+                    setModalOpen(true);
+                }
+            }),
+            html.div({
                 key: 'displayInput',
                 child: inputValue,
                 getNode: (n) =>  {api.node = n}
@@ -67,7 +78,7 @@ export const Component = (props?: any)  => {
                 onChange: (e: any) => {setInputValue(e.target.value)},
                 value: inputValue,
             }),
-            Modal() 
+            Modal(modalOpen, ()=> setModalOpen(false)) 
         ]
     })
 

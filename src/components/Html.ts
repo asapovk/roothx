@@ -114,7 +114,7 @@ export class Html<T> {
 
     public div(opts: {
         key: keyof T, 
-        child: string | Element | Array<Element>, 
+        child: string | Element | Array<Element> | null, 
         style?: StyleOpts,
         if?: boolean,  
         onClick?: ()=>void,
@@ -127,7 +127,7 @@ export class Html<T> {
         }
         if(!this.elements[opts.key as any]) {
             if(opts.if !== undefined && !opts.if) {
-                return
+                return null
             }
             elem = this.mountElement(opts.key, opts.child, styleString, opts.onClick)
             if(opts.getNode) {
@@ -137,7 +137,7 @@ export class Html<T> {
         else {
            if(opts.if !== undefined && !opts.if) {
                this.unmountElement(opts.key as any) 
-               return
+               return null
            }
             elem = this.updateElement(opts.key, opts.child, styleString, opts.onClick )
         }
@@ -169,6 +169,9 @@ export class Html<T> {
         }
         else if(Array.isArray(child)) {
             child.forEach( ch => {
+                if(!ch) {
+                    return
+                }
                 ch.parentId = key
                 if(ch.type === 'root') {
                     this.touchedElements.push(ch.id);
@@ -176,7 +179,7 @@ export class Html<T> {
                 }
                 divElement.appendChild(ch.node)})
         }
-        else{
+        else if (child !== null) {
             if(child.type === 'root') {
                 this.touchedElements.push(child.id);
                 this.elements[child.id] = child
@@ -224,7 +227,14 @@ export class Html<T> {
             oldElement.attributes.eventListener = onClick
         }
         if(Array.isArray(child)) {
+            let lastNonNullIndex = 0;
             child.forEach( (ch, index) => {
+                if(!ch) {
+                    return
+                }
+                else {
+                    lastNonNullIndex= index
+                }
                 if(ch.type === 'root') {
                     this.touchedElements.push(ch.id);
                     this.elements[ch.id] = ch // mount to tree
@@ -232,10 +242,10 @@ export class Html<T> {
                 if(!ch.parentId) {
                     ch.parentId = oldElement.id
                     if(!index) {
-                        oldElement.node.insertBefore(ch.node, child[index+1].node) 
+                        oldElement.node.prepend(ch.node) 
                     }
                     else {
-                        const prevNode = child[index-1].node
+                        const prevNode = child[lastNonNullIndex-1].node
                          prevNode.after(ch.node)
                     }
                 }
@@ -273,18 +283,25 @@ export class Html<T> {
             oldElement.attributes.eventListener = onClick
         }
         if(Array.isArray(child)) {
+            let lastNonNullIndex = 0;
             child.forEach( (ch, index) => {
+                if(!ch) {
+                    return
+                }
+                else {
+                    lastNonNullIndex = index 
+                }
                 if(ch.type === 'root') {
                     this.touchedElements.push(ch.id); 
                     this.elements[ch.id] = ch // mount to tree
                 } 
                 if(!ch.parentId) {
                     ch.parentId = oldElement.id
-                    if(!index) {
-                        oldElement.node.insertBefore(ch.node, child[index+1].node) 
+                    if(!lastNonNullIndex) {
+                        oldElement.node.prepend(ch.node) 
                     }
                     else {
-                        const prevNode = child[index-1].node
+                        const prevNode = child[lastNonNullIndex-1].node
                         prevNode.after(ch.node)
                     }
                 }
@@ -331,7 +348,6 @@ export class Html<T> {
             inputElement.setAttribute('value', value)
         }
         if(onChange) {
-            console.log('add')
             inputElement.addEventListener('input',onChange)
         }
         this.elements[key] = {
@@ -357,6 +373,9 @@ export class Html<T> {
         if(Array.isArray(child)) {
 
             child.forEach( ch => {
+                if(!ch) {
+                    return
+                }
                 ch.parentId = key
                 if(ch.type === 'root') {
                     this.touchedElements.push(ch.id);
