@@ -26,17 +26,17 @@ export function Root(element: HTMLElement): void {
 }
 
 
-export class HtmlFactory<T> {
-    private instances: {[key:string]: Html<T>} = {}
+export class TreeFactory<T> {
+    private instances: {[key:string]: Tree<T>} = {}
 
-    public getInstance(key: string): Html<T> {
+    public getInstance(key: string): Tree<T> {
 
         if(this.instances[key]) {
      
             return this.instances[key]
         }
         else {
-            this.instances[key] = new Html(() => {
+            this.instances[key] = new Tree(() => {
 
                 delete this.instances[key]} );
             return this.instances[key]
@@ -45,7 +45,7 @@ export class HtmlFactory<T> {
 }
 
 
-export class Html<T> {
+export class Tree<T> {
 
     private cleanFactory: any = null
     constructor(cleanFactory?: ()=>void) {
@@ -68,11 +68,11 @@ export class Html<T> {
         }) {
         //console.log(this.cleanFactory)
         if(!this.rootElement) {
-            console.log(`mount root ${opts.key}`)
+            //console.log(`mount root ${opts.key}`)
             this.mountRoot(opts.key, opts.child, opts.style, opts.onClick)
         }
         else {
-            console.log(`update root ${opts.key}`)
+            //console.log(`update root ${opts.key}`)
             this.updateRoot(opts.key, opts.child, opts.style, opts.onClick )
         } 
     };
@@ -88,7 +88,7 @@ export class Html<T> {
     }
 
 
-    public render() {
+    public calc() {
         for (let k in this.elements) {
             if(!this.touchedElements.includes(k)) {
                 this.unmountElement(k)
@@ -423,7 +423,7 @@ export class Html<T> {
     }
 
     private unmountElement(key: string) {
-        console.log(`Unmount ${key}`)
+        //console.log(`Unmount ${key}`)
         if(this.elements[key].type === 'root') {
             this.elements[key].clean()
         } 

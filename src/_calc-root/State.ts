@@ -17,7 +17,6 @@ export class State<T> {
             this.state = initialState
             this.contextFunction = context
         }
-        console.log(this.isMounted)
         return {
            state:this.state,
            setState: this.setState

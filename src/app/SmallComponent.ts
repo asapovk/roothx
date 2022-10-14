@@ -1,4 +1,4 @@
-import { Html, HtmlFactory } from "../_calc-root/Html";
+import { Tree, TreeFactory } from "../_calc-root/Tree";
 import { State } from "../_calc-root/State";
 
 
@@ -7,24 +7,24 @@ interface Opts {
     subtitle: 'subtitle'
 }
 
-const factory = new HtmlFactory<Opts>();
+const factory = new TreeFactory<Opts>();
 export const SmallComponent = (props: {
         key: string, 
         title: string,
         subtitle: string, 
         onClick: ()=> void
     })  => {
-    const html = factory.getInstance(props.key);
-    html.root({
+    const tree = factory.getInstance(props.key);
+    tree.root({
         'key': props.key,
         'child': [
-            html.div({
+            tree.div({
                 'child': props.title,
                 'key': 'title',
                 style: {fontSize: '12px'},
                 onClick: props.onClick  
             }),
-            html.div({
+            tree.div({
                 'child': props.subtitle,
                 'key': 'subtitle',
                 style: {fontSize: '10px'},
@@ -32,5 +32,5 @@ export const SmallComponent = (props: {
         ]
     })
 
-    return html.render();   
+    return tree.calc();   
 }

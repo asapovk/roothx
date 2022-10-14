@@ -1,4 +1,4 @@
-import { Html } from "../_calc-root/Html"
+import { Tree } from "../_calc-root/Tree"
 
 interface Keys {
     background: 'background',
@@ -7,13 +7,13 @@ interface Keys {
 }
 
 
-const html = new Html<Keys>()
+const tree = new Tree<Keys>()
 export const Modal = (show: boolean, onClick: ()=> void) => {
     // синхронизировать state callbac  
-    html.root({ //добавть controller - unmount(), update(), node,
+    tree.root({ //добавть controller - unmount(), update(), node,
         'key': 'modal',
         'child': [
-            html.div({
+            tree.div({
                 if: show,
                 onClick,
                 'key': 'background',
@@ -28,7 +28,7 @@ export const Modal = (show: boolean, onClick: ()=> void) => {
                     backgroundColor: 'rgba(41, 46, 45, 0.6)'
                 }
             }),
-            html.div({
+            tree.div({
                 if:show,
                 'key': 'innerFrame',
                 'style': {
@@ -44,5 +44,5 @@ export const Modal = (show: boolean, onClick: ()=> void) => {
             })
         ]
     })
-    return html.render()
+    return tree.calc()
 }

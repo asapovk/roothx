@@ -1,5 +1,5 @@
 import { Keep } from "../_calc-root/Controller";
-import { Html } from "../_calc-root/Html";
+import { Tree } from "../_calc-root/Tree";
 import { Modal } from "./Modal";
 import { SmallComponent } from "./SmallComponent";
 import { State } from "../_calc-root/State";
@@ -14,7 +14,7 @@ interface Opts {
 }  
 
 
-const html = new Html<Opts>();//here insert context and opts
+const tree = new Tree<Opts>();//here insert context and opts
 const ac = new State<Array<string>>();//think how to share in between components
 const modalState = new State<boolean>();//think how to share in between components
 const is = new State<string>();
@@ -44,7 +44,7 @@ export const Component = (props?: any)  => {
         setState(newState)
     }
 
-    html.root({
+    tree.root({
         'key': 'root',
         'child': [
             ...state.map((d, index) => SmallComponent({key: d, 
@@ -52,7 +52,7 @@ export const Component = (props?: any)  => {
                 subtitle:`${d}`,
                 onClick: () => deleteSmall(index) 
                 })),
-            html.div({
+            tree.div({
                 'child': 'CLICK',
                 'key': 'key_child_2',
                 style: {color: 'green'},
@@ -60,7 +60,7 @@ export const Component = (props?: any)  => {
                     setState([...state, `${state.length+1}`]);
                 }
             }),
-            html.div({
+            tree.div({
                 'child': 'OPEN MODAL',
                 'key': 'key_child_3',
                 style: {color: 'blue'},
@@ -68,12 +68,12 @@ export const Component = (props?: any)  => {
                     setModalOpen(true);
                 }
             }),
-            html.div({
+            tree.div({
                 key: 'displayInput',
                 child: inputValue,
                 getNode: (n) =>  {api.node = n}
             }), 
-            html.input({
+            tree.input({
                 key: 'input',
                 onChange: (e: any) => {setInputValue(e.target.value)},
                 value: inputValue,
@@ -82,7 +82,7 @@ export const Component = (props?: any)  => {
         ]
     })
 
-    return html.render();   
+    return tree.calc();   
 }
 
 
