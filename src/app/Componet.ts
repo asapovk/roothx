@@ -1,8 +1,8 @@
-import { Keep } from "./Controller";
-import { Html } from "./Html";
+import { Keep } from "../_calc-root/Controller";
+import { Html } from "../_calc-root/Html";
 import { Modal } from "./Modal";
 import { SmallComponent } from "./SmallComponent";
-import { State } from "./State";
+import { State } from "../_calc-root/State";
 
 interface Opts {   
     root:  'key'

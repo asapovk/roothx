@@ -1,8 +1,9 @@
-import { Html } from "./Html"
+import { Html } from "../_calc-root/Html"
 
 interface Keys {
     background: 'background',
-    window: 'window'
+    window: 'window',
+    innerFrame: 'innerFrame'
 }
 
 
@@ -23,8 +24,23 @@ export const Modal = (show: boolean, onClick: ()=> void) => {
                     'position': 'absolute',
                     'height': '100vh',
                     'width': '100%',
+                    zIndex: '9',
                     backgroundColor: 'rgba(41, 46, 45, 0.6)'
                 }
+            }),
+            html.div({
+                if:show,
+                'key': 'innerFrame',
+                'style': {
+                    position: 'fixed',
+                    width: '100px',
+                    height: '100px',
+                    margin: 'auto',
+                    top: '100px',
+                    backgroundColor: 'green',
+                    zIndex: '10'
+                },
+                child: 'Hello world'
             })
         ]
     })

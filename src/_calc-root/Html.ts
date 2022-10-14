@@ -18,6 +18,13 @@ interface Element {
     clean?: () => void   
 }
 
+export function Root(element: HTMLElement): void {
+    const rootElement = document.getElementById('app');
+    if(rootElement) {
+        rootElement.appendChild(element)
+    }
+}
+
 
 export class HtmlFactory<T> {
     private instances: {[key:string]: Html<T>} = {}

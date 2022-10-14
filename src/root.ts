@@ -1,6 +1,6 @@
-import { App } from "./components/App";
-import {Div, Root,} from "./Sei";
-import { Component } from "./components/Componet";
+
+import {Root} from "./_calc-root/Html";
+import { Component } from "./app/Componet";
 
 
 (function main() {

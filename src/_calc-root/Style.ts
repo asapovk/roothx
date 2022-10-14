@@ -15,6 +15,7 @@ export interface StyleOpts {
     width?: string
     margin?: string
     padding?: string
+    zIndex?: string 
 
 }
 
@@ -25,6 +26,8 @@ export class Style {
                 return 'background-color'
             case 'fontSize': 
                 return 'font-size'
+            case 'zIndex': 
+                return 'z-Index'
             default:
                 return ksopt
         }
