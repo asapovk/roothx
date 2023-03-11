@@ -1,8 +1,8 @@
-import { Keep } from "../_calc-root/Controller";
-import { Tree } from "../_calc-root/Tree";
+import { Keep } from "../root/Controller";
+import { Tree } from "../root/Tree";
 import { Modal } from "./Modal";
 import { SmallComponent } from "./SmallComponent";
-import { State } from "../_calc-root/State";
+import { State } from "../root/State";
 
 interface Opts {   
     root:  'key'
@@ -79,7 +79,7 @@ export const Component = (props?: any)  => {
                 value: inputValue,
             }),
             Modal(modalOpen, ()=> setModalOpen(false)) 
-        ]
+        ] as any
     })
 
     return tree.calc();   

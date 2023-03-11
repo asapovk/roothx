@@ -1,8 +1,8 @@
-
-import {Root} from "./_calc-root/Tree";
-import { Component } from "./app/Componet";
-
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+import { Root } from './root/Tree';
+import { Component } from './app/Componet';
 
 (function main() {
-    Root(Component().node);
-})()
+  //@ts-ignore
+  Root(Component().node);
+})();
