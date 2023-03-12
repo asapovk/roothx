@@ -68,7 +68,7 @@ export class Tree<T> {
 
   private elements: { [key: string]: Element } = {};
 
-  private touchedElements: Array<{ [key: string]: boolean }> = [];
+  private touchedElements: { [key: string]: boolean } = {};
 
   public root(opts: {
     key: string;
@@ -78,9 +78,7 @@ export class Tree<T> {
     };
     eventListeners: ITagListeners;
   }) {
-    //console.log(this.cleanFactory)
     if (!this.rootElement) {
-      //console.log(`mount root ${opts.key}`)
       this.mountRoot(
         opts.key,
         opts.child,
@@ -88,7 +86,6 @@ export class Tree<T> {
         opts.eventListeners
       );
     } else {
-      //console.log(`update root ${opts.key}`)
       this.updateRoot(opts.child, opts.arrtibutes, opts.eventListeners);
     }
   }
@@ -162,10 +159,13 @@ export class Tree<T> {
   ) {
     const divElement = this.opts.makeElement('div');
     this.mountNoneTextChilds(key, divElement, child as any);
+    if (typeof child === 'string') {
+      divElement.textContent = child;
+    }
     this.rootElement = {
       isRoot: true,
       tagName: 'div',
-      innerText: null as any,
+      innerText: typeof child === 'string' ? child : (null as any),
       clean: this.unmountRoot,
       attributes: attributes,
       eventListeners,
@@ -246,7 +246,6 @@ export class Tree<T> {
   }
 
   private unmountElement(key: string) {
-    //console.log(`Unmount ${key}`)
     if (this.elements[key].isRoot) {
       //@ts-ignore
       this.elements[key].clean();
@@ -297,14 +296,14 @@ export class Tree<T> {
         }
         ch.parentId = parentKey;
         if (ch.isRoot) {
-          this.touchedElements[ch.id];
+          this.touchedElements[ch.id] = true;
           this.elements[ch.id] = ch;
         }
         parentTag.appendChild(ch.node);
       });
     } else if (child.id) {
       if (child.isRoot) {
-        this.touchedElements[child.id];
+        this.touchedElements[child.id] = true;
         this.elements[child.id] = child;
       }
       child.parentId = parentKey;
@@ -318,7 +317,7 @@ export class Tree<T> {
       //@ts-ignore
     } else if (child.id) {
       if (child.isRoot) {
-        this.touchedElements[child.id];
+        this.touchedElements[child.id] = true;
         this.elements[child.id] = child; // mount to tree
       }
       if (!child.parentId) {
@@ -334,7 +333,7 @@ export class Tree<T> {
           lastNonNullIndex = index;
         }
         if (ch.isRoot) {
-          this.touchedElements.push(ch.id);
+          this.touchedElements[ch.id] = true;
           this.elements[ch.id] = ch; // mount to tree
         }
         if (!ch.parentId) {
