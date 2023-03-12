@@ -14,6 +14,7 @@ interface Element {
   parentId: string | null;
   node: HTMLElement;
   attributes: Attributes;
+  isRoot: boolean;
   type?: 'root';
   clean?: () => void;
 }
@@ -53,7 +54,7 @@ export class Tree<T> {
 
   private elements: { [key: string]: Element } = {};
 
-  private touchedElements: Array<any> = [];
+  private touchedElements: Array<{ [key: string]: boolean }> = [];
 
   public root(opts: {
     key: string;
@@ -83,11 +84,12 @@ export class Tree<T> {
 
   public calc() {
     for (const k in this.elements) {
-      if (!this.touchedElements.includes(k)) {
+      if (!this.touchedElements[k]) {
         this.unmountElement(k);
       }
     }
-    this.touchedElements = [];
+    //@ts-ignore
+    this.touchedElements = {};
 
     return this.rootElement;
   }
@@ -108,7 +110,8 @@ export class Tree<T> {
     } else {
       elem = this.updateInput(opts.key, opts.value, opts.style, opts.onChange);
     }
-    this.touchedElements.push(opts.key);
+
+    this.touchedElements[opts.key as string] = true;
 
     return elem;
   }
@@ -149,7 +152,8 @@ export class Tree<T> {
         opts.onClick
       );
     }
-    this.touchedElements.push(opts.key);
+
+    this.touchedElements[opts.key as string] = true;
 
     return elem;
   }
@@ -185,15 +189,15 @@ export class Tree<T> {
           return;
         }
         ch.parentId = key;
-        if (ch.type === 'root') {
-          this.touchedElements.push(ch.id);
+        if (ch.isRoot) {
+          this.touchedElements[ch.id];
           this.elements[ch.id] = ch;
         }
         divElement.appendChild(ch.node);
       });
     } else if (child !== null) {
-      if (child.type === 'root') {
-        this.touchedElements.push(child.id);
+      if (child.isRoot) {
+        this.touchedElements[child.id];
         this.elements[child.id] = child;
       }
       child.parentId = key;
@@ -206,7 +210,7 @@ export class Tree<T> {
       divElement.addEventListener('click', onClick);
     }
     this.rootElement = {
-      type: 'root',
+      isRoot: true,
       clean: this.unmountRoot,
       attributes: {
         class: null as any,
@@ -255,8 +259,8 @@ export class Tree<T> {
         } else {
           lastNonNullIndex = index;
         }
-        if (ch.type === 'root') {
-          this.touchedElements.push(ch.id);
+        if (ch.isRoot) {
+          this.touchedElements[ch.id];
           this.elements[ch.id] = ch; // mount to tree
         }
         if (!ch.parentId) {
@@ -270,8 +274,8 @@ export class Tree<T> {
         }
       });
     } else if (child && typeof child !== 'string') {
-      if (child.type === 'root') {
-        this.touchedElements.push(child.id);
+      if (child.isRoot) {
+        this.touchedElements[child.id];
         this.elements[child.id] = child; // mount to tree
       }
       if (!child.parentId) {
@@ -318,7 +322,7 @@ export class Tree<T> {
           lastNonNullIndex = index;
         }
         if (ch.type === 'root') {
-          this.touchedElements.push(ch.id);
+          this.touchedElements[ch.id];
           this.elements[ch.id] = ch; // mount to tree
         }
         if (!ch.parentId) {
@@ -333,7 +337,7 @@ export class Tree<T> {
       });
     } else if (child && typeof child !== 'string') {
       if (child.type === 'root') {
-        this.touchedElements.push(child.id);
+        this.touchedElements[child.id];
         this.elements[child.id] = child; // mount to tree
       }
       if (!child.parentId) {
@@ -388,6 +392,7 @@ export class Tree<T> {
       inputElement.addEventListener('input', onChange);
     }
     this.elements[key] = {
+      isRoot: false,
       attributes: {
         class: null as any,
         innerText: null as any,
@@ -418,8 +423,8 @@ export class Tree<T> {
           return;
         }
         ch.parentId = key;
-        if (ch.type === 'root') {
-          this.touchedElements.push(ch.id);
+        if (ch.isRoot) {
+          this.touchedElements[ch.id];
           this.elements[ch.id] = ch;
         }
         divElement.appendChild(ch.node);
@@ -427,8 +432,8 @@ export class Tree<T> {
     } else if (typeof child === 'string') {
       divElement.textContent = child;
     } else {
-      if (child.type === 'root') {
-        this.touchedElements.push(child.id);
+      if (child.isRoot) {
+        this.touchedElements[child.id];
         this.elements[child.id] = child;
       }
       child.parentId = key;
@@ -441,6 +446,7 @@ export class Tree<T> {
       divElement.addEventListener('click', onClick);
     }
     this.elements[key] = {
+      isRoot: false,
       attributes: {
         class: null as any,
         innerText: null as any,
@@ -457,7 +463,7 @@ export class Tree<T> {
 
   private unmountElement(key: string) {
     //console.log(`Unmount ${key}`)
-    if (this.elements[key].type === 'root') {
+    if (this.elements[key].isRoot) {
       //@ts-ignore
       this.elements[key].clean();
     } else {
@@ -465,43 +471,65 @@ export class Tree<T> {
     }
     delete this.elements[key];
   }
+
+  private updateNoneTextChilds = (oldElement: Element, child: Element) => {
+    if (!child) {
+      return;
+      //@ts-ignore
+    } else if (child.id) {
+      if (child.isRoot) {
+        this.touchedElements[child.id];
+        this.elements[child.id] = child; // mount to tree
+      }
+      if (!child.parentId) {
+        child.parentId = oldElement.id;
+        oldElement.node.appendChild(child.node);
+      }
+    } else if (Array.isArray(child)) {
+      let lastNonNullIndex = 0;
+      child.forEach((ch, index) => {
+        if (!ch) {
+          return;
+        } else {
+          lastNonNullIndex = index;
+        }
+        if (ch.isRoot) {
+          this.touchedElements.push(ch.id);
+          this.elements[ch.id] = ch; // mount to tree
+        }
+        if (!ch.parentId) {
+          ch.parentId = oldElement.id;
+          if (!index) {
+            oldElement.node.prepend(ch.node);
+          } else {
+            const prevNode = child[lastNonNullIndex - 1].node;
+            prevNode.after(ch.node);
+          }
+        }
+      });
+    }
+    // child can be a string or Element or array of elements
+  };
 }
 
-/* new Html (config) - sets up custom 
-** 
-** Elemetnt creator 
-** Child appender
-** Element deleter
-**
-*/
+/* new Html (config) - sets up custom
+ **
+ ** Elemetnt creator
+ ** Child appender
+ ** Element deleter
+ **
+ */
 
 interface ITagAttributes {
-  class?: string
-  value?: string
-  style?: string  
+  class?: string;
+  value?: string;
+  style?: string;
 }
 
-export const applyAttributes = (args: ITagAttributes) => {
+export const applyAttributes = (args: ITagAttributes) => {};
 
-}
+export const checkAttributes = () => {};
 
-export const checkAttributes = () => {
+export const applyEventHandlers = () => {};
 
-}
-
-export const applyEventHandlers = () => {
-
-}
-
-export const mountChilds = () => {
-
-}
-
-
-export const updateChailds = () => {
-  // child can be a string or Element or array of elements
-
-}
-
-
-
+export const mountChilds = () => {};
