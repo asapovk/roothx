@@ -31,10 +31,10 @@ export function Root(element: HTMLElement): void {
   }
 }
 
-export class TreeFactory<T> {
-  private instances: { [key: string]: Tree<T> } = {};
+export class TreeFactory {
+  private instances: { [key: string]: Tree } = {};
 
-  public getInstance(key: string): Tree<T> {
+  public getInstance(key: string): Tree {
     if (this.instances[key]) {
       return this.instances[key];
     } else {
@@ -56,7 +56,7 @@ interface ITreeOpts {
   makeElement: (tagName: string) => HTMLElement;
 }
 
-export class Tree<T> {
+export class Tree {
   private cleanFactory: any = null;
   constructor(private opts: ITreeOpts, cleanFactory?: () => void) {
     if (cleanFactory) {
