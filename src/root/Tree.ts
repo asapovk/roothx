@@ -466,3 +466,42 @@ export class Tree<T> {
     delete this.elements[key];
   }
 }
+
+/* new Html (config) - sets up custom 
+** 
+** Elemetnt creator 
+** Child appender
+** Element deleter
+**
+*/
+
+interface ITagAttributes {
+  class?: string
+  value?: string
+  style?: string  
+}
+
+export const applyAttributes = (args: ITagAttributes) => {
+
+}
+
+export const checkAttributes = () => {
+
+}
+
+export const applyEventHandlers = () => {
+
+}
+
+export const mountChilds = () => {
+
+}
+
+
+export const updateChailds = () => {
+  // child can be a string or Element or array of elements
+
+}
+
+
+
