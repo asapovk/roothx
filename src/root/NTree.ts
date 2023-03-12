@@ -73,20 +73,18 @@ export class Tree {
   public root(opts: {
     key: string;
     child: string | Element | Array<Element>;
-    arrtibutes: {
-      style?: string;
-    };
-    eventListeners: ITagListeners;
+    attributes?: ITagAttributes;
+    eventListeners?: ITagListeners;
   }) {
     if (!this.rootElement) {
       this.mountRoot(
         opts.key,
         opts.child,
-        opts.arrtibutes,
+        opts.attributes,
         opts.eventListeners
       );
     } else {
-      this.updateRoot(opts.child, opts.arrtibutes, opts.eventListeners);
+      this.updateRoot(opts.child, opts.attributes, opts.eventListeners);
     }
   }
 
@@ -154,8 +152,8 @@ export class Tree {
   private mountRoot(
     key: string,
     child: string | Element | Array<Element>,
-    attributes: ITagAttributes,
-    eventListeners: ITagListeners
+    attributes: ITagAttributes = {},
+    eventListeners?: ITagListeners
   ) {
     const divElement = this.opts.makeElement('div');
     this.mountNoneTextChilds(key, divElement, child as any);
@@ -168,7 +166,7 @@ export class Tree {
       innerText: typeof child === 'string' ? child : (null as any),
       clean: this.unmountRoot,
       attributes: attributes,
-      eventListeners,
+      eventListeners: eventListeners || {},
       node: divElement,
       id: key,
       parentId: null,
@@ -177,7 +175,7 @@ export class Tree {
 
   private updateRoot(
     child: string | Element | Array<Element>,
-    attributes: ITagAttributes,
+    attributes?: ITagAttributes,
     eventListeners?: { [eventName: string]: (e: any) => void }
   ) {
     const oldElement = this.rootElement as Element;
@@ -231,9 +229,9 @@ export class Tree {
     this.elements[key] = {
       isRoot: false,
       tagName,
-      attributes,
+      attributes: {},
       innerText: typeof child === 'string' ? child : (null as any),
-      eventListeners: eventListeners || {},
+      eventListeners: {},
       node: tagElement,
       id: key,
       parentId: null,
@@ -257,7 +255,7 @@ export class Tree {
 
   private updateAttributes = (
     element: Element,
-    newAttributes: ITagAttributes
+    newAttributes: ITagAttributes = {}
   ) => {
     Object.keys(newAttributes).forEach((at) => {
       if (newAttributes[at] !== element.attributes[at]) {
@@ -265,6 +263,9 @@ export class Tree {
         element.node.setAttribute(at, newAttributes[at]);
       }
     });
+    console.log('setAttributes');
+    console.log(newAttributes);
+    console.log(element.attributes);
     element.attributes = newAttributes;
   };
 
