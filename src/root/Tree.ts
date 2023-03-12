@@ -526,10 +526,10 @@ interface ITagAttributes {
   style?: string;
 }
 
-export const applyAttributes = (args: ITagAttributes) => {};
+// export const applyAttributes = (args: ITagAttributes) => {};
 
-export const checkAttributes = () => {};
+// export const checkAttributes = () => {};
 
-export const applyEventHandlers = () => {};
+// export const applyEventHandlers = () => {};
 
-export const mountChilds = () => {};
+// export const mountChilds = () => {};
