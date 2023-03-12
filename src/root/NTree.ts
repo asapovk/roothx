@@ -1,11 +1,15 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { Style, StyleOpts } from './Style';
 
-interface Attributes {
+interface ITagAttributes {
   class?: string;
   style?: string;
   value?: string;
   id?: string;
+}
+
+interface ITagListeners {
+  [eventName: string]: (e: any) => void;
 }
 
 interface Element {
@@ -13,8 +17,8 @@ interface Element {
   parentId: string | null;
   node: HTMLElement;
   innerText?: string;
-  attributes: Attributes;
-  eventListeners: any;
+  attributes: ITagAttributes;
+  eventListeners: ITagListeners;
   isRoot: boolean;
   tagName: string;
   clean?: () => void;
@@ -72,7 +76,7 @@ export class Tree<T> {
     arrtibutes: {
       style?: string;
     };
-    eventListeners: { [eventName: string]: (e: any) => void };
+    eventListeners: ITagListeners;
   }) {
     //console.log(this.cleanFactory)
     if (!this.rootElement) {
@@ -121,7 +125,7 @@ export class Tree<T> {
       id?: string;
       class?: string;
     };
-    eventListeners?: { [eventName: string]: (e: any) => void };
+    eventListeners?: ITagListeners;
     getNode?: (el: HTMLElement) => void;
   }) {
     let elem: Element;
@@ -154,42 +158,10 @@ export class Tree<T> {
     key: string,
     child: string | Element | Array<Element>,
     attributes: ITagAttributes,
-    eventListeners: { [eventName: string]: (e: any) => void }
+    eventListeners: ITagListeners
   ) {
-    // this.elements[key] = child
     const divElement = this.opts.makeElement('div');
-    //const divElement = document.createElement('div');
     this.mountNoneTextChilds(key, divElement, child as any);
-
-    // if (typeof child === 'string') {
-    //   divElement.textContent = child;
-    // } else if (Array.isArray(child)) {
-    //   child.forEach((ch) => {
-    //     if (!ch) {
-    //       return;
-    //     }
-    //     ch.parentId = key;
-    //     if (ch.isRoot) {
-    //       this.touchedElements[ch.id];
-    //       this.elements[ch.id] = ch;
-    //     }
-    //     divElement.appendChild(ch.node);
-    //   });
-    // } else if (child !== null) {
-    //   if (child.isRoot) {
-    //     this.touchedElements[child.id];
-    //     this.elements[child.id] = child;
-    //   }
-    //   child.parentId = key;
-    //   divElement.appendChild(child.node);
-    // }
-
-    // if (style) {
-    //   divElement.setAttribute('style', style);
-    // }
-    // if (onClick) {
-    //   divElement.addEventListener('click', onClick);
-    // }
     this.rootElement = {
       isRoot: true,
       tagName: 'div',
@@ -210,38 +182,14 @@ export class Tree<T> {
   ) {
     const oldElement = this.rootElement as Element;
     this.updateNoneTextChilds(oldElement, child as any);
-    // if (Array.isArray(child)) {
-    //   let lastNonNullIndex = 0;
-    //   child.forEach((ch, index) => {
-    //     if (!ch) {
-    //       return;
-    //     } else {
-    //       lastNonNullIndex = index;
-    //     }
-    //     if (ch.isRoot) {
-    //       this.touchedElements[ch.id];
-    //       this.elements[ch.id] = ch; // mount to tree
-    //     }
-    //     if (!ch.parentId) {
-    //       ch.parentId = oldElement.id;
-    //       if (!index) {
-    //         oldElement.node.prepend(ch.node);
-    //       } else {
-    //         const prevNode = child[lastNonNullIndex - 1].node;
-    //         prevNode.after(ch.node);
-    //       }
-    //     }
-    //   });
-    // } else if (child && typeof child !== 'string') {
-    //   if (child.isRoot) {
-    //     this.touchedElements[child.id];
-    //     this.elements[child.id] = child; // mount to tree
-    //   }
-    //   if (!child.parentId) {
-    //     child.parentId = oldElement.id;
-    //     oldElement.node.appendChild(child.node);
-    //   }
-    // }
+    this.updateAttributes(oldElement, attributes);
+    this.updateEventListeners(oldElement, eventListeners);
+    if (typeof child === 'string') {
+      if (child !== oldElement.node.textContent) {
+        oldElement.innerText = child;
+        oldElement.node.textContent = child;
+      }
+    }
   }
 
   private updateElement(
@@ -252,32 +200,18 @@ export class Tree<T> {
       class?: string;
       id?: string;
     },
-    eventListeners?: { [eventName: string]: (e) => void }
+    eventListeners?: ITagListeners
   ) {
     const oldElement = this.elements[key] as Element;
-    //this.findElement()
-    // const isStyleChanged = style !== oldElement.attributes.style;
-    // const text = typeof child === 'string' ? child : null;
-    // const isTextChanged = text !== oldElement.attributes.innerText;
-    // if (isStyleChanged) {
-    //   oldElement.attributes.style = style;
-    //   oldElement.node.setAttribute('style', style);
-    // }
-    // if (isTextChanged) {
-    //   //@ts-ignore
-    //   oldElement.attributes.innerText = text;
-    //   oldElement.node.textContent = text;
-    // }
-    // if (onClick) {
-    //   oldElement.node.removeEventListener(
-    //     'click',
-    //     oldElement.attributes.eventListener
-    //   );
-    //   oldElement.node.addEventListener('click', onClick);
-    //   oldElement.attributes.eventListener = onClick;
-    // }
-
     this.updateNoneTextChilds(oldElement, child as any);
+    this.updateAttributes(oldElement, attributes);
+    this.updateEventListeners(oldElement, eventListeners);
+    if (typeof child === 'string') {
+      if (child !== oldElement.node.textContent) {
+        oldElement.innerText = child;
+        oldElement.node.textContent = child;
+      }
+    }
 
     return oldElement;
   }
@@ -286,56 +220,27 @@ export class Tree<T> {
     key: any,
     tagName: string,
     child: string | Element | Array<Element>,
-    attributes: {
-      id?: string;
-      style?: string;
-      class?: string;
-    },
-    eventListeners?: { [eventName: string]: (e: any) => void }
+    attributes: ITagAttributes,
+    eventListeners?: ITagListeners
   ) {
-    // this.elements[key] = child
-    // create unique key
-    const divElement = this.opts.makeElement(tagName);
-    this.mountNoneTextChilds(key, divElement, child as any);
-
-    // if (Array.isArray(child)) {
-    //   child.forEach((ch) => {
-    //     if (!ch) {
-    //       return;
-    //     }
-    //     ch.parentId = key;
-    //     if (ch.isRoot) {
-    //       this.touchedElements[ch.id];
-    //       this.elements[ch.id] = ch;
-    //     }
-    //     divElement.appendChild(ch.node);
-    //   });
-    // } else if (typeof child === 'string') {
-    //   divElement.textContent = child;
-    // } else {
-    //   if (child.isRoot) {
-    //     this.touchedElements[child.id];
-    //     this.elements[child.id] = child;
-    //   }
-    //   child.parentId = key;
-    //   divElement.appendChild(child.node);
-    // }
-    // if (style) {
-    //   divElement.setAttribute('style', style);
-    // }
-    // if (onClick) {
-    //   divElement.addEventListener('click', onClick);
-    // }
+    const tagElement = this.opts.makeElement(tagName);
+    this.mountNoneTextChilds(key, tagElement, child as any);
+    if (typeof child === 'string') {
+      tagElement.textContent = child;
+    }
     this.elements[key] = {
       isRoot: false,
       tagName,
       attributes,
-      innerText: null as any,
-      eventListeners,
-      node: divElement,
+      innerText: typeof child === 'string' ? child : (null as any),
+      eventListeners: eventListeners || {},
+      node: tagElement,
       id: key,
       parentId: null,
     };
+
+    this.updateAttributes(this.elements[key], attributes);
+    this.updateEventListeners(this.elements[key] as Element, eventListeners);
 
     return this.elements[key];
   }
@@ -350,6 +255,35 @@ export class Tree<T> {
     }
     delete this.elements[key];
   }
+
+  private updateAttributes = (
+    element: Element,
+    newAttributes: ITagAttributes
+  ) => {
+    Object.keys(newAttributes).forEach((at) => {
+      if (newAttributes[at] !== element.attributes[at]) {
+        element.node.removeAttribute(at);
+        element.node.setAttribute(at, newAttributes[at]);
+      }
+    });
+    element.attributes = newAttributes;
+  };
+
+  private updateEventListeners = (
+    element: Element,
+    newEventListeners?: ITagListeners
+  ) => {
+    if (!newEventListeners) {
+      return;
+    }
+    Object.keys(newEventListeners).forEach((at) => {
+      if (element.eventListeners[at]) {
+        element.node.removeEventListener(at, element.eventListeners[at]);
+      }
+      element.node.addEventListener(at, newEventListeners[at]);
+    });
+    element.eventListeners = newEventListeners;
+  };
 
   private mountNoneTextChilds = (
     parentKey: string,
@@ -368,9 +302,7 @@ export class Tree<T> {
         }
         parentTag.appendChild(ch.node);
       });
-    } else if (typeof child === 'string') {
-      parentTag.textContent = child;
-    } else {
+    } else if (child.id) {
       if (child.isRoot) {
         this.touchedElements[child.id];
         this.elements[child.id] = child;
@@ -427,9 +359,3 @@ export class Tree<T> {
  ** Element deleter
  **
  */
-
-interface ITagAttributes {
-  class?: string;
-  value?: string;
-  style?: string;
-}
