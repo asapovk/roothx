@@ -1,12 +1,20 @@
+import { Window } from '../modal';
 import { Tree, Root } from '../root/NTree';
+import { State } from '../root/State';
 import './styles.less';
 
 const tree = new Tree({
-  makeElement: (tag) => document.createElement(tag)
+  makeElement: (tag) => document.createElement(tag),
 });
 
-export const Application = () =>
-  tree.root({
+const modalState = new State<boolean>();
+export const Application = () => {
+  const { state: modalOpen, setState: setModalOpen } = modalState.useState(
+    false,
+    Application
+  );
+
+  return tree.root({
     key: 'root',
     child: [
       tree.tag({
@@ -38,9 +46,14 @@ export const Application = () =>
             attributes: {
               class: 'form-button',
             },
+            eventListeners: {
+              click: (e) => setModalOpen(true),
+            },
             child: 'Submit',
           }),
         ],
       }),
+      Window(modalOpen, () => setModalOpen(false)),
     ],
   });
+};

@@ -168,12 +168,14 @@ export class Tree {
       tagName: 'div',
       innerText: typeof child === 'string' ? child : (null as any),
       clean: this.unmountRoot,
-      attributes: attributes,
-      eventListeners: eventListeners || {},
+      attributes: {},
+      eventListeners: {},
       node: divElement,
       id: key,
       parentId: null,
     };
+    this.updateAttributes(this.rootElement, attributes);
+    this.updateEventListeners(this.rootElement, eventListeners);
   }
 
   private updateRoot(
