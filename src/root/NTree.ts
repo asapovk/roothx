@@ -1,18 +1,17 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import { Style, StyleOpts } from './Style';
 
-interface ITagAttributes {
+export interface ITagAttributes {
   class?: string;
   style?: string;
   value?: string;
   id?: string;
 }
 
-interface ITagListeners {
+export interface ITagListeners {
   [eventName: string]: (e: any) => void;
 }
 
-interface Element {
+export interface Element {
   id: string;
   parentId: string | null;
   node: HTMLElement;
@@ -54,7 +53,6 @@ export class TreeFactory {
 
 interface ITreeOpts {
   makeElement: (tagName: string) => HTMLElement;
-  //customTags?: Array<()=> >
 }
 
 export class Tree {
@@ -71,11 +69,21 @@ export class Tree {
 
   private touchedElements: { [key: string]: boolean } = {};
 
+  private onUnmountRoot: () => void;
+
   public root(opts: {
     key: string;
-    child: string | Element | Array<Element> | null;
+    child:
+      | string
+      | Element
+      | Array<Element | null | undefined>
+      | null
+      | undefined;
     attributes?: ITagAttributes;
     eventListeners?: ITagListeners;
+    onMount?: () => void;
+    onUpdate?: () => void;
+    onUnmount?: () => void;
   }) {
     if (!this.rootElement) {
       this.mountRoot(
@@ -84,12 +92,21 @@ export class Tree {
         opts.attributes,
         opts.eventListeners
       );
+      if (opts.onMount) {
+        opts.onMount();
+      }
+      if (opts.onUnmount) {
+        this.onUnmountRoot = opts.onUnmount;
+      }
     } else {
       this.updateRoot(
         opts.child as Element,
         opts.attributes,
         opts.eventListeners
       );
+      if (opts.onUpdate) {
+        opts.onUpdate();
+      }
     }
 
     return this.calc();
@@ -100,7 +117,10 @@ export class Tree {
       this.cleanFactory();
     }
     //@ts-ignore
-    this.rootElement.node.remove();
+    this.rootElement.node.remove(); //async
+    if (this.onUnmountRoot) {
+      this.onUnmountRoot();
+    }
     this.rootElement = undefined;
     this.elements = {};
   };
@@ -120,7 +140,12 @@ export class Tree {
   public tag(opts: {
     key: string;
     tagName: string;
-    child: Array<Element> | Element | string | null;
+    child:
+      | Array<Element | null | undefined>
+      | Element
+      | string
+      | null
+      | undefined;
     attributes: {
       value?: string;
       style?: string;
