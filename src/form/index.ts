@@ -16,6 +16,9 @@ export const Application = () => {
 
   return tree.root({
     key: 'root',
+    attributes: {
+      id: 'root',
+    },
     child: [
       tree.tag({
         key: 'container',

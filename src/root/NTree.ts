@@ -73,19 +73,23 @@ export class Tree {
 
   public root(opts: {
     key: string;
-    child: string | Element | Array<Element>;
+    child: string | Element | Array<Element> | null;
     attributes?: ITagAttributes;
     eventListeners?: ITagListeners;
   }) {
     if (!this.rootElement) {
       this.mountRoot(
         opts.key,
-        opts.child,
+        opts.child as Element,
         opts.attributes,
         opts.eventListeners
       );
     } else {
-      this.updateRoot(opts.child, opts.attributes, opts.eventListeners);
+      this.updateRoot(
+        opts.child as Element,
+        opts.attributes,
+        opts.eventListeners
+      );
     }
 
     return this.calc();
@@ -116,7 +120,7 @@ export class Tree {
   public tag(opts: {
     key: string;
     tagName: string;
-    child: Array<Element> | Element | string;
+    child: Array<Element> | Element | string | null;
     attributes: {
       value?: string;
       style?: string;
@@ -131,7 +135,7 @@ export class Tree {
       elem = this.mountElement(
         opts.key,
         opts.tagName,
-        opts.child,
+        opts.child as Element,
         opts.attributes,
         opts.eventListeners
       );
@@ -141,7 +145,7 @@ export class Tree {
     } else {
       elem = this.updateElement(
         opts.key,
-        opts.child,
+        opts.child as Element,
         opts.attributes,
         opts.eventListeners
       );
