@@ -2,10 +2,10 @@ import { Tree, Root } from '../root/NTree';
 import './styles.less';
 
 const tree = new Tree({
-  makeElement: (tag) => document.createElement(tag),
+  makeElement: (tag) => document.createElement(tag)
 });
 
-export const Application = () => {
+export const Application = () =>
   tree.root({
     key: 'root',
     child: [
@@ -44,6 +44,3 @@ export const Application = () => {
       }),
     ],
   });
-
-  return tree.calc();
-};

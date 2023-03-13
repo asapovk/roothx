@@ -54,6 +54,7 @@ export class TreeFactory {
 
 interface ITreeOpts {
   makeElement: (tagName: string) => HTMLElement;
+  //customTags?: Array<()=> >
 }
 
 export class Tree {
@@ -86,6 +87,8 @@ export class Tree {
     } else {
       this.updateRoot(opts.child, opts.attributes, opts.eventListeners);
     }
+
+    return this.calc();
   }
 
   public unmountRoot = () => {
@@ -98,7 +101,7 @@ export class Tree {
     this.elements = {};
   };
 
-  public calc() {
+  private calc() {
     for (const k in this.elements) {
       if (!this.touchedElements[k]) {
         this.unmountElement(k);
@@ -263,9 +266,6 @@ export class Tree {
         element.node.setAttribute(at, newAttributes[at]);
       }
     });
-    console.log('setAttributes');
-    console.log(newAttributes);
-    console.log(element.attributes);
     element.attributes = newAttributes;
   };
 
