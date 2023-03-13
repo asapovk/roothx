@@ -1,6 +1,11 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const CompressionPlugin = require("compression-webpack-plugin");
+
 
 const ProjectDIR = path.resolve(__dirname, '../') + '/';
 const SourceDIR = ProjectDIR + 'src/';
@@ -10,6 +15,11 @@ module.exports = {
   entry: {
     app: SourceDIR + 'root.ts',
   },
+  mode: 'production',
+  optimization: {
+    minimize: true,
+  },
+  devtool: 'source-map',
   externals: {},
   output: {
     publicPath: '/',
@@ -28,7 +38,6 @@ module.exports = {
               '@babel/preset-typescript',
               '@babel/preset-react',
             ],
-            plugins: [['@babel/plugin-proposal-decorators', { legacy: true }]],
           },
         },
         include: [path.resolve(SourceDIR)],
@@ -63,9 +72,9 @@ module.exports = {
   target: 'web',
   context: __dirname,
   performance: {
-    hints: 'warning',
-    maxAssetSize: 500000,
-    maxEntrypointSize: 500000,
+    hints: false,
+    // maxAssetSize: 500000,
+    // maxEntrypointSize: 500000,
   },
   stats: 'errors-only',
 
@@ -79,5 +88,7 @@ module.exports = {
         configFile: '../tsconfig.json',
       },
     }),
+    new CleanWebpackPlugin(),
+    new CompressionPlugin(),
   ],
 };
