@@ -99,11 +99,16 @@ export class Tags {
         : undefined,
     });
   }
-  public input(
+  public textInput(
     key: string,
     opts?: {
       value?: string;
       onChange?: (e) => void;
+      onFocus?: (e) => void;
+      placeholder?: string;
+      pattern?: string;
+      disabled?: boolean;
+      type?: 'text' | 'password';
       className?: string;
       style?: string;
       getNode?: (e: HTMLElement) => void;
