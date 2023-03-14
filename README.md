@@ -3,10 +3,18 @@ Simple lightweight and customizable ui engine
 
 
 ## Motivation
-Recreate simple react-like ui engine
+Create simple react-like ui engine for research purpose
 `
 
+## Installation
 
+```bash
+
+yarn 
+
+yarn start
+
+```
 
 ## License
 
