@@ -1,8 +1,9 @@
 {
-  "name": "redux-hang-on-app",
+  "name": "root-dev-project",
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "author": "Konstantin Astapov",
   "engines": {
     "node": ">=16.15.0"
   },
@@ -24,7 +25,6 @@
   "dependencies": {
     "@babel/core": "^7.18.6",
     "@babel/preset-env": "^7.18.6",
-    "@babel/preset-react": "^7.18.6",
     "@babel/preset-typescript": "^7.18.6",
     "@babel/runtime": "7.8.4",
     "@reflexio/reflexio-on-redux": "0.2.18",
