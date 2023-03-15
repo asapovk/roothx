@@ -17,7 +17,7 @@
       "module": "esnext",
       "target": "ES6",
       "moduleResolution": "node",
-      "strictNullChecks": false,
+      "strictNullChecks": true,
       "skipLibCheck": true,
       "allowJs": true,
       "declaration": true,
