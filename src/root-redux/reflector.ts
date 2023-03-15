@@ -14,7 +14,6 @@ export class Reflexio<T> {
     //@ts-ignore
     store.dispatch(action);
     //@ts-ignore
-    this.state = this.selector(store.getState());
   };
 
   private trigger: DispatcherType<ITriggers> = (trigger, status, payload) => {
@@ -26,11 +25,13 @@ export class Reflexio<T> {
   public useReflexio(selector: (st: IState) => T, context: Function) {
     if (!this.isMounted) {
       this.selector = selector;
+      this.state = this.selector(store.getState());
       this.isMounted = true;
       //@ts-ignore
-      this.state = this.selector(store.getState());
       this.contextFunction = context;
       store.subscribe(() => context());
+    } else {
+      this.state = this.selector(store.getState());
     }
 
     return {

@@ -25,13 +25,14 @@ export const LettersList = () => {
     LettersList
   );
 
+  console.log(state.isLoading);
   console.log(state.letters);
 
   return tree.root({
     onMount: () => {
       console.log('onmount');
       trigger('lettersList', 'init', null);
-      trigger('setContent', 'init', null);
+     // trigger('setContent', 'init', null);
     },
     key: 'letters_list_root',
     attributes: {
