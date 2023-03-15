@@ -25,42 +25,56 @@ export const LettersList = () => {
     LettersList
   );
 
-  return tags.root({
+  console.log(state.letters);
+
+  return tree.root({
     onMount: () => {
+      console.log('onmount');
       trigger('lettersList', 'init', null);
       trigger('setContent', 'init', null);
     },
     key: 'letters_list_root',
     attributes: {
-      class: 'lettersListButton',
+      class: 'lettersListContainer',
     },
     child: [
-      tags.button('create_new_button_key', {
-        className: 'lettersListButton',
-        onClick: () => trigger('setContent', 'openWindow', { id: '-1' }),
+      tree.tag({
         child: 'Create new',
+        tagName: 'button',
+        attributes: {
+          class: 'lettersListButton',
+        },
+        key: 'create_new_button_key',
+        eventListeners: {
+          click: () => trigger('setContent', 'openWindow', { id: '-1' }),
+        },
       }),
-      tags.div('grid_wrapper_key', {
-        child: ComposeGrid(),
-      }),
-      state.isLoading
-        ? tags.div('letters_list_wrapper_key', {
-            className: 'lettersList',
-            child: state.letters
-              ? state.letters.map((l) =>
-                  tags.div(`${l.uid}`, {
-                    child: l.subject || '',
-                    className: 'lettersListItem',
-                    onClick: () =>
-                      trigger('setContent', 'openFromList', {
-                        body: l.body,
-                        subject: l.subject,
-                      }),
-                  })
-                )
-              : null,
-          })
-        : null,
+      // tags.button('create_new_button_key', {
+      //   className: 'lettersListButton',
+      //   onClick: () => trigger('setContent', 'openWindow', { id: '-1' }),
+      //   child: 'Create new',
+      // }),
+      //   tags.div('grid_wrapper_key', {
+      //     child: ComposeGrid(),
+      //   }),
+      //   state.isLoading
+      //     ? tags.div('letters_list_wrapper_key', {
+      //         className: 'lettersList',
+      //         child: state.letters
+      //           ? state.letters.map((l) =>
+      //               tags.div(`${l.uid}`, {
+      //                 child: l.subject || '',
+      //                 className: 'lettersListItem',
+      //                 onClick: () =>
+      //                   trigger('setContent', 'openFromList', {
+      //                     body: l.body,
+      //                     subject: l.subject,
+      //                   }),
+      //               })
+      //             )
+      //           : null,
+      //       })
+      //     : null,
     ],
   });
 };

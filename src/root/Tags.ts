@@ -1,10 +1,16 @@
 import { ITagAttributes, Element, Tree } from './NTree';
 
 export class Tags {
-  constructor(private tree: Tree) {}
-
-  public root = this.tree.root;
-  public tag = this.tree.tag;
+  private tree: Tree;
+  public root: Tree['root'];
+  public tag: Tree['tag'];
+  constructor(tree: Tree) {
+    this.tree = new Tree({
+      makeElement: (tag) => document.createElement(tag),
+    });
+    this.root = (args) => this.tree.root(args);
+    this.tag = (args) => this.tree.tag(args);
+  }
 
   public text(
     key: string,
@@ -79,7 +85,7 @@ export class Tags {
     });
   }
 
-  public button(
+  public button = (
     key: string,
     opts: {
       child?: Element | string;
@@ -88,8 +94,8 @@ export class Tags {
       getNode?: (e: HTMLElement) => void;
       onClick?: (e) => void;
     }
-  ) {
-    return this.tree.tag({
+  ) =>
+    this.tag({
       tagName: 'button',
       child: opts.child || '',
       key: key,
@@ -101,7 +107,6 @@ export class Tags {
           }
         : undefined,
     });
-  }
   public textArea(
     key: string,
     opts?: {

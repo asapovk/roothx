@@ -15,7 +15,6 @@ export class Reflexio<T> {
     store.dispatch(action);
     //@ts-ignore
     this.state = this.selector(store.getState());
-    this.contextFunction();
   };
 
   private trigger: DispatcherType<ITriggers> = (trigger, status, payload) => {
@@ -31,6 +30,7 @@ export class Reflexio<T> {
       //@ts-ignore
       this.state = this.selector(store.getState());
       this.contextFunction = context;
+      store.subscribe(() => context());
     }
 
     return {

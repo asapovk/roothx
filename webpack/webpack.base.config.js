@@ -13,7 +13,7 @@ const BuildDIR = ProjectDIR + './build/';
 
 module.exports = {
   entry: {
-    app: SourceDIR + 'root.ts',
+    app: SourceDIR + 'letters-root.ts',
   },
   mode: 'production',
   optimization: {
