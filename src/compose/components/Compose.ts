@@ -66,7 +66,7 @@ export const Compose = () => {
                 className: 'composeButtonsGroupItm',
                 onClick: () => trigger('submitLetter', 'init', null),
               }),
-              tags.button('submit_letter_btn_key', {
+              tags.button('close_btn_key', {
                 child: 'Закрыть',
                 className: 'composeButtonsGroupItm',
                 onClick: () => trigger('setContent', 'closeWindow', null),

@@ -62,7 +62,7 @@ export const ComposeGrid = () => {
 
   if (!state.opened) {
     return tags.root({
-      key: 'compose_grid_root',
+      key: 'compose_grid_root_pan',
       child: ComposePanel({
         composeItems: state.items,
         onOpen: (id) => trigger('setContent', 'openWindow', { id }),
@@ -72,13 +72,13 @@ export const ComposeGrid = () => {
   }
 
   return tags.root({
-    key: 'compose_grid_root',
+    key: 'compose_grid_root_compose',
     child: state.opened ? Compose() : null,
     attributes: {
       class: 'popupWrapper',
     },
-    eventListeners: {
-      click: () => trigger('setContent', 'openWindow', { id: null }),
-    },
+    // eventListeners: {
+    //   click: () => trigger('setContent', 'openWindow', { id: null }),
+    // },
   });
 };

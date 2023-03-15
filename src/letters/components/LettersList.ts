@@ -61,25 +61,23 @@ export const LettersList = () => {
       tags.div('grid_wrapper_key', {
         child: ComposeGrid(),
       }),
-      !state.isLoading
-        ? tags.div('letters_list_wrapper_key', {
-            className: 'lettersList',
-            child:
-              state.letters && state.letters.length
-                ? state.letters.map((l) =>
-                    tags.div(`${l.uid}`, {
-                      child: l.subject || '',
-                      className: 'lettersListItem',
-                      onClick: () =>
-                        trigger('setContent', 'openFromList', {
-                          body: l.body,
-                          subject: l.subject,
-                        }),
-                    })
-                  )
-                : 'Загрузка',
-          })
-        : null,
+      tags.div('letters_list_wrapper_key', {
+        className: 'lettersList',
+        child:
+          state.letters && state.letters.length
+            ? state.letters.map((l) =>
+                tags.div(`${l.uid}`, {
+                  child: l.subject || '',
+                  className: 'lettersListItem',
+                  onClick: () =>
+                    trigger('setContent', 'openFromList', {
+                      body: l.body,
+                      subject: l.subject,
+                    }),
+                })
+              )
+            : 'Загрузка',
+      }),
     ],
   });
 };
