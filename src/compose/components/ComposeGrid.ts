@@ -48,7 +48,7 @@ const ComposePanel = ({
 
 const reflexio = new Reflexio<{
   items: Array<any>;
-  opened: string;
+  opened: string | null;
 }>();
 const tree = new Tree({
   makeElement: (tag) => document.createElement(tag),

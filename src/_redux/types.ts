@@ -1,26 +1,26 @@
 import { Store } from 'redux';
-import { IComposeState, IComposeTriggers } from 'src/compose/compose.config';
-import { ILettersState, ILettersTriggers } from 'src/letters/letters.config';
-import {
-  INotificationState,
-  INotificationTriggers,
-} from 'src/notification/notification.config';
-import { IPopupState, IPopupTriggers } from 'src/popup/popup.config';
-import {
-  ISettingsState,
-  ISettingsTriggers,
-} from 'src/settings/settings.config';
+import { IComposeState, IComposeTriggers } from '../compose/compose.config';
+import { ILettersState, ILettersTriggers } from '../letters/letters.config';
+// import {
+//   INotificationState,
+//   INotificationTriggers,
+// } from '../../notification/notification.config';
+import { IPopupState, IPopupTriggers } from '../../popup/popup.config';
+// import {
+//   ISettingsState,
+//   ISettingsTriggers,
+// } from 'src/settings/settings.config';
 
 export type IState = {
   letters: ILettersState;
-  settings: ISettingsState;
+  //settings: ISettingsState;
   compose: IComposeState;
-  notification: INotificationState;
+ // notification: INotificationState;
   popup: IPopupState;
 };
 
 export type ITriggers = ILettersTriggers &
-  ISettingsTriggers &
+ // ISettingsTriggers &
   IComposeTriggers &
-  INotificationTriggers &
+  //INotificationTriggers &
   IPopupTriggers;
