@@ -93,7 +93,7 @@ export class Tree {
         opts.eventListeners
       );
       if (opts.onMount) {
-        opts.onMount();
+        setTimeout(opts.onMount);
       }
       if (opts.onUnmount) {
         this.onUnmountRoot = opts.onUnmount;
@@ -105,7 +105,7 @@ export class Tree {
         opts.eventListeners
       );
       if (opts.onUpdate) {
-        opts.onUpdate();
+        setTimeout(opts.onUpdate);
       }
     }
 
@@ -156,6 +156,7 @@ export class Tree {
     getNode?: (el: HTMLElement) => void;
   }) {
     let elem: Element;
+
     if (!this.elements[opts.key as any]) {
       elem = this.mountElement(
         opts.key,
@@ -239,6 +240,7 @@ export class Tree {
     this.updateAttributes(oldElement, attributes);
     this.updateEventListeners(oldElement, eventListeners);
     if (typeof child === 'string') {
+      console.log(`updateText child ${child}`);
       if (child !== oldElement.node.textContent) {
         oldElement.innerText = child;
         oldElement.node.textContent = child;
@@ -374,6 +376,7 @@ export class Tree {
             oldElement.node.prepend(ch.node);
           } else {
             const prevNode = child[lastNonNullIndex - 1].node;
+            console.log();
             prevNode.after(ch.node);
           }
         }

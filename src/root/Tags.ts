@@ -76,7 +76,9 @@ export class Tags {
       child: opts.child || ('' as string),
       key: key,
       getNode: opts.getNode,
-      attributes: {},
+      attributes: {
+        class: opts.className,
+      },
       eventListeners: opts.onClick
         ? {
             click: opts.onClick,
@@ -100,7 +102,12 @@ export class Tags {
       child: opts.child || '',
       key: key,
       getNode: opts.getNode,
-      attributes: {},
+      attributes:
+        opts && opts.className
+          ? {
+              class: opts.className,
+            }
+          : {},
       eventListeners: opts.onClick
         ? {
             click: opts.onClick,
