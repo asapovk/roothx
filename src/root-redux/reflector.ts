@@ -2,20 +2,8 @@
 import store from '../_redux/index';
 import { IState, ITriggers } from '../_redux/types';
 
-import { useDispatch } from 'react-redux';
 import { DispatcherType } from '@reflexio/reflexio-on-redux/lib/types';
 import { getActionType } from '@reflexio/reflexio-on-redux/lib/utils';
-
-export const useTrigger = () => {
-  const dispatch = useDispatch();
-
-  const trigger: DispatcherType<ITriggers> = (trigger, status, payload) => {
-    const combynedType = getActionType(trigger as string, status as any);
-    dispatch({ type: combynedType, payload });
-  };
-
-  return trigger;
-};
 
 export class Reflexio<T> {
   private state: T;

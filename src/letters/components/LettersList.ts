@@ -1,5 +1,3 @@
-import * as React from 'react';
-import { useTrigger } from '../../_redux/useTrigger';
 //import { useSelector } from 'react-redux';
 import { IState } from '../../_redux/types';
 import { ComposeGrid } from '../../compose/components/ComposeGrid';

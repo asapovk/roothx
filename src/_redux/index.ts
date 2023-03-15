@@ -1,22 +1,19 @@
 import { createStore, applyMiddleware, compose, Middleware } from 'redux';
-import { composeSlice } from 'src/compose/compose.config';
-import { lettersSlice } from 'src/letters/letters.config';
-import { notificationSlice } from 'src/notification/notification.config';
-import { popupSlice } from 'src/popup/popup.config';
-import { settingsSlice } from 'src/settings/settings.config';
+import { composeSlice } from '..//compose/compose.config';
+import { lettersSlice } from '../letters/letters.config';
+//import { notificationSlice } from '..//notification/notification.config';
+//import { popupSlice } from 'src/popup/popup.config';
+//import { settingsSlice } from 'src/settings/settings.config';
 import rootReducer from './reducer';
-import {
-  System,
-  useSystem,
-} from '../../../../packages/reflexio-on-redux/dist/lib/System';
+import { System, useSystem } from '@reflexio/reflexio-on-redux/lib/System';
 
 function configureStore() {
   const middlewares: Middleware[] = [
     lettersSlice.middleware,
-    settingsSlice.middleware,
+    //  settingsSlice.middleware,
     composeSlice.middleware,
-    notificationSlice.middleware,
-    popupSlice.middleware,
+    ///notificationSlice.middleware,
+    //  popupSlice.middleware,
   ];
 
   const store = createStore(

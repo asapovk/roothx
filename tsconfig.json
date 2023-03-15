@@ -11,13 +11,13 @@
         "es2017",
         "dom",
       ],
-      "baseUrl": "./",
+      "baseUrl": "./src",
       "outDir": "./dist",
       "sourceMap": true,
       "module": "esnext",
       "target": "ES6",
       "moduleResolution": "node",
-      "strictNullChecks": true,
+      "strictNullChecks": false,
       "skipLibCheck": true,
       "allowJs": true,
       "declaration": true,
@@ -25,17 +25,13 @@
       "downlevelIteration": true,
       "resolveJsonModule": true,
       "esModuleInterop": true,
-      "experimentalDecorators": true
     },
     "include": [
-      "lib/**/*.ts",
       "*.ts",
       "package.json"
     ],
     "exclude": [
-      "examples",
       "node_modules",
-      "lib/**/*.js",
       "build",
     ],
   }

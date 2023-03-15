@@ -5,7 +5,7 @@ import { ILettersState, ILettersTriggers } from '../letters/letters.config';
 //   INotificationState,
 //   INotificationTriggers,
 // } from '../../notification/notification.config';
-import { IPopupState, IPopupTriggers } from '../../popup/popup.config';
+//import { IPopupState, IPopupTriggers } from '../../popup/popup.config';
 // import {
 //   ISettingsState,
 //   ISettingsTriggers,
@@ -15,12 +15,12 @@ export type IState = {
   letters: ILettersState;
   //settings: ISettingsState;
   compose: IComposeState;
- // notification: INotificationState;
-  popup: IPopupState;
+  // notification: INotificationState;
+  // popup: IPopupState;
 };
 
 export type ITriggers = ILettersTriggers &
- // ISettingsTriggers &
-  IComposeTriggers &
-  //INotificationTriggers &
-  IPopupTriggers;
+  // ISettingsTriggers &
+  IComposeTriggers; //&
+//INotificationTriggers &
+//IPopupTriggers;

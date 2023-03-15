@@ -1,9 +1,6 @@
-import * as React from 'react';
-//import { useSelector } from 'react-redux';
 import { IState } from '../../_redux/types';
 import { Compose } from './Compose';
 import './ComposeGrid.less';
-import { ComposeWrapper } from './ComposeWrapper';
 import { Reflexio } from '../../root-redux/reflector';
 import { Tree } from '../../root/NTree';
 import { Tags } from '../../root/Tags';
