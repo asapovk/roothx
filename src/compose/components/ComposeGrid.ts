@@ -27,7 +27,7 @@ const ComposePanel = ({
       class: 'composeButtonGrid',
     },
     child: composeItems.map((ci, i) =>
-      panelTags.div(`panel_div_${i}`, {
+      panelTags.div(`panel_div_wrap_${i}`, {
         className: 'composeButtonGridButtonWrap',
         child: [
           panelTags.button(`panel_btn_${i}`, {
@@ -77,8 +77,8 @@ export const ComposeGrid = () => {
     attributes: {
       class: 'popupWrapper',
     },
-    // eventListeners: {
-    //   click: () => trigger('setContent', 'openWindow', { id: null }),
-    // },
+    eventListeners: {
+      click: () => trigger('setContent', 'openWindow', { id: null }),
+    },
   });
 };

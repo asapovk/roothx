@@ -376,7 +376,7 @@ export class Tree {
             oldElement.node.prepend(ch.node);
           } else {
             const prevNode = child[lastNonNullIndex - 1].node;
-            console.log();
+
             prevNode.after(ch.node);
           }
         }
