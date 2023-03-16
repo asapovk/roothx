@@ -29,16 +29,14 @@ const ComposePanel = ({
     child: composeItems.map((ci, i) =>
       panelTags.div(`panel_div_wrap_${i}`, {
         className: 'composeButtonGridButtonWrap',
-        child: [
-          panelTags.button(`panel_btn_${i}`, {
-            className: 'btn',
-            onClick: () => onOpen(ci.id),
-          }),
-          panelTags.div(`panel_div_${i}`, {
+        child: panelTags.button(`panel_btn_${i}`, {
+          className: 'btn',
+          onClick: () => onOpen(ci.id),
+          child: panelTags.div(`panel_div_${i}`, {
             className: 'btnText',
             child: ci.subject || '(Без темы)',
           }),
-        ],
+        }),
       })
     ),
   });
@@ -60,25 +58,40 @@ export const ComposeGrid = () => {
     ComposeGrid
   );
 
-  if (!state.opened) {
-    return tags.root({
-      key: 'compose_grid_root_pan',
-      child: ComposePanel({
-        composeItems: state.items,
-        onOpen: (id) => trigger('setContent', 'openWindow', { id }),
-        onDrop: (id) => trigger('setContent', 'closeWindow', { id }),
-      }),
-    });
-  }
-
   return tags.root({
-    key: 'compose_grid_root_compose',
-    child: state.opened ? Compose() : null,
-    attributes: {
-      class: 'popupWrapper',
-    },
-    eventListeners: {
-      click: () => trigger('setContent', 'openWindow', { id: null }),
-    },
+    key: 'ComposeGrid_root',
+    child: !state.opened
+      ? ComposePanel({
+          composeItems: state.items,
+          onOpen: (id) => trigger('setContent', 'openWindow', { id }),
+          onDrop: (id) => trigger('setContent', 'closeWindow', { id }),
+        })
+      : tags.div('compose_grid_root_compose', {
+          child: Compose(),
+          className: 'popupWrapper',
+          onClick: () => trigger('setContent', 'openWindow', { id: null }),
+        }),
   });
+
+  // if (!state.opened) {
+  //   return tags.root({
+  //     key: 'compose_grid_root_pan',
+  //     child: ComposePanel({
+  //       composeItems: state.items,
+  //       onOpen: (id) => trigger('setContent', 'openWindow', { id }),
+  //       onDrop: (id) => trigger('setContent', 'closeWindow', { id }),
+  //     }),
+  //   });
+  // }
+
+  // return tags.root({
+  //   key: 'compose_grid_root_compose',
+  //   child: state.opened ? Compose() : null,
+  //   attributes: {
+  //     class: 'popupWrapper',
+  //   },
+  //   eventListeners: {
+  //     click: () => trigger('setContent', 'openWindow', { id: null }),
+  //   },
+  // });
 };

@@ -99,6 +99,8 @@ export class Tree {
         this.onUnmountRoot = opts.onUnmount;
       }
     } else {
+      //@ts-ignore
+      this.rootElement.id = opts.key;
       this.updateRoot(
         opts.child as Element,
         opts.attributes,
