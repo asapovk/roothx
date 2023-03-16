@@ -1,7 +1,7 @@
 import { createStore, applyMiddleware, compose, Middleware } from 'redux';
 import { composeSlice } from '..//compose/compose.config';
 import { lettersSlice } from '../letters/letters.config';
-//import { notificationSlice } from '..//notification/notification.config';
+import { notificationSlice } from '..//notification/notification.config';
 //import { popupSlice } from 'src/popup/popup.config';
 //import { settingsSlice } from 'src/settings/settings.config';
 import rootReducer from './reducer';
@@ -12,7 +12,7 @@ function configureStore() {
     lettersSlice.middleware,
     //  settingsSlice.middleware,
     composeSlice.middleware,
-    ///notificationSlice.middleware,
+    notificationSlice.middleware,
     //  popupSlice.middleware,
   ];
 

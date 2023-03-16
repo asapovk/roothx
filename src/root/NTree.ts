@@ -242,7 +242,6 @@ export class Tree {
     this.updateAttributes(oldElement, attributes);
     this.updateEventListeners(oldElement, eventListeners);
     if (typeof child === 'string') {
-      console.log(`updateText child ${child}`);
       if (child !== oldElement.node.textContent) {
         oldElement.innerText = child;
         oldElement.node.textContent = child;

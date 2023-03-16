@@ -33,7 +33,54 @@ export const Window = (show: boolean, onClick: () => void) => {
         attributes: {
           class: 'popupWindow',
         },
-        child: 'modal window',
+        child: tree.tag({
+          key: 'modal_window_content',
+          tagName: 'div',
+          attributes: {
+            class: 'popup-window-content',
+          },
+          child: [
+            tree.tag({
+              tagName: 'div',
+              key: 'modal_window_text',
+              attributes: {},
+              child: 'text',
+            }),
+            tree.tag({
+              tagName: 'div',
+              key: 'modal_window_buttons',
+              attributes: {
+                class: 'modal-buttons',
+              },
+              child: [
+                tree.tag({
+                  tagName: 'button',
+                  key: 'modal_window_button_yes',
+                  attributes: {
+                    class: 'modal-buttons-button btn-yes',
+                  },
+                  child: 'Yes',
+                }),
+                tree.tag({
+                  tagName: 'button',
+                  key: 'modal_window_button_no',
+                  attributes: {
+                    class: 'modal-buttons-button btn-no',
+                  },
+                  child: 'No',
+                }),
+                tree.tag({
+                  tagName: 'button',
+                  key: 'modal_window_button_cancel',
+                  attributes: {
+                    class: 'modal-buttons-button btn-no',
+                  },
+                  child: 'Cancel',
+                }),
+              ],
+            }),
+          ],
+        }),
       }),
     ],
   });
