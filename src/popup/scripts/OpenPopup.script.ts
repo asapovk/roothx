@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
-import { IState, ITriggers } from 'src/_redux/types';
+import { IState, ITriggers } from '../../../src/_redux/types';
 import {
   ScriptInitArgsType,
   ScriptOptsType,
   ScriptUpdateArgsType,
-} from '../../../../../packages/reflexio-on-redux/dist/lib/types';
+} from '@reflexio/reflexio-on-redux/lib/types';
 import { IPopupTriggers } from '../popup.config';
 
 export class OpenPopupScript {
@@ -17,16 +17,17 @@ export class OpenPopupScript {
   private cancelCb: () => void;
 
   public init(args: ScriptInitArgsType<IPopupTriggers, 'openPopup', 'init'>) {
-    console.log(this.opts.getCurrentState().popup);
-    this.cancelCb = args.payload.cancelCb;
-    this.yesCb = args.payload.yesCb;
-    this.noCb = args.payload.noCb;
+    console.log('POPUP INIIT');
+    this.cancelCb = args.cancelCb;
+    this.yesCb = args.yesCb;
+    this.noCb = args.noCb;
     // here we can implement popup queue
   }
 
   public update(
     args: ScriptUpdateArgsType<IPopupTriggers, 'openPopup', 'close'>
   ) {
+    console.log('poupupdate');
     if (args.status === 'yes') {
       this.yesCb();
     }

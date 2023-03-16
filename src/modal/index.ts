@@ -5,7 +5,7 @@ const tree = new Tree({
   makeElement: (tag) => document.createElement(tag),
 });
 
-export const Window = (show: boolean, onClick: () => void) => {
+export const Window = (show: boolean, text: string, onClick: () => void) => {
   console.log('window render');
   console.log(show);
   // if (!show) {
@@ -47,7 +47,7 @@ export const Window = (show: boolean, onClick: () => void) => {
               tagName: 'div',
               key: 'modal_window_text',
               attributes: {},
-              child: 'text',
+              child: text,
             }),
             tree.tag({
               tagName: 'div',

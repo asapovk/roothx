@@ -27,13 +27,14 @@ export const Compose = () => {
   console.log('composeRender');
 
   return tags.root({
-    onMount: () =>
+    onMount: () => {
+      console.log('onmmmm');
       trigger('openPopup', 'init', {
         message: 'Вы уверены ?',
         yesCb: () => console.log('yes'),
         notCb: () => console.log('not'),
         cancelCb: () => console.log('cancel'),
-      }),
+      })},
     key: 'compose_key',
     attributes: {
       class: 'popupwindow',
