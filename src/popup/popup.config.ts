@@ -12,9 +12,9 @@ export interface IPopupTriggers {
   openPopup: TriggerPhaseWrapper<{
     init: {
       message: string;
-      // yesCb?: () => void;
-      // noCb?: () => void;
-      // cancelCb?: () => void;
+      yesCb?: () => void;
+      noCb?: () => void;
+      cancelCb?: () => void;
     };
     open: null;
     close: null;

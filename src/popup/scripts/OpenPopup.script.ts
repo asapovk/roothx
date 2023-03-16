@@ -18,9 +18,9 @@ export class OpenPopupScript {
 
   public init(args: ScriptInitArgsType<IPopupTriggers, 'openPopup', 'init'>) {
     console.log('POPUP INIIT');
-    this.cancelCb = (ar) => args.cancelCb(ar);
-    this.yesCb = (ar) => args.yesCb(ar);
-    this.noCb = (ar) => args.noCb(ar);
+    this.cancelCb = () => args.cancelCb();
+    this.yesCb = () => args.yesCb();
+    this.noCb = () => args.noCb();
     // here we can implement popup queue
   }
 
