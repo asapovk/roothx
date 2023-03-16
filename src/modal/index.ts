@@ -6,14 +6,17 @@ const tree = new Tree({
 });
 
 export const Window = (show: boolean, onClick: () => void) => {
-  if (!show) {
-    return null;
-  }
+  console.log('window render');
+  console.log(show);
+  // if (!show) {
+  //   return null;
+  // }
 
   return tree.root({
     key: 'modal_root',
     attributes: {
       class: 'popupBackground',
+      style: !show ? 'display: none;' : undefined,
     },
     child: [
       tree.tag({

@@ -69,7 +69,7 @@ export const ComposeGrid = () => {
       : tags.div('compose_grid_root_compose', {
           child: Compose(),
           className: 'popupWrapper',
-          onClick: () => trigger('setContent', 'openWindow', { id: null }),
+          // onClick: () => trigger('setContent', 'openWindow', { id: null }),
         }),
   });
 

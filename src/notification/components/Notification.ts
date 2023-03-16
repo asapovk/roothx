@@ -13,12 +13,6 @@ export const Notification = () => {
     (state: IState) => state.notification.notifications,
     Notification
   );
-  // const notifications = useSelector(
-  //   (state: IState) => state.notification.notifications
-  // );
-  //const trigger = useTrigger();
-  console.log('render notification');
-  console.log(state);
 
   return tree.root({
     key: 'notification_root_key',
@@ -32,11 +26,4 @@ export const Notification = () => {
     },
     child: state[0] ? state[0].content : 'nope',
   });
-  //   <div
-  //     onClick={() => trigger('showNotification', 'close', null)}
-  //     className='notification'
-  //   >
-  //     {state[0].content}
-  //   </div>
-  // ) : null;
 };

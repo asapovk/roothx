@@ -24,8 +24,16 @@ export const Compose = () => {
   );
 
   const { subject, body, to } = state;
+  console.log('composeRender');
 
   return tags.root({
+    onMount: () =>
+      trigger('openPopup', 'init', {
+        message: 'Вы уверены ?',
+        yesCb: () => console.log('yes'),
+        notCb: () => console.log('not'),
+        cancelCb: () => console.log('cancel'),
+      }),
     key: 'compose_key',
     attributes: {
       class: 'popupwindow',
