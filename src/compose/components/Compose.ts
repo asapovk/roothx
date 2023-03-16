@@ -40,7 +40,8 @@ export const Compose = () => {
               tags.div('subject_div_key', {
                 className: 'subject',
                 child: tags.textInput('subject_input_key', {
-                  className: 'subject',
+                  className: 'textInput',
+                  value: state.subject,
                   onChange: (e) =>
                     trigger('setContent', 'syncForm', {
                       input: 'subject',
@@ -50,6 +51,7 @@ export const Compose = () => {
               }),
               tags.textArea('body_area_key', {
                 className: 'body',
+                value: state.body,
                 onChange: (e) =>
                   trigger('setContent', 'syncForm', {
                     input: 'body',
