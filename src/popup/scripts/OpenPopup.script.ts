@@ -18,14 +18,18 @@ export class OpenPopupScript {
 
   public init(args: ScriptInitArgsType<IPopupTriggers, 'openPopup', 'init'>) {
     console.log('POPUP INIIT');
-    this.cancelCb = args.cancelCb;
-    this.yesCb = args.yesCb;
-    this.noCb = args.noCb;
+    this.cancelCb = (ar) => args.cancelCb(ar);
+    this.yesCb = (ar) => args.yesCb(ar);
+    this.noCb = (ar) => args.noCb(ar);
     // here we can implement popup queue
   }
 
   public update(
-    args: ScriptUpdateArgsType<IPopupTriggers, 'openPopup', 'close'>
+    args: ScriptUpdateArgsType<
+      IPopupTriggers,
+      'openPopup',
+      'close' | 'no' | 'yes' | 'cancel'
+    >
   ) {
     console.log('poupupdate');
     if (args.status === 'yes') {

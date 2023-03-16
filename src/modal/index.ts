@@ -5,9 +5,18 @@ const tree = new Tree({
   makeElement: (tag) => document.createElement(tag),
 });
 
-export const Window = (show: boolean, text: string, onClick: () => void) => {
+interface IWindowOpts {
+  show: boolean;
+  text: string;
+  onYes: () => void;
+  onNo: () => void;
+  onCancel: () => void;
+  onBackground: () => void;
+}
+
+export const Window = (args: IWindowOpts) => {
   console.log('window render');
-  console.log(show);
+  console.log(args.show);
   // if (!show) {
   //   return null;
   // }
@@ -16,7 +25,7 @@ export const Window = (show: boolean, text: string, onClick: () => void) => {
     key: 'modal_root',
     attributes: {
       class: 'popupBackground',
-      style: !show ? 'display: none;' : undefined,
+      style: !args.show ? 'display: none;' : undefined,
     },
     child: [
       tree.tag({
@@ -25,9 +34,11 @@ export const Window = (show: boolean, text: string, onClick: () => void) => {
         attributes: {
           class: 'popupLayer',
         },
-        eventListeners: {
-          click: (e) => onClick(),
-        },
+        eventListeners: args.onBackground
+          ? {
+              click: () => args.onBackground(),
+            }
+          : undefined,
         child: '',
       }),
       tree.tag({
@@ -47,7 +58,7 @@ export const Window = (show: boolean, text: string, onClick: () => void) => {
               tagName: 'div',
               key: 'modal_window_text',
               attributes: {},
-              child: text,
+              child: args.text,
             }),
             tree.tag({
               tagName: 'div',
@@ -62,6 +73,9 @@ export const Window = (show: boolean, text: string, onClick: () => void) => {
                   attributes: {
                     class: 'modal-buttons-button btn-yes',
                   },
+                  eventListeners: {
+                    click: () => args.onYes(),
+                  },
                   child: 'Yes',
                 }),
                 tree.tag({
@@ -70,6 +84,9 @@ export const Window = (show: boolean, text: string, onClick: () => void) => {
                   attributes: {
                     class: 'modal-buttons-button btn-no',
                   },
+                  eventListeners: {
+                    click: () => args.onNo(),
+                  },
                   child: 'No',
                 }),
                 tree.tag({
@@ -77,6 +94,9 @@ export const Window = (show: boolean, text: string, onClick: () => void) => {
                   key: 'modal_window_button_cancel',
                   attributes: {
                     class: 'modal-buttons-button btn-no',
+                  },
+                  eventListeners: {
+                    click: () => args.onCancel(),
                   },
                   child: 'Cancel',
                 }),

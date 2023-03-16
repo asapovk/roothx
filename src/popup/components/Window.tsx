@@ -17,6 +17,14 @@ export const Popup = () => {
   );
   console.log('popuprender');
   console.log(state.isOpen);
+  ///state.isOpen, state.content, () => trigger('openPopup', 'close', null)
 
-  return Window(state.isOpen, state.content, () => trigger('openPopup', 'close', null));
+  return Window({
+    show: state.isOpen,
+    text: state.content,
+    onBackground: () => trigger('openPopup', 'close', null),
+    onCancel: () => trigger('openPopup', 'close', null),
+    onNo: () => trigger('openPopup', 'no', null),
+    onYes: () => trigger('openPopup', 'yes', null),
+  });
 };

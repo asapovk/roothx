@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { IState } from '../../_redux/types';
 import { Compose } from './Compose';
 import './ComposeGrid.less';
@@ -66,9 +67,22 @@ export const ComposeGrid = () => {
           onOpen: (id) => trigger('setContent', 'openWindow', { id }),
           onDrop: (id) => trigger('setContent', 'closeWindow', { id }),
         })
-      : tags.div('compose_grid_root_compose', {
+      : tags.tag({
+          tagName: 'div',
+          key: 'compose_grid_root_compose',
           child: Compose(),
-          className: 'popupWrapper',
+          attributes: {
+            class: 'popupWrapper',
+            //@ts-ignore
+            'data-wrapper': true,
+          },
+          eventListeners: {
+            click: (e) => {
+              if (e.target.dataset.wrapper) {
+                trigger('setContent', 'openWindow', { id: null });
+              }
+            },
+          },
           // onClick: () => trigger('setContent', 'openWindow', { id: null }),
         }),
   });

@@ -1,9 +1,9 @@
-import { ScriptUpdateArgsType } from '@seijs/redux-hang-on/lib/types';
-import { IState, ITriggers } from 'src/_redux/types';
+import { ScriptUpdateArgsType } from '@reflexio/reflexio-on-redux/lib/types';
+import { IState, ITriggers } from '../../_redux/types';
 import {
   ScriptOptsType,
   ScriptInitArgsType,
-} from '../../../../../packages/reflexio-on-redux/dist/lib/types';
+} from '@reflexio/reflexio-on-redux/lib/types';
 import {
   INotificationState,
   INotificationTriggers,

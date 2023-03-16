@@ -31,10 +31,11 @@ export const Compose = () => {
       console.log('onmmmm');
       trigger('openPopup', 'init', {
         message: 'Вы уверены ?',
-        yesCb: () => console.log('yes'),
-        notCb: () => console.log('not'),
+        yesCb: () => trigger('preventClose', 'clear', null),
+        noCb: () => trigger('openPopup', 'close', null),
         cancelCb: () => console.log('cancel'),
-      })},
+      });
+    },
     key: 'compose_key',
     attributes: {
       class: 'popupwindow',
