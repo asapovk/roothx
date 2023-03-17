@@ -56,7 +56,7 @@ export const Application = () => {
           }),
         ],
       }),
-      Window(modalOpen, () => setModalOpen(false)),
+      //Window(modalOpen, () => setModalOpen(false)),
     ],
   });
 };

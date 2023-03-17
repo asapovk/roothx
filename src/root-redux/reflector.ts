@@ -25,12 +25,14 @@ export class Reflexio<T> {
   public useReflexio(selector: (st: IState) => T, context: Function) {
     if (!this.isMounted) {
       this.selector = selector;
+      //@ts-ignore
       this.state = this.selector(store.getState());
       this.isMounted = true;
       //@ts-ignore
       this.contextFunction = context;
       store.subscribe(() => context());
     } else {
+      //@ts-ignore
       this.state = this.selector(store.getState());
     }
 
