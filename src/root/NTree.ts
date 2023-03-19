@@ -216,6 +216,9 @@ export class Tree {
     eventListeners?: { [eventName: string]: (e: any) => void }
   ) {
     const oldElement = this.rootElement as Element;
+    if (oldElement.innerText && typeof child !== 'string') {
+      oldElement.node.innerText = null;
+    }
     this.updateNoneTextChilds(oldElement, child as any);
     this.updateAttributes(oldElement, attributes);
     this.updateEventListeners(oldElement, eventListeners);
@@ -238,6 +241,9 @@ export class Tree {
     eventListeners?: ITagListeners
   ) {
     const oldElement = this.elements[key] as Element;
+    if (oldElement.innerText && typeof child !== 'string') {
+      oldElement.node.innerText = null;
+    }
     this.updateNoneTextChilds(oldElement, child as any);
     this.updateAttributes(oldElement, attributes);
     this.updateEventListeners(oldElement, eventListeners);
