@@ -218,6 +218,7 @@ export class Tree {
     const oldElement = this.rootElement as Element;
     if (oldElement.innerText && typeof child !== 'string') {
       oldElement.node.innerText = null;
+      oldElement.innerText = null;
     }
     this.updateNoneTextChilds(oldElement, child as any);
     this.updateAttributes(oldElement, attributes);
@@ -242,7 +243,8 @@ export class Tree {
   ) {
     const oldElement = this.elements[key] as Element;
     if (oldElement.innerText && typeof child !== 'string') {
-      oldElement.node.innerText = null;
+      oldElement.node.textContent = null;
+      oldElement.innerText = null;
     }
     this.updateNoneTextChilds(oldElement, child as any);
     this.updateAttributes(oldElement, attributes);
