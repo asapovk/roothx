@@ -128,11 +128,12 @@ export class Tree {
   };
 
   private calc() {
-    for (const k in this.elements) {
+    Object.keys(this.elements).forEach((k) => {
       if (!this.touchedElements[k]) {
         this.unmountElement(k);
       }
-    }
+    });
+
     //@ts-ignore
     this.touchedElements = {};
 
