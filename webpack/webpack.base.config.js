@@ -13,18 +13,19 @@ const BuildDIR = ProjectDIR + './build/';
 
 module.exports = {
   entry: {
+    script: SourceDIR + '_redux/index.ts',
     app: SourceDIR + 'root.ts',
   },
   mode: 'production',
-  optimization: {
-    minimize: true,
-  },
+  // optimization: {
+  //   minimize: true,
+  // },
   devtool: 'source-map',
   externals: {},
   output: {
     publicPath: '/',
     path: path.resolve(BuildDIR),
-    filename: 'app.js',
+    filename: '[name].js',
   },
   module: {
     rules: [
@@ -80,8 +81,9 @@ module.exports = {
 
   plugins: [
     new HtmlWebpackPlugin({
-      inject: true,
+      inject: 'body',
       template: path.resolve(ProjectDIR, './public/index.html'),
+      scriptLoading: 'blocking',
     }),
     new ForkTsCheckerWebpackPlugin({
       typescript: {

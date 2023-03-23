@@ -1,18 +1,22 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import store from '../_redux/index';
+//import store from '../_redux/index';
 import { IState, ITriggers } from '../_redux/types';
 
 import { DispatcherType } from '@reflexio/reflexio-on-redux/lib/types';
 import { getActionType } from '@reflexio/reflexio-on-redux/lib/utils';
+import { LoadStore } from './loadStore';
+
+//const store = import(/* webpackChunkName: script */ '../_redux/index');
 
 export class Reflexio<T> {
   private state: T;
+  private store;
   private selector: (st: IState) => T;
   private contextFunction: Function;
 
   private triggerAction = (action) => {
     //@ts-ignore
-    store.dispatch(action);
+    this.store.dispatch(action);
     //@ts-ignore
   };
 
@@ -24,16 +28,21 @@ export class Reflexio<T> {
   private isMounted: boolean;
   public useReflexio(selector: (st: IState) => T, context: Function) {
     if (!this.isMounted) {
-      this.selector = selector;
-      //@ts-ignore
-      this.state = this.selector(store.getState());
-      this.isMounted = true;
-      //@ts-ignore
-      this.contextFunction = context;
-      store.subscribe(() => context());
+      this.store = LoadStore.getStore().loadedStore;
+      if (this.store) {
+        this.selector = selector;
+        //@ts-ignore
+        this.state = this.selector(this.store.getState());
+        this.isMounted = true;
+        //@ts-ignore
+        this.contextFunction = context;
+        this.store.subscribe(() => context());
+      }
     } else {
       //@ts-ignore
-      this.state = this.selector(store.getState());
+      if (this.store) {
+        this.state = this.selector(this.store.getState());
+      }
     }
 
     return {
