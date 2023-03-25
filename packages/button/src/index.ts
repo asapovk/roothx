@@ -1,5 +1,5 @@
 import { Element, Tree } from '../../../src/root/NTree';
-import s from './styles.css';
+import './styles.css';
 import cn from 'classnames';
 
 export interface ITextInput {
@@ -7,9 +7,9 @@ export interface ITextInput {
   child: Element;
 }
 
-export const TextInput = (key: string, tree: Tree, opts: ITextInput) => {
+export const Button = (key: string, tree: Tree, opts: ITextInput) => {
   const combineClassNames = cn(
-    s.root
+    'root'
     // s[size],
     // !propChildren && s.empty,
     // disabled && s.disabled,
