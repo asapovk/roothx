@@ -13,7 +13,7 @@ const BuildDIR = ProjectDIR + './build/';
 
 module.exports = {
   entry: {
-    script: SourceDIR + '_redux/index.ts',
+      //script: SourceDIR + '_redux/index.ts',
     app: SourceDIR + 'root.ts',
   },
   mode: 'production',
@@ -81,9 +81,9 @@ module.exports = {
 
   plugins: [
     new HtmlWebpackPlugin({
-      inject: 'body',
+      inject: true,
       template: path.resolve(ProjectDIR, './public/index.html'),
-      scriptLoading: 'blocking',
+      scriptLoading: 'defer',
     }),
     new ForkTsCheckerWebpackPlugin({
       typescript: {

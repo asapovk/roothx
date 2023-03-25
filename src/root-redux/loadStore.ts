@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 export class LoadStore {
   static getStore() {
     if (LoadStore.store) {
@@ -12,10 +13,11 @@ export class LoadStore {
   public loadedStore: any;
   constructor() {
     this.isLoading = true;
-    import('../_redux/index').then((s) => {
-      console.log(s.default);
-      this.loadedStore = s.default;
-      this.isLoading = false;
-    });
+    this.loadedStore = require('../_redux/index').default;
+    // import('../_redux/index').then((s) => {
+    //   console.log(s.default);
+    //   this.loadedStore = s.default;
+    //   this.isLoading = false;
+    // });
   }
 }
