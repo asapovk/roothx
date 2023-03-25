@@ -90,7 +90,7 @@ module.exports = {
         configFile: '../tsconfig.json',
       },
     }),
-    new CleanWebpackPlugin(),
-    new CompressionPlugin(),
+   /////  new CleanWebpackPlugin(),
+  //   new CompressionPlugin(),
   ],
 };

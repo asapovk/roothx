@@ -1,0 +1,6 @@
+:root {
+    --rc-button-small-height: 40px;
+    --rc-button-borderRadius: 5px;
+    --rc-button-primary-color: rgb(255, 255, 255);
+    --rc-button-primary-bgColor: rgb(67, 21, 160);
+}

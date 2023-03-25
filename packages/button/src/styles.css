@@ -1,0 +1,21 @@
+@import './theme.css';
+
+
+
+.root {
+    position: relative;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    height: var(--rc-button-small-height);
+    min-width: var(--rc-button-small-height);
+    border-radius: var(--rc-button-borderRadius);
+    cursor: pointer;
+    user-select: none;
+    text-decoration: none;
+    transition: background-color 200ms, color 200ms;
+
+    color: var(--rc-button-primary-color);
+    background-color: var(--rc-button-primary-bgColor);
+
+}

@@ -1,0 +1,23 @@
+{
+    "compilerOptions": {
+        "target": "ES6",
+        "module": "commonjs",
+        "experimentalDecorators": true,
+        "esModuleInterop": true,
+        "noImplicitReturns": true,
+        "strictNullChecks": true,
+        "skipLibCheck": true,
+        "allowJs": true,
+        "declaration": false,
+        "noImplicitAny": false,
+        "downlevelIteration": true,
+        "resolveJsonModule": true,
+        "sourceMap": true,
+        "rootDir": "./",
+        "outDir": "build"
+    },
+    "exclude": [
+        "start",
+        "build"
+    ]
+}
