@@ -8,13 +8,13 @@ const CompressionPlugin = require("compression-webpack-plugin");
 
 
 const ProjectDIR = path.resolve(__dirname, '../') + '/';
-const SourceDIR = ProjectDIR + 'src/';
+const SourceDIR = ProjectDIR; //+ 'src/';
 const BuildDIR = ProjectDIR + './build/';
 
 module.exports = {
   entry: {
       //script: SourceDIR + '_redux/index.ts',
-    app: SourceDIR + 'root.ts',
+    app: SourceDIR + '/src/root.ts',
   },
   mode: 'production',
   // optimization: {

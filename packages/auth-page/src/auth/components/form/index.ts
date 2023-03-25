@@ -1,5 +1,6 @@
 import { Tree, Root } from '../../../../../../src/root/NTree';
 import { State } from '../../../../../../src/root/State';
+import { Button } from '../../../../../button/src/index';
 import './styles.less';
 
 const tree = new Tree({
@@ -7,10 +8,10 @@ const tree = new Tree({
 });
 
 const modalState = new State<boolean>();
-export const Application = () => {
+export const AuthForm = () => {
   const { state: modalOpen, setState: setModalOpen } = modalState.useState(
     false,
-    Application
+    AuthForm
   );
 
   return tree.root({
@@ -42,17 +43,23 @@ export const Application = () => {
             },
             child: '',
           }),
-          tree.tag({
-            tagName: 'button',
-            key: 'pasword-button',
-            attributes: {
-              class: 'form-button',
-            },
-            eventListeners: {
-              click: (e) => setModalOpen(true),
-            },
-            child: 'Submit',
+
+          Button('pasword-button', tree, {
+            child: 'Submit' as any,
+            onClick: () => setModalOpen(true),
           }),
+
+          // tree.tag({
+          //   tagName: 'button',
+          //   key: 'pasword-button',
+          //   attributes: {
+          //     class: 'form-button',
+          //   },
+          //   eventListeners: {
+          //     click: (e) => setModalOpen(true),
+          //   },
+          //   child: 'Submit',
+          // }),
         ],
       }),
     ],
