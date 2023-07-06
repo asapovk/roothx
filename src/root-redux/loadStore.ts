@@ -13,11 +13,14 @@ export class LoadStore {
   public loadedStore: any;
   constructor() {
     this.isLoading = true;
-    this.loadedStore = require('../_redux/index').default;
-    // import('../_redux/index').then((s) => {
-    //   console.log(s.default);
-    //   this.loadedStore = s.default;
-    //   this.isLoading = false;
-    // });
+    //this.loadedStore = require('../_redux/index').default;
+    import(
+      /* webpackChunkName: "redux" */
+      /* webpackMode: "lazy" */ '../_redux/index'
+    ).then((s) => {
+      console.log(s.default);
+      this.loadedStore = s.default;
+      this.isLoading = false;
+    });
   }
 }

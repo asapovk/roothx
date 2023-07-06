@@ -5,7 +5,7 @@ import { AuthForm } from '../packages/auth-page/src/auth/components/form/index';
 
 (function main() {
   //@ts-ignore
-  Root(AuthForm().node);
+  Root(Application().node);
 })();
 
 /** *
