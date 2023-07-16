@@ -18,9 +18,9 @@ export const Notification = () => {
     key: 'notification_root_key',
     attributes: {
       class: 'notification',
-      style: !state[0] ? 'display: none;' : undefined,
+      //style: !state[0] ? 'display: none;' : undefined,
     },
-
+    isMute: !state[0],
     eventListeners: {
       click: () => trigger('showNotification', 'close', null),
     },

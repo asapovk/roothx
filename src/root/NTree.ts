@@ -119,16 +119,11 @@ export class Tree {
     const resp = this.calc();
 
     if (Boolean(opts.isMute) !== this.rootElement.isMute) {
-      console.log(this.rootElement.id);
       if (opts.isMute) {
-        console.log('nnnnnneeeedd mute');
         this.rootElement.mute(resp.id);
       } else {
         this.rootElement.unMute(resp);
       }
-    }
-    else {
-      console.log(this.rootElement.id);
     }
 
     return resp;
@@ -330,32 +325,20 @@ export class Tree {
   }
 
   private unmuteChildRoot = (child: Element) => {
-    console.log('UNMUTE');
-    console.log(child);
-    console.log(this.elements);
     const elementObject = this.elements[child.id];
     elementObject.node = child.node;
     const parentElement = this.rootElement;
     elementObject.isMute = false;
     if (parentElement && parentElement.node) {
-      console.log('PARENT NODE');
       parentElement.node.appendChild(child.node);
-    }
-    else {
-      console.log('NO PARENT');
-      console.log(child.parentId);
     }
   };
 
   private muteChildRoot = (id: string) => {
     const element = this.elements[id];
     if (element) {
-      console.log('MUUUUUT');
       element.isMute = true;
       element.node.remove(); // removed from DOM but still in elements object;
-    }
-    else {
-      console.log('NOOOOOOOOOO');
     }
   };
 
