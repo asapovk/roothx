@@ -15,8 +15,8 @@ export const Popup = () => {
     (state: IState) => state.popup,
     Popup
   );
-  console.log('popuprender');
-  console.log(state.isOpen);
+  //console.log('popuprender');
+  //console.log(state.isOpen);
   ///state.isOpen, state.content, () => trigger('openPopup', 'close', null)
 
   return Window({

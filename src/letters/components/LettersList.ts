@@ -25,59 +25,57 @@ export const LettersList = () => {
     LettersList
   );
 
-  console.log(state.isLoading);
-  console.log(state.letters);
-
-  return tags.root({
-    onMount: () => {
-      console.log('onmount');
-      trigger('lettersList', 'init', null);
-      trigger('setContent', 'init', null);
+  return tags.root(
+    {
+      onMount: () => {
+        trigger('lettersList', 'init', null);
+        trigger('setContent', 'init', null);
+      },
+      attributes: {
+        class: 'lettersListContainer',
+      },
+      tagName: 'div',
+      child: [
+        tags.tag(
+          {
+            child: 'Create new',
+            tagName: 'button',
+            attributes: {
+              class: 'lettersListButton',
+            },
+            eventListeners: {
+              click: () => trigger('setContent', 'openWindow', { id: '-1' }),
+            },
+          },
+          'create_new_button_key'
+        ),
+        tags.button('create_new_button_key', {
+          className: 'lettersListButton',
+          onClick: () => trigger('setContent', 'openWindow', { id: '-1' }),
+          child: 'Create new',
+        }),
+        tags.div('grid_wrapper_key', {
+          child: ComposeGrid(),
+        }),
+        tags.div('letters_list_wrapper_key', {
+          className: 'lettersList',
+          child:
+            state.letters && state.letters.length
+              ? state.letters.map((l) =>
+                  tags.div(`${l.uid}`, {
+                    child: l.subject || '',
+                    className: 'lettersListItem',
+                    onClick: () =>
+                      trigger('setContent', 'openFromList', {
+                        body: l.body,
+                        subject: l.subject,
+                      }),
+                  })
+                )
+              : 'Загрузка',
+        }),
+      ],
     },
-    onUpdate: () => {
-      console.log('updating');
-    },
-    key: 'letters_list_root',
-    attributes: {
-      class: 'lettersListContainer',
-    },
-    child: [
-      tags.tag({
-        child: 'Create new',
-        tagName: 'button',
-        attributes: {
-          class: 'lettersListButton',
-        },
-        key: 'create_new_button_key',
-        eventListeners: {
-          click: () => trigger('setContent', 'openWindow', { id: '-1' }),
-        },
-      }),
-      tags.button('create_new_button_key', {
-        className: 'lettersListButton',
-        onClick: () => trigger('setContent', 'openWindow', { id: '-1' }),
-        child: 'Create new',
-      }),
-      tags.div('grid_wrapper_key', {
-        child: ComposeGrid(),
-      }),
-      tags.div('letters_list_wrapper_key', {
-        className: 'lettersList',
-        child:
-          state.letters && state.letters.length
-            ? state.letters.map((l) =>
-                tags.div(`${l.uid}`, {
-                  child: l.subject || '',
-                  className: 'lettersListItem',
-                  onClick: () =>
-                    trigger('setContent', 'openFromList', {
-                      body: l.body,
-                      subject: l.subject,
-                    }),
-                })
-              )
-            : 'Загрузка',
-      }),
-    ],
-  });
+    'letters_list_root'
+  );
 };

@@ -14,16 +14,19 @@ export const Notification = () => {
     Notification
   );
 
-  return tree.root({
-    key: 'notification_root_key',
-    attributes: {
-      class: 'notification',
-      //style: !state[0] ? 'display: none;' : undefined,
+  return tree.root(
+    {
+      attributes: {
+        class: 'notification',
+        //style: !state[0] ? 'display: none;' : undefined,
+      },
+      isMute: !state[0],
+      eventListeners: {
+        click: () => trigger('showNotification', 'close', null),
+      },
+      child: state[0] ? state[0].content : 'nope',
+      tagName: 'div',
     },
-    isMute: !state[0],
-    eventListeners: {
-      click: () => trigger('showNotification', 'close', null),
-    },
-    child: state[0] ? state[0].content : 'nope',
-  });
+    'notification_root_key'
+  );
 };

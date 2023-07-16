@@ -22,25 +22,28 @@ const ComposePanel = ({
   onOpen: (id: string) => void;
   onDrop: (id: string) => void;
 }) =>
-  panelTags.root({
-    key: 'compose_panel_root_key',
-    attributes: {
-      class: 'composeButtonGrid',
-    },
-    child: composeItems.map((ci, i) =>
-      panelTags.div(`panel_div_wrap_${i}`, {
-        className: 'composeButtonGridButtonWrap',
-        child: panelTags.button(`panel_btn_${i}`, {
-          className: 'btn',
-          onClick: () => onOpen(ci.id),
-          child: panelTags.div(`panel_div_${i}`, {
-            className: 'btnText',
-            child: ci.subject || '(Без темы)',
+  panelTags.root(
+    {
+      attributes: {
+        class: 'composeButtonGrid',
+      },
+      tagName: 'div',
+      child: composeItems.map((ci, i) =>
+        panelTags.div(`panel_div_wrap_${i}`, {
+          className: 'composeButtonGridButtonWrap',
+          child: panelTags.button(`panel_btn_${i}`, {
+            className: 'btn',
+            onClick: () => onOpen(ci.id),
+            child: panelTags.div(`panel_div_${i}`, {
+              className: 'btnText',
+              child: ci.subject || '(Без темы)',
+            }),
           }),
-        }),
-      })
-    ),
-  });
+        })
+      ),
+    },
+    'compose_panel_root_key'
+  );
 
 const reflexio = new Reflexio<{
   items: Array<any>;
@@ -59,33 +62,39 @@ export const ComposeGrid = () => {
     ComposeGrid
   );
 
-  return tags.root({
-    key: 'ComposeGrid_root',
-    child: !state.opened
-      ? ComposePanel({
-          composeItems: state.items,
-          onOpen: (id) => trigger('setContent', 'openWindow', { id }),
-          onDrop: (id) => trigger('setContent', 'closeWindow', { id }),
-        })
-      : tags.tag({
-          tagName: 'div',
-          key: 'compose_grid_root_compose',
-          child: Compose(),
-          attributes: {
-            class: 'popupWrapper',
-            //@ts-ignore
-            'data-wrapper': true,
-          },
-          eventListeners: {
-            click: (e) => {
-              if (e.target.dataset.wrapper) {
-                trigger('setContent', 'openWindow', { id: null });
-              }
+
+  const result =  tags.root(
+    {
+      tagName: 'div',
+      child: !state.opened
+        ? ComposePanel({
+            composeItems: state.items,
+            onOpen: (id) => trigger('setContent', 'openWindow', { id }),
+            onDrop: (id) => trigger('setContent', 'closeWindow', { id }),
+          })
+        : tags.tag(
+            {
+              tagName: 'div',
+              child: Compose(),
+              attributes: {
+                class: 'popupWrapper',
+                //@ts-ignore
+                'data-wrapper': true,
+              },
+              eventListeners: {
+                click: (e) => {
+                  if (e.target.dataset.wrapper) {
+                    trigger('setContent', 'openWindow', { id: null });
+                  }
+                },
+              },
+              // onClick: () => trigger('setContent', 'openWindow', { id: null }),
             },
-          },
-          // onClick: () => trigger('setContent', 'openWindow', { id: null }),
-        }),
-  });
+            'compose_grid_root_composea'
+          ),
+    },
+    'cmposeGrid_root1'
+  );
 
   // if (!state.opened) {
   //   return tags.root({
@@ -108,4 +117,8 @@ export const ComposeGrid = () => {
   //     click: () => trigger('setContent', 'openWindow', { id: null }),
   //   },
   // });
+
+  tags.tree.dubugTree();
+
+  return result;
 };

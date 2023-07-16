@@ -66,6 +66,14 @@ export class Tree {
     }
   }
 
+  public dubugTree() {
+    console.log('rootElemet');
+    console.log(this.rootElement);
+    console.log('children');
+    console.log(this.elements);
+  }
+
+
   private rootElement?: Element;
 
   private elements: { [key: string]: Element } = {};
@@ -74,24 +82,27 @@ export class Tree {
 
   private onUnmountRoot: () => void;
 
-  public root(opts: {
-    key: string;
-    child:
-      | string
-      | Element
-      | Array<Element | null | undefined>
-      | null
-      | undefined;
-    attributes?: ITagAttributes;
-    eventListeners?: ITagListeners;
-    onMount?: () => void;
-    onUpdate?: () => void;
-    onUnmount?: () => void;
-    isMute?: boolean;
-  }) {
+  public root(
+    opts: {
+      tagName: string;
+      child:
+        | string
+        | Element
+        | Array<Element | null | undefined>
+        | null
+        | undefined;
+      attributes?: ITagAttributes;
+      eventListeners?: ITagListeners;
+      onMount?: () => void;
+      onUpdate?: () => void;
+      onUnmount?: () => void;
+      isMute?: boolean;
+    },
+    key: string
+  ) {
     if (!this.rootElement) {
       this.mountRoot(
-        opts.key,
+        key,
         opts.child as Element,
         opts.attributes,
         opts.eventListeners,
@@ -105,7 +116,7 @@ export class Tree {
       }
     } else {
       //@ts-ignore
-      this.rootElement.id = opts.key;
+      this.rootElement.id = key;
       this.updateRoot(
         opts.child as Element,
         opts.attributes,
@@ -172,29 +183,31 @@ export class Tree {
     // return null;
   }
 
-  public tag(opts: {
-    key: string;
-    tagName: string;
-    child:
-      | Array<Element | null | undefined>
-      | Element
-      | string
-      | null
-      | undefined;
-    attributes: {
-      value?: string;
-      style?: string;
-      id?: string;
-      class?: string;
-    };
-    eventListeners?: ITagListeners;
-    getNode?: (el: HTMLElement) => void;
-  }) {
+  public tag(
+    opts: {
+      tagName: string;
+      child:
+        | Array<Element | null | undefined>
+        | Element
+        | string
+        | null
+        | undefined;
+      attributes: {
+        value?: string;
+        style?: string;
+        id?: string;
+        class?: string;
+      };
+      eventListeners?: ITagListeners;
+      getNode?: (el: HTMLElement) => void;
+    },
+    key: string
+  ) {
     let elem: Element;
 
-    if (!this.elements[opts.key as any]) {
+    if (!this.elements[key as any]) {
       elem = this.mountElement(
-        opts.key,
+        key,
         opts.tagName,
         opts.child as Element,
         opts.attributes,
@@ -205,14 +218,14 @@ export class Tree {
       }
     } else {
       elem = this.updateElement(
-        opts.key,
+        key,
         opts.child as Element,
         opts.attributes,
         opts.eventListeners
       );
     }
 
-    this.touchedElements[opts.key as string] = true;
+    this.touchedElements[key as string] = true;
 
     return elem;
   }

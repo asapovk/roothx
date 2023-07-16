@@ -34,8 +34,8 @@ export class SetContentScript {
   }
 
   public updateAfter() {
-    console.log('afterHandler');
-    console.log(this.opts.uid);
+    // console.log('afterHandler');
+    // console.log(this.opts.uid);
   }
 
   // clear local saved data , then state will be changed by reducer
@@ -77,7 +77,7 @@ export class SetContentScript {
   private handleOpenFromList(
     args: ScriptUpdateArgsType<IComposeTriggers, 'setContent', 'openFromList'>
   ) {
-    console.log('OPEN FROM LIST');
+    //console.log('OPEN FROM LIST');
     this.opts.trigger('setFormState', '', {
       body: args.payload.body,
       subject: args.payload.subject,
@@ -179,8 +179,8 @@ export class SetContentScript {
     >
   ) {
     //console.log(this.opts.getCurrentState())
-    console.log(args.status);
-    console.log(args.payload);
+    // console.log(args.status);
+    // console.log(args.payload);
     // console.log(this.system)
     if (args.status === 'syncForm') {
       this.handleSyncForm(args as any);

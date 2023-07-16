@@ -14,49 +14,60 @@ export const Application = () => {
     Application
   );
 
-  return tree.root({
-    key: 'root',
-    attributes: {
-      id: 'root',
+  return tree.root(
+    {
+      attributes: {
+        id: 'root',
+      },
+      tagName: 'div',
+      child: [
+        tree.tag(
+          {
+            tagName: 'div',
+            attributes: {
+              class: 'form-container',
+            },
+            child: [
+              tree.tag(
+                {
+                  tagName: 'input',
+                  attributes: {
+                    class: 'form-input',
+                  },
+                  child: '',
+                },
+                'email-input'
+              ),
+              tree.tag(
+                {
+                  tagName: 'input',
+                  attributes: {
+                    class: 'form-input',
+                  },
+                  child: '',
+                },
+                'pasword-input'
+              ),
+              tree.tag(
+                {
+                  tagName: 'button',
+                  attributes: {
+                    class: 'form-button',
+                  },
+                  eventListeners: {
+                    click: (e) => setModalOpen(true),
+                  },
+                  child: 'Submit',
+                },
+                'pasword-button'
+              ),
+            ],
+          },
+          'container'
+        ),
+        //Window(modalOpen, () => setModalOpen(false)),
+      ],
     },
-    child: [
-      tree.tag({
-        key: 'container',
-        tagName: 'div',
-        attributes: {
-          class: 'form-container',
-        },
-        child: [
-          tree.tag({
-            tagName: 'input',
-            key: 'email-input',
-            attributes: {
-              class: 'form-input',
-            },
-            child: '',
-          }),
-          tree.tag({
-            tagName: 'input',
-            key: 'pasword-input',
-            attributes: {
-              class: 'form-input',
-            },
-            child: '',
-          }),
-          tree.tag({
-            tagName: 'button',
-            key: 'pasword-button',
-            attributes: {
-              class: 'form-button',
-            },
-            eventListeners: {
-              click: (e) => setModalOpen(true),
-            },
-            child: 'Submit',
-          }),
-        ],
-      }),
-      //Window(modalOpen, () => setModalOpen(false)),
-    ],
-  });
+    'root'
+  );
 };

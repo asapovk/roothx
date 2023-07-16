@@ -14,98 +14,109 @@ interface IWindowOpts {
   onBackground: () => void;
 }
 
-export const Window = (args: IWindowOpts) => {
-  console.log('window render');
-  console.log(args.show);
-  // if (!args.show) {
-  //   return null; //tree.null();
-  // }
-
-  return tree.root({
-    key: 'modal_root',
-    attributes: {
-      class: 'popupBackground',
-      //style: !args.show ? 'display: none;' : undefined,
-    },
-    isMute: !args.show,
-    child: [
-      tree.tag({
-        tagName: 'div',
-        key: 'modal_layer',
-        attributes: {
-          class: 'popupLayer',
-        },
-        eventListeners: args.onBackground
-          ? {
-              click: () => args.onBackground(),
-            }
-          : undefined,
-        child: '',
-      }),
-      tree.tag({
-        tagName: 'div',
-        key: 'modal_window',
-        attributes: {
-          class: 'popupWindow',
-        },
-        child: tree.tag({
-          key: 'modal_window_content',
-          tagName: 'div',
-          attributes: {
-            class: 'popup-window-content',
+export const Window = (args: IWindowOpts) =>
+  tree.root(
+    {
+      attributes: {
+        class: 'popupBackground',
+      },
+      tagName: 'div',
+      isMute: !args.show,
+      child: [
+        tree.tag(
+          {
+            tagName: 'div',
+            attributes: {
+              class: 'popupLayer',
+            },
+            eventListeners: args.onBackground
+              ? {
+                  click: () => args.onBackground(),
+                }
+              : undefined,
+            child: '',
           },
-          child: [
-            tree.tag({
-              tagName: 'div',
-              key: 'modal_window_text',
-              attributes: {},
-              child: args.text,
-            }),
-            tree.tag({
-              tagName: 'div',
-              key: 'modal_window_buttons',
-              attributes: {
-                class: 'modal-buttons',
+          'modal_root'
+        ),
+        tree.tag(
+          {
+            tagName: 'div',
+            attributes: {
+              class: 'popupWindow',
+            },
+            child: tree.tag(
+              {
+                tagName: 'div',
+                attributes: {
+                  class: 'popup-window-content',
+                },
+                child: [
+                  tree.tag(
+                    {
+                      tagName: 'div',
+                      attributes: {},
+                      child: args.text,
+                    },
+                    'modal_window_text'
+                  ),
+                  tree.tag(
+                    {
+                      tagName: 'div',
+                      attributes: {
+                        class: 'modal-buttons',
+                      },
+                      child: [
+                        tree.tag(
+                          {
+                            tagName: 'button',
+                            attributes: {
+                              class: 'modal-buttons-button btn-yes',
+                            },
+                            eventListeners: {
+                              click: () => args.onYes(),
+                            },
+                            child: 'Yes',
+                          },
+                          'modal_window_button_yes'
+                        ),
+                        tree.tag(
+                          {
+                            tagName: 'button',
+                            attributes: {
+                              class: 'modal-buttons-button btn-no',
+                            },
+                            eventListeners: {
+                              click: () => args.onNo(),
+                            },
+                            child: 'No',
+                          },
+                          'modal_window_button_no'
+                        ),
+                        tree.tag(
+                          {
+                            tagName: 'button',
+                            attributes: {
+                              class: 'modal-buttons-button btn-no',
+                            },
+                            eventListeners: {
+                              click: () => args.onCancel(),
+                            },
+                            child: 'Cancel',
+                          },
+                          'modal_window_button_cancel'
+                        ),
+                      ],
+                    },
+                    'modal_window_buttons'
+                  ),
+                ],
               },
-              child: [
-                tree.tag({
-                  tagName: 'button',
-                  key: 'modal_window_button_yes',
-                  attributes: {
-                    class: 'modal-buttons-button btn-yes',
-                  },
-                  eventListeners: {
-                    click: () => args.onYes(),
-                  },
-                  child: 'Yes',
-                }),
-                tree.tag({
-                  tagName: 'button',
-                  key: 'modal_window_button_no',
-                  attributes: {
-                    class: 'modal-buttons-button btn-no',
-                  },
-                  eventListeners: {
-                    click: () => args.onNo(),
-                  },
-                  child: 'No',
-                }),
-                tree.tag({
-                  tagName: 'button',
-                  key: 'modal_window_button_cancel',
-                  attributes: {
-                    class: 'modal-buttons-button btn-no',
-                  },
-                  eventListeners: {
-                    click: () => args.onCancel(),
-                  },
-                  child: 'Cancel',
-                }),
-              ],
-            }),
-          ],
-        }),
-      }),
-    ],
-  });
-};
+              'modal_window_content'
+            ),
+          },
+          'modal_window'
+        ),
+      ],
+    },
+    'popupBackground_root'
+  );
