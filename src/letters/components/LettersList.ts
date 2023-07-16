@@ -49,31 +49,43 @@ export const LettersList = () => {
           },
           'create_new_button_key'
         ),
-        tags.button('create_new_button_key', {
-          className: 'lettersListButton',
-          onClick: () => trigger('setContent', 'openWindow', { id: '-1' }),
-          child: 'Create new',
-        }),
-        tags.div('grid_wrapper_key', {
-          child: ComposeGrid(),
-        }),
-        tags.div('letters_list_wrapper_key', {
-          className: 'lettersList',
-          child:
-            state.letters && state.letters.length
-              ? state.letters.map((l) =>
-                  tags.div(`${l.uid}`, {
-                    child: l.subject || '',
-                    className: 'lettersListItem',
-                    onClick: () =>
-                      trigger('setContent', 'openFromList', {
-                        body: l.body,
-                        subject: l.subject,
-                      }),
-                  })
-                )
-              : 'Загрузка',
-        }),
+        tags.button(
+          {
+            className: 'lettersListButton',
+            onClick: () => trigger('setContent', 'openWindow', { id: '-1' }),
+            child: 'Create new',
+          },
+          'create_new_button_key'
+        ),
+        tags.div(
+          {
+            child: ComposeGrid(),
+          },
+          'grid_wrapper_key'
+        ),
+        tags.div(
+          {
+            className: 'lettersList',
+            child:
+              state.letters && state.letters.length
+                ? state.letters.map((l) =>
+                    tags.div(
+                      {
+                        child: l.subject || '',
+                        className: 'lettersListItem',
+                        onClick: () =>
+                          trigger('setContent', 'openFromList', {
+                            body: l.body,
+                            subject: l.subject,
+                          }),
+                      },
+                      `${l.uid}`
+                    )
+                  )
+                : 'Загрузка',
+          },
+          'letters_list_wrapper_key'
+        ),
       ],
     },
     'letters_list_root'

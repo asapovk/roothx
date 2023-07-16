@@ -25,8 +25,6 @@ export const Compose = () => {
 
   const { subject, body, to } = state;
 
-  console.log('COMPOSE RENDER');
-
   return tags.root(
     {
       onMount: () => {
@@ -43,52 +41,77 @@ export const Compose = () => {
         class: 'popupwindow',
       },
       child: [
-        tags.div('compose_roots_key', {
-          className: 'root',
-          child: [
-            tags.div('compose_wrap_key', {
-              className: 'composeWrap',
-              child: [
-                tags.div('subject_div_key', {
-                  className: 'subject',
-                  child: tags.textInput('subject_input_key', {
-                    className: 'textInput',
-                    value: state.subject,
-                    onChange: (e) =>
-                      trigger('setContent', 'syncForm', {
-                        input: 'subject',
-                        text: e.target.value,
-                      }),
-                  }),
-                }),
-                tags.textArea('body_area_key', {
-                  className: 'body',
-                  value: state.body,
-                  onChange: (e) =>
-                    trigger('setContent', 'syncForm', {
-                      input: 'body',
-                      text: e.target.value,
-                    }),
-                }),
-              ],
-            }),
-            tags.div('button_group_key', {
-              className: 'composeButtonsGroup',
-              child: [
-                tags.button('submit_letter_btn_key', {
-                  child: 'Сохранить',
-                  className: 'composeButtonsGroupItm',
-                  onClick: () => trigger('submitLetter', 'init', null),
-                }),
-                tags.button('close_btn_key', {
-                  child: 'Закрыть',
-                  className: 'composeButtonsGroupItm',
-                  onClick: () => trigger('setContent', 'closeWindow', null),
-                }),
-              ],
-            }),
-          ],
-        }),
+        tags.div(
+          {
+            className: 'root',
+            child: [
+              tags.div(
+                {
+                  className: 'composeWrap',
+                  child: [
+                    tags.div(
+                      {
+                        className: 'subject',
+                        child: tags.textInput(
+                          {
+                            className: 'textInput',
+                            value: state.subject,
+                            onChange: (e) =>
+                              trigger('setContent', 'syncForm', {
+                                input: 'subject',
+                                text: e.target.value,
+                              }),
+                          },
+                          'subject_input_key'
+                        ),
+                      },
+                      'subject_div_key'
+                    ),
+                    tags.textArea(
+                      {
+                        className: 'body',
+                        value: state.body,
+                        onChange: (e) =>
+                          trigger('setContent', 'syncForm', {
+                            input: 'body',
+                            text: e.target.value,
+                          }),
+                      },
+                      'body_area_key'
+                    ),
+                  ],
+                },
+                'compose_wrap_key'
+              ),
+              tags.div(
+                {
+                  className: 'composeButtonsGroup',
+                  child: [
+                    tags.button(
+                      {
+                        child: 'Сохранить',
+                        className: 'composeButtonsGroupItm',
+                        onClick: () => trigger('submitLetter', 'init', null),
+                      },
+                      'submit_letter_btn_key'
+                    ),
+                    tags.button(
+                      {
+                        child: 'Закрыть',
+                        className: 'composeButtonsGroupItm',
+                        onClick: () =>
+                          trigger('setContent', 'closeWindow', null),
+                      },
+                      'close_btn_key'
+                    ),
+                  ],
+                },
+                'button_group_key'
+              ),
+            ],
+          },
+          'compose_roots_key'
+        ),
       ],
     },
     'compose_key_rootss'

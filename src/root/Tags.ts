@@ -39,7 +39,6 @@ export class Tags {
   }
 
   public headerText(
-    key: string,
     opts: {
       text: string;
       size?: number;
@@ -47,7 +46,8 @@ export class Tags {
       style?: string;
       getNode?: (e: HTMLElement) => void;
       onClick?: (e) => void;
-    }
+    },
+    key: string
   ) {
     return this.tree.tag(
       {
@@ -66,14 +66,14 @@ export class Tags {
   }
 
   public div(
-    key: string,
     opts: {
       child?: Array<Element | null> | Element | string | null;
       className?: string;
       style?: string;
       getNode?: (e: HTMLElement) => void;
       onClick?: (e) => void;
-    }
+    },
+    key?: string
   ) {
     return this.tree.tag(
       {
@@ -94,14 +94,14 @@ export class Tags {
   }
 
   public button = (
-    key: string,
     opts: {
       child?: Element | string;
       className?: string;
       style?: string;
       getNode?: (e: HTMLElement) => void;
       onClick?: (e) => void;
-    }
+    },
+    key?: string
   ) =>
     this.tag(
       {
@@ -123,8 +123,7 @@ export class Tags {
       key
     );
   public textArea(
-    key: string,
-    opts?: {
+    opts: {
       value?: string;
       onChange?: (e) => void;
       onFocus?: (e) => void;
@@ -134,7 +133,8 @@ export class Tags {
       className?: string;
       style?: string;
       getNode?: (e: HTMLElement) => void;
-    }
+    },
+    key?: string
   ) {
     return this.tree.tag(
       {
@@ -157,8 +157,7 @@ export class Tags {
   }
 
   public textInput(
-    key: string,
-    opts?: {
+    opts: {
       value?: string;
       onChange?: (e) => void;
       onFocus?: (e) => void;
@@ -169,7 +168,8 @@ export class Tags {
       className?: string;
       style?: string;
       getNode?: (e: HTMLElement) => void;
-    }
+    },
+    key?: string
   ) {
     return this.tree.tag(
       {

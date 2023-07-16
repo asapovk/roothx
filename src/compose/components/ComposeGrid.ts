@@ -29,17 +29,26 @@ const ComposePanel = ({
       },
       tagName: 'div',
       child: composeItems.map((ci, i) =>
-        panelTags.div(`panel_div_wrap_${i}`, {
-          className: 'composeButtonGridButtonWrap',
-          child: panelTags.button(`panel_btn_${i}`, {
-            className: 'btn',
-            onClick: () => onOpen(ci.id),
-            child: panelTags.div(`panel_div_${i}`, {
-              className: 'btnText',
-              child: ci.subject || '(Без темы)',
-            }),
-          }),
-        })
+        panelTags.div(
+          {
+            className: 'composeButtonGridButtonWrap',
+            child: panelTags.button(
+              {
+                className: 'btn',
+                onClick: () => onOpen(ci.id),
+                child: panelTags.div(
+                  {
+                    className: 'btnText',
+                    child: ci.subject || '(Без темы)',
+                  },
+                  `panel_div_${i}`
+                ),
+              },
+              `panel_btn_${i}`
+            ),
+          },
+          `panel_div_wrap_${i}`
+        )
       ),
     },
     'compose_panel_root_key'
@@ -62,8 +71,7 @@ export const ComposeGrid = () => {
     ComposeGrid
   );
 
-
-  const result =  tags.root(
+  const result = tags.root(
     {
       tagName: 'div',
       child: !state.opened
