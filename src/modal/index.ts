@@ -17,16 +17,17 @@ interface IWindowOpts {
 export const Window = (args: IWindowOpts) => {
   console.log('window render');
   console.log(args.show);
-  // if (!show) {
-  //   return null;
+  // if (!args.show) {
+  //   return null; //tree.null();
   // }
 
   return tree.root({
     key: 'modal_root',
     attributes: {
       class: 'popupBackground',
-      style: !args.show ? 'display: none;' : undefined,
+      //style: !args.show ? 'display: none;' : undefined,
     },
+    isMute: !args.show,
     child: [
       tree.tag({
         tagName: 'div',
