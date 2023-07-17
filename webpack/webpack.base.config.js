@@ -2,10 +2,10 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
-const CompressionPlugin = require("compression-webpack-plugin");
-
+const CompressionPlugin = require('compression-webpack-plugin');
+const RoothUniqueKeyPlugin = require('./unique-key-argument.plugin');
 
 const ProjectDIR = path.resolve(__dirname, '../') + '/';
 const SourceDIR = ProjectDIR; //+ 'src/';
@@ -13,7 +13,7 @@ const BuildDIR = ProjectDIR + './build/';
 
 module.exports = {
   entry: {
-      //script: SourceDIR + '_redux/index.ts',
+    //script: SourceDIR + '_redux/index.ts',
     app: SourceDIR + '/src/root.ts',
   },
   mode: 'production',
@@ -39,6 +39,7 @@ module.exports = {
               '@babel/preset-typescript',
               '@babel/preset-react',
             ],
+            plugins: ['./webpack/unique-key-argument.plugin.js'],
           },
         },
         include: [path.resolve(SourceDIR)],
@@ -90,7 +91,7 @@ module.exports = {
         configFile: '../tsconfig.json',
       },
     }),
-   /////  new CleanWebpackPlugin(),
-  //   new CompressionPlugin(),
+    /////  new CleanWebpackPlugin(),
+    //   new CompressionPlugin(),
   ],
 };

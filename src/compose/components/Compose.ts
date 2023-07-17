@@ -12,6 +12,7 @@ const reflexio = new Reflexio<{
 const tree = new Tree({
   makeElement: (tag) => document.createElement(tag),
 });
+//@ds-replace
 const tags = new Tags(tree);
 export const Compose = () => {
   const { state, trigger } = reflexio.useReflexio(
@@ -28,7 +29,6 @@ export const Compose = () => {
   return tags.root(
     {
       onMount: () => {
-        console.log('COMPOSE MOUNT');
         trigger('openPopup', 'init', {
           message: 'Вы уверены ?',
           yesCb: () => trigger('preventClose', 'clear', null),
