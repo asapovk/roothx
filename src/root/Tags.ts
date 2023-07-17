@@ -13,14 +13,14 @@ export class Tags {
   }
 
   public text(
-    key: string,
     opts: {
       text: string;
       className?: string;
       style?: string;
       getNode?: (e: HTMLElement) => void;
       onClick?: (e) => void;
-    }
+    },
+    key?: string
   ) {
     return this.tree.tag(
       {
@@ -47,7 +47,7 @@ export class Tags {
       getNode?: (e: HTMLElement) => void;
       onClick?: (e) => void;
     },
-    key: string
+    key?: string
   ) {
     return this.tree.tag(
       {

@@ -71,38 +71,32 @@ export const ComposeGrid = () => {
     ComposeGrid
   );
 
-  const result = tags.root(
-    {
-      tagName: 'div',
-      child: !state.opened
-        ? ComposePanel({
-            composeItems: state.items,
-            onOpen: (id) => trigger('setContent', 'openWindow', { id }),
-            onDrop: (id) => trigger('setContent', 'closeWindow', { id }),
-          })
-        : tags.tag(
-            {
-              tagName: 'div',
-              child: Compose(),
-              attributes: {
-                class: 'popupWrapper',
-                //@ts-ignore
-                'data-wrapper': true,
-              },
-              eventListeners: {
-                click: (e) => {
-                  if (e.target.dataset.wrapper) {
-                    trigger('setContent', 'openWindow', { id: null });
-                  }
-                },
-              },
-              // onClick: () => trigger('setContent', 'openWindow', { id: null }),
+  const result = tags.root({
+    tagName: 'div',
+    child: !state.opened
+      ? ComposePanel({
+          composeItems: state.items,
+          onOpen: (id) => trigger('setContent', 'openWindow', { id }),
+          onDrop: (id) => trigger('setContent', 'closeWindow', { id }),
+        })
+      : tags.tag({
+          tagName: 'div',
+          child: Compose(),
+          attributes: {
+            class: 'popupWrapper',
+            //@ts-ignore
+            'data-wrapper': true,
+          },
+          eventListeners: {
+            click: (e) => {
+              if (e.target.dataset.wrapper) {
+                trigger('setContent', 'openWindow', { id: null });
+              }
             },
-            'compose_grid_root_composea'
-          ),
-    },
-    'cmposeGrid_root1'
-  );
+          },
+          // onClick: () => trigger('setContent', 'openWindow', { id: null }),
+        }),
+  });
 
   // if (!state.opened) {
   //   return tags.root({

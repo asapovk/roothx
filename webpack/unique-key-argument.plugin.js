@@ -1,5 +1,5 @@
 const pathNode = require('node:path');
-
+const { v4 } = require('uuid');
 const md5 = require('md5');
 
 const BabelRoothPlugin = (api) => {
@@ -17,12 +17,18 @@ const BabelRoothPlugin = (api) => {
         if (
           path.node.callee &&
           path.node.callee.object &&
-          path.node.callee.object.name === 'tree'
+          (path.node.callee.object.name === 'tree' || path.node.callee.object.name === 'tags')
         ) {
-          console.log('NEXT');
-          count++;
-          console.log(count);
-          console.log(path.node.callee);
+          if (path.node.arguments.length < 2) {
+            const id = `${md5(pathNode.relative(cwd, filename))}/${v4()}`;
+            console.log(`id div ${id}`);
+            path.node.arguments.push(t.StringLiteral(id));
+            console.log(path.node.arguments);
+            console.log('NEXT');
+            count++;
+            console.log(count);
+          }
+          //console.log(path.node.callee);
         }
         // if (path.node.callee.object.name === 'tree') {
         //   if (path.node.callee.property.name === 'div') {

@@ -98,7 +98,7 @@ export class Tree {
       onUnmount?: () => void;
       isMute?: boolean;
     },
-    key: string
+    key?: string
   ) {
     if (!this.rootElement) {
       this.mountRoot(
@@ -201,7 +201,7 @@ export class Tree {
       eventListeners?: ITagListeners;
       getNode?: (el: HTMLElement) => void;
     },
-    key: string
+    key?: string
   ) {
     let elem: Element;
 
