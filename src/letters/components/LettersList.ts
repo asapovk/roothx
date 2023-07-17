@@ -25,56 +25,49 @@ export const LettersList = () => {
     LettersList
   );
 
-  console.log(state.isLoading);
-  console.log(state.letters);
-
   return tags.root({
     onMount: () => {
-      console.log('onmount');
       trigger('lettersList', 'init', null);
       trigger('setContent', 'init', null);
     },
-    onUpdate: () => {
-      console.log('updating');
-    },
-    key: 'letters_list_root',
     attributes: {
       class: 'lettersListContainer',
     },
+    tagName: 'div',
     child: [
-      tags.tag({
-        child: 'Create new',
-        tagName: 'button',
-        attributes: {
-          class: 'lettersListButton',
-        },
-        key: 'create_new_button_key',
-        eventListeners: {
-          click: () => trigger('setContent', 'openWindow', { id: '-1' }),
-        },
-      }),
-      tags.button('create_new_button_key', {
-        className: 'lettersListButton',
-        onClick: () => trigger('setContent', 'openWindow', { id: '-1' }),
-        child: 'Create new',
-      }),
-      tags.div('grid_wrapper_key', {
-        child: ComposeGrid(),
-      }),
-      tags.div('letters_list_wrapper_key', {
+      tags.tag(
+        {
+          child: 'Create new',
+          tagName: 'button',
+          attributes: {
+            class: 'lettersListButton',
+          },
+          eventListeners: {
+            click: () => trigger('setContent', 'openWindow', { id: '-1' }),
+          },
+        }
+      ),
+      tags.div(
+        {
+          child: ComposeGrid(),
+        }),
+      tags.div({
         className: 'lettersList',
         child:
           state.letters && state.letters.length
             ? state.letters.map((l) =>
-                tags.div(`${l.uid}`, {
-                  child: l.subject || '',
-                  className: 'lettersListItem',
-                  onClick: () =>
-                    trigger('setContent', 'openFromList', {
-                      body: l.body,
-                      subject: l.subject,
-                    }),
-                })
+                tags.div(
+                  {
+                    child: l.subject || '',
+                    className: 'lettersListItem',
+                    onClick: () =>
+                      trigger('setContent', 'openFromList', {
+                        body: l.body,
+                        subject: l.subject,
+                      }),
+                  },
+                  `${l.uid}`
+                )
               )
             : 'Загрузка',
       }),

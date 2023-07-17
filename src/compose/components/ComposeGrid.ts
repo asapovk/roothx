@@ -22,25 +22,37 @@ const ComposePanel = ({
   onOpen: (id: string) => void;
   onDrop: (id: string) => void;
 }) =>
-  panelTags.root({
-    key: 'compose_panel_root_key',
-    attributes: {
-      class: 'composeButtonGrid',
+  panelTags.root(
+    {
+      attributes: {
+        class: 'composeButtonGrid',
+      },
+      tagName: 'div',
+      child: composeItems.map((ci, i) =>
+        panelTags.div(
+          {
+            className: 'composeButtonGridButtonWrap',
+            child: panelTags.button(
+              {
+                className: 'btn',
+                onClick: () => onOpen(ci.id),
+                child: panelTags.div(
+                  {
+                    className: 'btnText',
+                    child: ci.subject || '(Без темы)',
+                  },
+                  `panel_div_${i}`
+                ),
+              },
+              `panel_btn_${i}`
+            ),
+          },
+          `panel_div_wrap_${i}`
+        )
+      ),
     },
-    child: composeItems.map((ci, i) =>
-      panelTags.div(`panel_div_wrap_${i}`, {
-        className: 'composeButtonGridButtonWrap',
-        child: panelTags.button(`panel_btn_${i}`, {
-          className: 'btn',
-          onClick: () => onOpen(ci.id),
-          child: panelTags.div(`panel_div_${i}`, {
-            className: 'btnText',
-            child: ci.subject || '(Без темы)',
-          }),
-        }),
-      })
-    ),
-  });
+    'compose_panel_root_key'
+  );
 
 const reflexio = new Reflexio<{
   items: Array<any>;
@@ -59,8 +71,8 @@ export const ComposeGrid = () => {
     ComposeGrid
   );
 
-  return tags.root({
-    key: 'ComposeGrid_root',
+  const result = tags.root({
+    tagName: 'div',
     child: !state.opened
       ? ComposePanel({
           composeItems: state.items,
@@ -69,7 +81,6 @@ export const ComposeGrid = () => {
         })
       : tags.tag({
           tagName: 'div',
-          key: 'compose_grid_root_compose',
           child: Compose(),
           attributes: {
             class: 'popupWrapper',
@@ -108,4 +119,8 @@ export const ComposeGrid = () => {
   //     click: () => trigger('setContent', 'openWindow', { id: null }),
   //   },
   // });
+
+  tags.tree.dubugTree();
+
+  return result;
 };

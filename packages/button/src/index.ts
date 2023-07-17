@@ -17,15 +17,17 @@ export const Button = (key: string, tree: Tree, opts: ITextInput) => {
     // className
   );
 
-  return tree.tag({
-    tagName: 'button',
-    key: key,
-    attributes: {
-      class: combineClassNames,
+  return tree.tag(
+    {
+      tagName: 'button',
+      attributes: {
+        class: combineClassNames,
+      },
+      eventListeners: {
+        click: opts.onClick,
+      },
+      child: opts.child,
     },
-    eventListeners: {
-      click: opts.onClick,
-    },
-    child: opts.child,
-  });
+    key
+  );
 };

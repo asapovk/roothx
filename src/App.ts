@@ -8,10 +8,13 @@ const tree = new Tree({
 });
 
 export const Application = () =>
-  tree.root({
-    key: 'app_root',
-    attributes: {
-      id: 'app_root',
+  tree.root(
+    {
+      tagName: 'div',
+      attributes: {
+        id: 'app_root',
+      },
+      child: [Notification(), LettersList(), Popup()],
     },
-    child: [Notification(), LettersList(), Popup()],
-  });
+    'app_root'
+  );

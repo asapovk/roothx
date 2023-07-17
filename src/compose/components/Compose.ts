@@ -1,7 +1,7 @@
 import { IState } from '../../_redux/types';
 import './Compose.less';
 import { Reflexio } from '../../root-redux/reflector';
-import { Tree } from '../../root/NTree';
+import { Element, Tree } from '../../root/NTree';
 import { Tags } from '../../root/Tags';
 
 const reflexio = new Reflexio<{
@@ -12,6 +12,7 @@ const reflexio = new Reflexio<{
 const tree = new Tree({
   makeElement: (tag) => document.createElement(tag),
 });
+//@ds-replace
 const tags = new Tags(tree);
 export const Compose = () => {
   const { state, trigger } = reflexio.useReflexio(
@@ -24,11 +25,9 @@ export const Compose = () => {
   );
 
   const { subject, body, to } = state;
-  console.log('composeRender');
 
   return tags.root({
     onMount: () => {
-      console.log('onmmmm');
       trigger('openPopup', 'init', {
         message: 'Вы уверены ?',
         yesCb: () => trigger('preventClose', 'clear', null),
@@ -36,20 +35,20 @@ export const Compose = () => {
         cancelCb: () => console.log('cancel'),
       });
     },
-    key: 'compose_key',
+    tagName: 'div',
     attributes: {
       class: 'popupwindow',
     },
     child: [
-      tags.div('compose_root_key', {
+      tags.div({
         className: 'root',
         child: [
-          tags.div('compose_wrap_key', {
+          tags.div({
             className: 'composeWrap',
             child: [
-              tags.div('subject_div_key', {
+              tags.div({
                 className: 'subject',
-                child: tags.textInput('subject_input_key', {
+                child: tags.textInput({
                   className: 'textInput',
                   value: state.subject,
                   onChange: (e) =>
@@ -59,7 +58,7 @@ export const Compose = () => {
                     }),
                 }),
               }),
-              tags.textArea('body_area_key', {
+              tags.textArea({
                 className: 'body',
                 value: state.body,
                 onChange: (e) =>
@@ -70,15 +69,15 @@ export const Compose = () => {
               }),
             ],
           }),
-          tags.div('button_group_key', {
+          tags.div({
             className: 'composeButtonsGroup',
             child: [
-              tags.button('submit_letter_btn_key', {
+              tags.button({
                 child: 'Сохранить',
                 className: 'composeButtonsGroupItm',
                 onClick: () => trigger('submitLetter', 'init', null),
               }),
-              tags.button('close_btn_key', {
+              tags.button({
                 child: 'Закрыть',
                 className: 'composeButtonsGroupItm',
                 onClick: () => trigger('setContent', 'closeWindow', null),
