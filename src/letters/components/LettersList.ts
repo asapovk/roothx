@@ -35,22 +35,19 @@ export const LettersList = () => {
     },
     tagName: 'div',
     child: [
-      tags.tag(
-        {
-          child: 'Create new',
-          tagName: 'button',
-          attributes: {
-            class: 'lettersListButton',
-          },
-          eventListeners: {
-            click: () => trigger('setContent', 'openWindow', { id: '-1' }),
-          },
-        }
-      ),
-      tags.div(
-        {
-          child: ComposeGrid(),
-        }),
+      tags.tag({
+        child: 'Create new',
+        tagName: 'button',
+        attributes: {
+          class: 'lettersListButton',
+        },
+        eventListeners: {
+          click: () => trigger('setContent', 'openWindow', { id: '-1' }),
+        },
+      }),
+      tags.div({
+        child: ComposeGrid(),
+      }),
       tags.div({
         className: 'lettersList',
         child:
