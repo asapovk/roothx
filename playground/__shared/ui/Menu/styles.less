@@ -1,0 +1,71 @@
+
+
+.oj-ui-menu-size-s {
+    @width: 80px;
+    @height: 20px;
+    @fontSize: 10px;
+    .oj-ui-menu-size()
+}
+
+.oj-ui-menu-size-m {
+    @width: 100px;
+    @height: 30px;
+    @fontSize: 16px;
+    .oj-ui-menu-size()
+}
+
+.oj-ui-menu-size-l {
+    @width: 160px;
+    @height: 60px;
+    @fontSize: 20px;
+    .oj-ui-menu-size()
+}
+
+.oj-ui-menu-size-xl {
+    @width: 200px;
+    @height: 80px;
+    @fontSize: 26px;
+    .oj-ui-menu-size()
+}
+
+.oj-ui-menu-color-primary {
+    @color: var(--color-text-on-background-plain);
+    @hoverColor: var(--color-text-on-background-strong);
+    @selectedColor: var(--color-primary);
+    .oj-ui-menu-color()
+}
+
+
+
+
+.oj-ui-menu-size() {
+    margin: 0;
+    display: inline-block;
+    .menu-item {
+        cursor: pointer;
+        display: inline-block;
+        text-align: center;
+        list-style: none;
+        border-bottom: 2px solid;
+        min-width: @width;
+        height: @height;
+        font-size: @fontSize;
+        line-height: @height;
+    }
+}
+
+
+.oj-ui-menu-color() {
+    .menu-item {
+        color: @color;
+        border-color: transparent;
+        &:hover {
+            color: @hoverColor;
+            border-color: @hoverColor;
+        }
+    }
+    .item-selected {
+        color: @selectedColor !important;
+        border-color: @selectedColor !important;
+    }       
+}

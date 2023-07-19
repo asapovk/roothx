@@ -1,0 +1,105 @@
+@import '../theme/theme.less';
+
+@sWidth: 120px;
+@sHeight: 30px;
+@sFontSize: 10px;
+@sBorderWidth: 1px;
+
+@mHeight: 40px;
+@mWidth: 160px;
+@mFontSize: 12px;
+@mBorderWidth: 1px;
+
+@lHeight: 50px;
+@lWidth: 200px;
+@lFontSize: 16px;
+@lBorderWidth: 1px;
+
+
+
+
+
+.oj-ui-text-input-m {
+    @width: @mWidth;
+    @height: @mHeight;
+    @fontSize: @mFontSize;
+    @borderWidth: @mBorderWidth;
+    .oj-ui-text-input-size()
+}
+
+.oj-ui-text-input-l {
+    @width: @lWidth;
+    @height: @lHeight;
+    @fontSize: @lFontSize;
+    @borderWidth: @lBorderWidth;
+    .oj-ui-text-input-size()
+}
+
+
+
+@colorBorderError: var(--color-error);
+@colorBorderFocusError: var(--color-error-hover);
+@colorTextError: var(--color-text-on-error);
+@colorTextFocusError: var(--color-text-on-error);
+
+
+.oj-ui-text-input-error {
+    @colorBorder: @colorBorderError;
+    @colorBorderFocus: @colorBorderFocusError;
+    @colorText: @colorTextError;
+    @colorTextFocus: @colorTextFocusError;
+    .oj-ui-text-input-color()
+}
+
+
+.oj-ui-text-input-primary {
+    @colorBorder: var(--color-primary);
+    @colorBorderFocus: var(--color-primary-hover);
+    @colorText: var(--color-text-on-background-plain);
+    @colorTextFocus: var(--color-text-on-background-strong);
+    .oj-ui-text-input-color()
+}
+
+.oj-ui-text-input-color() {
+    input {
+        background-color: var(--color-panel);
+        color: @colorText;
+        border-color: transparent;//@colorBorder;
+        &:focus {
+            background-color: var(--color-panel-hover);
+            border-color: @colorBorderFocus;
+            color:  @colorTextFocus;
+        }
+    }
+    svg {
+        fill: var(--color-text-on-background-mute);//@colorBorder;
+    }
+}
+
+.oj-ui-text-input-size() {
+    width: @width;
+    height: @height;
+    border-radius: (@height*0.25);
+    position: relative;
+    input {
+        position: absolute;
+        top: 0;
+        left: 0;
+        font-size: @fontSize;
+        border: @borderWidth solid;   
+        padding-left: @height*0.9;
+        box-sizing: border-box;
+        width: 100%;
+        height: 100%;
+        border-radius: inherit;
+        &:focus {
+            outline: none !important;
+        }
+    }
+    svg {
+        z-index: 1;
+        position: absolute;
+        left: (@height)*0.3;
+        top: (@height)*0.3;
+    }
+}

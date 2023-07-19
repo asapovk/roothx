@@ -1,0 +1,46 @@
+@import '../../../../__shared//ui//theme/theme.less';
+
+
+
+.sidebar-container {
+    position: absolute;
+    top: 60px;
+    left: 0;
+    width: 300px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    .folder-item {
+        cursor: pointer;
+        width: 100%;
+        font-family: Arial, Helvetica, sans-serif;
+        list-style-type: none;
+        padding-left: 20px;
+        line-height: 40px;
+        font-size: 15px;
+        font-weight: 400;
+        color: var(--color-text-on-background-mute);
+        .liner {
+            display: inline-block;
+            border-left: 1px solid;
+            width: 40px;
+            border-color: var(--color-text-on-background-mute);
+        }
+        .name {
+            display: inline-block;
+        }
+        // :hover {
+        //     color: var(--color-text-on-background-strong); 
+        // }
+    }
+    .hovered {
+        background-color: var(--color-panel);
+        //color: var(--color-text-on-background-strong);
+    }
+    .dragging {
+        //display: none;
+        color: var(--color-text-on-background-strong);
+    }
+}

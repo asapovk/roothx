@@ -1,0 +1,502 @@
+.root {
+    display: flex;
+    flex-wrap: wrap;
+    width: 300px;
+    position: relative;
+    background-color: var(--color-white);
+    border-radius: 15px;
+    box-shadow: 0 20px 20px -10px rgba(var(--color-blue-base), 0.3);
+    overflow: hidden;
+    word-break: normal;
+  
+    &.isSmallWidth {
+      width: 260px;
+    }
+  
+    &.isMultiple {
+      flex-wrap: nowrap;
+    }
+  }
+  
+  .calendar {
+    width: 300px !important;
+    background-color: var(--color-white);
+  
+    .isSmallWidth & {
+      width: 260px !important;
+    }
+  }
+  
+  .headline {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 40px;
+    padding: 10px 10px 0;
+  
+    .isSmallWidth & {
+      height: 30px;
+    }
+  }
+  
+  .monthLine {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 40px;
+  
+    .isSmallWidth & {
+      height: 30px;
+    }
+  
+    &Full {
+      width: 100%;
+    }
+  }
+  
+  .month {
+    line-height: 20px;
+    font-family: var(--manrope);
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--color-carbone-base);
+    text-transform: capitalize;
+    padding: 0 5px;
+    white-space: nowrap;
+  }
+  
+  .prev,
+  .next {
+    @mixin reset-button;
+  
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    border-radius: 20px;
+  
+    .isSmallWidth & {
+      width: 30px;
+      height: 30px;
+    }
+  
+    &:not(:disabled) {
+      &:hover {
+        background-color: var(--color-alt-blue-1);
+  
+        svg path {
+          fill: var(--color-blue-base);
+        }
+      }
+  
+      &:active {
+        background-color: var(--color-alt-blue-3);
+  
+        svg path {
+          fill: var(--color-blue-dark);
+        }
+      }
+    }
+  
+    &:disabled {
+      cursor: default;
+  
+      svg path {
+        fill: var(--color-cloud-gray-5);
+      }
+    }
+  
+    &.hidden {
+      visibility: hidden;
+      pointer-events: none;
+    }
+  }
+  
+  .next {
+    transform: scaleX(-1);
+  }
+  
+  .yearEdit {
+    @mixin reset-button;
+  
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    border-radius: 20px;
+    font-family: var(--manrope);
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 20px;
+    color: var(--color-blue-base);
+  
+    &:hover {
+      background-color: var(--color-alt-blue-1);
+    }
+  
+    &:active {
+      background-color: var(--color-alt-blue-3);
+      color: var(--color-blue-dark);
+  
+      svg path {
+        fill: var(--color-blue-dark);
+      }
+    }
+  
+    &Icon {
+      margin-left: 5px;
+    }
+  }
+  
+  .week {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    background-color: var(--color-white);
+  }
+  
+  .dates {
+    margin: 0 10px 10px;
+    overflow: hidden;
+  
+    .isAnimated & {
+      transition: height 300ms linear;
+    }
+  
+    &Sheet {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+  
+      .isSmallWidth & {
+        margin: -5px 0 0 -5px;
+      }
+  
+      .isAnimated & {
+        transition: transform 300ms linear;
+      }
+    }
+  }
+  
+  .day,
+  .date {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 35px;
+  }
+  
+  .day {
+    @mixin reset-button;
+  
+    width: 40px;
+    height: 20px;
+    font-family: var(--manrope);
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 20px;
+    color: var(--color-cloud-gray-7);
+  
+    .isSmallWidth & {
+      width: 30px;
+      height: 15px;
+      font-size: 12px;
+      line-height: 15px;
+    }
+  }
+  
+  .date {
+    position: relative;
+    height: 40px;
+    width: 40px;
+    background-color: rgba(var(--color-white), 0);
+    user-select: none;
+  
+    .isAnimated & {
+      transition: opacity 500ms;
+    }
+  
+    .isSmallWidth & {
+      width: 30px;
+      height: 30px;
+      margin: 5px 0 0 5px;
+      font-size: 12px;
+    }
+  
+    &Number {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 40px;
+      width: 40px;
+      font-family: var(--manrope);
+      font-size: 15px;
+      font-weight: 500;
+      line-height: 20px;
+      color: var(--color-carbone-base);
+      border-radius: 20px;
+      background-color: rgba(var(--color-white), 0);
+  
+      .isSmallWidth & {
+        width: 30px;
+        height: 30px;
+        font-size: 12px;
+      }
+    }
+  
+    &.isWeekend {
+      .dateNumber {
+        color: var(--color-red-base) !important;
+      }
+    }
+  
+    &.isToday {
+      .dateNumber {
+        background-color: var(--color-sky-blue-4);
+      }
+    }
+  
+    &.isSelected {
+      .dateNumber {
+        color: var(--color-carbone-base);
+        border-radius: 0;
+        background-color: var(--color-sky-blue-4);
+      }
+  
+      &.isMonday {
+        .dateNumber {
+          border-radius: 20px 0 0 20px;
+        }
+      }
+  
+      &.isSunday {
+        .dateNumber {
+          border-radius: 0 20px 20px 0;
+        }
+      }
+    }
+  
+    &.isActive {
+      .dateNumber {
+        color: var(--color-white) !important;
+        border-radius: 20px;
+        background-color: var(--color-blue-base);
+      }
+  
+      &Left {
+        background-color: var(--color-sky-blue-4);
+        border-radius: 20px 0 0 20px;
+      }
+  
+      &Right {
+        background-color: var(--color-sky-blue-4);
+        border-radius: 0 20px 20px 0;
+      }
+    }
+  
+    /* stylelint-disable */
+    /* temporary solution */
+    &.isSelected,
+    &.isActiveLeft,
+    &.isActiveRight {
+      .isSmallWidth &::after {
+        content: "";
+        position: absolute;
+        height: 100%;
+        top: 0;
+        background-color: var(--color-sky-blue-4);
+        z-index: -1;
+      }
+    }
+  
+    &.isSelected {
+      .isSmallWidth &::after {
+        width: 35px;
+        left: -2.5px;
+      }
+    }
+  
+    &.isActiveLeft {
+      .isSmallWidth &::after {
+        width: 17.5px;
+        left: 15px;
+      }
+    }
+  
+    &.isActiveRight {
+      .isSmallWidth &::after {
+        width: 17.5px;
+        left: -2.5px;
+      }
+    }
+    /* end temporary solution */
+    /* stylelint-enable */
+  
+    &.isSameActive {
+      .dateNumber {
+        background-color: var(--color-sky-blue-4);
+      }
+  
+      &Left {
+        background-color: var(--color-sky-blue-4);
+        border-radius: 20px 0 0 20px;
+      }
+  
+      &Right {
+        background-color: var(--color-sky-blue-4);
+        border-radius: 0 20px 20px 0;
+      }
+    }
+  
+    &.isUnavailable {
+      .dateNumber {
+        color: var(--color-cloud-gray-5);
+      }
+  
+      &.isToday {
+        .dateNumber {
+          background-color: var(--color-cloud-gray-1);
+        }
+      }
+    }
+  
+    &.isHidden {
+      opacity: 0;
+      cursor: default;
+      pointer-events: none;
+    }
+  }
+  
+  button.date {
+    @mixin reset-button;
+  
+    &:hover {
+      .dateNumber {
+        background-color: var(--color-alt-blue-1);
+        color: var(--color-blue-base);
+        transition: color 200ms, background-color 200ms;
+      }
+    }
+  
+    &:active {
+      .dateNumber {
+        background-color: var(--color-alt-blue-3);
+        color: var(--color-blue-dark);
+        transition: color 200ms, background-color 200ms;
+      }
+    }
+  
+    &.isToday {
+      &:hover {
+        .dateNumber {
+          color: var(--color-white);
+          background-color: var(--color-blue-middle);
+        }
+      }
+  
+      &:active {
+        .dateNumber {
+          color: var(--color-white);
+          background-color: var(--color-blue-dark);
+        }
+      }
+    }
+  
+    &.isSelected {
+      &:hover {
+        .dateNumber {
+          color: var(--color-blue-base);
+          background-color: var(--color-sky-blue-4);
+        }
+      }
+  
+      &:active {
+        .dateNumber {
+          color: var(--color-blue-dark);
+          background-color: var(--color-sky-blue-4);
+        }
+      }
+    }
+  
+    &.isActive {
+      &:hover {
+        .dateNumber {
+          color: var(--color-white);
+          background-color: var(--color-blue-middle);
+        }
+      }
+  
+      &:active {
+        .dateNumber {
+          color: var(--color-white);
+          background-color: var(--color-blue-dark);
+        }
+      }
+  
+      &.isUnavailable {
+        &:hover {
+          .dateNumber {
+            color: var(--color-cloud-gray-7);
+            background-color: var(--color-blue-dark);
+          }
+        }
+      }
+    }
+  }
+  
+  .yearSwitch {
+    width: 300px !important;
+    height: 100%;
+    position: absolute;
+    font-family: var(--manrope);
+    overflow-y: scroll;
+    background-color: var(--color-white);
+    border: 5px solid var(--color-white);
+    z-index: -1;
+  
+    &Visible {
+      z-index: 1;
+    }
+  }
+  
+  .yearRow {
+    @mixin reset-button;
+  
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--manrope);
+    color: var(--color-carbone-base);
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 40px;
+    border-radius: 20px;
+    border-right: 5px solid var(--color-white);
+  
+    &:hover {
+      background-color: var(--color-alt-blue-1);
+      color: var(--color-blue-base);
+    }
+  
+    &:active {
+      background-color: var(--color-alt-blue-3);
+      color: var(--color-blue-dark);
+    }
+  
+    &.current {
+      font-size: 20px;
+      font-weight: 800;
+    }
+  
+    &.disabled {
+      pointer-events: none;
+      color: var(--color-cloud-gray-5);
+    }
+  }
+  

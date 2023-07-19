@@ -1,0 +1,58 @@
+@import '../theme/theme.less';
+
+
+.oj-ui-block-noborder {
+    border: none;
+}
+
+.oj-ui-block-transparent {
+    @borderColor: var(--color-text-on-background-mute);
+    @backgroundColor: transparent;
+    @backgroundColorHover: transparent;    
+    .oj-ui-block()
+}
+
+.oj-ui-block-background {
+    @borderColor: var(--color-text-on-background-mute);
+    @backgroundColor: var(--color-background);
+    @backgroundColorHover: var(--color-background-hover);    
+    .oj-ui-block()
+}
+
+.oj-ui-block-panel {
+    @borderColor: var(--color-text-on-panel-plain);
+    @backgroundColor: var(--color-panel);
+    @backgroundColorHover: var(--color-panel-hover);    
+    .oj-ui-block()
+}
+
+
+.oj-ui-block-secondary {
+    @borderColor: var(--color-text-on-secondary-plain);
+    @backgroundColor: var(--color-secondary);
+    @backgroundColorHover: var(--color-secondary-hover);    
+    .oj-ui-block()
+}
+
+.oj-ui-block-primary {
+    @borderColor: var(--color-text-on-primary-plain);
+    @backgroundColor: var(--color-primary);
+    @backgroundColorHover: var(--color-primary-hover);    
+    .oj-ui-block()
+}
+
+.oj-ui-block() {
+    &:not(.oj-ui-block-noborder) {
+        border: solid 1px;
+        border-radius: 5px;
+        border-color: @borderColor;
+    }
+    background-color: @backgroundColor;
+    &:not(.oj-ui-block-nohover) {
+        cursor: pointer;
+        &:hover {
+            background-color: @backgroundColorHover;
+        }
+    } 
+}
+
