@@ -1,0 +1,105 @@
+@import '../theme/theme.less';
+
+
+.oj-ui-icon {
+    height: 16px;
+    width: 16px;
+    &.xs {
+        height: 10px;
+        width: 10px; 
+    }
+    &.s {
+        height: 12px;
+        width: 12px; 
+    }
+    &.l {
+        height: 20px;
+        width: 20px; 
+    }
+    &.xl {
+        height: 24px;
+        width: 24px; 
+    } 
+}
+
+.icon_on-background {
+    fill: var(--color-text-on-background-plain);
+    &.muted {
+        fill: var(--color-text-on-background-mute);
+    }
+    &.clickable {
+        cursor: pointer;
+        &:hover {
+            fill: var(--color-text-on-background-strong);
+        }
+    }
+}
+.icon_on-primary {
+    fill: var(--color-text-on-primary-plain);
+    &.muted {
+        fill: var(--color-text-on-primary-mute);
+    }
+    &.clickable {
+        cursor: pointer;
+        &:hover {
+            fill: var(--color-text-on-primary-strong);
+        }
+    }
+}
+.icon_on-secondary {
+    fill: var(--color-text-on-secondary);
+    &.muted {
+        fill: var(--color-text-on-secondary-mute);
+    }
+    &.clickable {
+        cursor: pointer;
+        :hover {
+            fill: var(--color-text-on-secondary-strong);
+        }
+    }
+}
+.icon_primary {
+    fill: var(--color-primary);
+    &.clickable {
+        cursor: pointer;
+        :hover {
+            fill: var(--color-primary-hover);
+        }
+    }
+}
+.icon_secondary {
+    fill: var(--color-secondary);
+    &.clickable {
+        cursor: pointer;
+        :hover {
+            fill: var(--color-secondary-hover);
+        }
+    }
+}
+.icon_error {
+    fill: var(--color-error);
+    &.clickable {
+        cursor: pointer;
+        :hover {
+            fill: var(--color-error-hover);
+        }
+    }
+}
+.icon_warning {
+    fill: var(--color-warning);
+    &.clickable {
+        cursor: pointer;
+        :hover {
+            fill: var(--color-warning-hover);
+        }
+    }
+}
+.icon_success {
+    fill: var(--color-success);
+    &.clickable {
+        cursor: pointer;
+        :hover {
+            fill: var(--color-success-hover);
+        }
+    }
+}

@@ -1,0 +1,46 @@
+@import '../theme//theme.less';
+
+@keyframes showFromTop {
+    0% {
+      transform: translate(0, 0);
+      opacity: 0;
+    }
+  
+    100% {
+      transform: translate(0, 10px);
+      opacity: 1;
+    }
+  }
+  
+
+ 
+.oj-ui-tooltip-wrapper {
+    position: relative;
+    display: inline-block;
+    pointer-events: auto;
+    .oj-ui-tooltip {
+        line-height: 40px;
+        text-align: center;
+        font-size: 16px;
+        position: absolute;
+        bottom: 120%;
+        border-radius: 5px;
+        min-width: 120px;
+        height: 40px;
+        color: var(--color-text-on-background-strong);;
+        background-color: var(--color-gray);
+        animation-name: showFromTop;
+        animation-duration: 200ms;
+        animation-fill-mode: forwards;      
+        &:before {
+            content: "";
+            position:absolute;
+            right: 40%;
+            margin-left:-5px;
+            top: 120%;
+            transform:translateY(-50%);
+            border:10px solid #000;
+            border-color:  var(--color-gray) transparent   transparent   transparent ;
+        }
+    }
+}

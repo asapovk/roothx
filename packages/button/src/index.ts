@@ -1,4 +1,4 @@
-import { Element, Tree } from '../../../src/root/NTree';
+import { Element, Tree } from '../../../packages/core/lib/NTree';
 import './styles.css';
 import cn from 'classnames';
 

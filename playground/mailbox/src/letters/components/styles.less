@@ -1,0 +1,46 @@
+@import '../../../../__shared//ui/theme//theme.less';
+
+
+.lettersListContainer {
+
+    .lettersListButton {
+        border: none;
+        width: 280px;
+        height: 40px;
+        padding: 10px 10px 10px 10px;
+        background-color: var(--color-primary);
+        color: var(--color-text-on-background-strong);
+        border-radius: 5px;
+        text-align: center;
+        cursor: pointer;
+        &:hover {
+            background-color: var(--color-primary-hover);
+        }
+    }
+
+
+    .lettersList {
+        max-width: 800px;
+        //min-width: 600px;
+        margin: auto;
+
+        .lettersListItem {
+            font-family: Arial, Helvetica, sans-serif;
+            height: 80px;
+            padding: 20px;
+            cursor: pointer;
+            box-sizing: border-box;
+            border: 1px solid var(--color-text-on-background-mute);
+            margin: 10px;
+            border-radius: 20px;
+            &:hover {
+                border-color: var(--color-text-on-background-strong);
+                background-color: rgb(125, 148, 188);
+                //border: none;
+            }
+        }
+    }
+    
+}
+
+

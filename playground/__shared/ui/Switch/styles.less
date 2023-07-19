@@ -1,0 +1,108 @@
+@import '../theme/theme.less';
+
+
+
+@sHeight: 17px;
+@sWidth: 30px;
+@sRadius: 21px;
+@sBorder: 2px;
+
+@mHeight: 23px;
+@mWidth: 45px;
+@mRadius: 29px;
+@mBorder: 4px;
+
+@lHeight: 34px;
+@lWidth: 60px;
+@lRadius: 43px;
+@lBorder: 5px;
+
+
+@onColor: var(--color-primary);
+@offColor:  var(--color-gray);
+@sliderColor: var(--color-background);
+
+
+.oj-ui-switch-s {
+    @height: @sHeight;
+    @width: @sWidth;
+    @radius: @sRadius;
+    @border: @sBorder;
+    .oj-ui-switch()
+}
+
+
+.oj-ui-switch-l {
+    @height: @lHeight;
+    @width: @lWidth;
+    @radius: @lRadius;
+    @border: @lBorder;
+    .oj-ui-switch()
+}
+
+.oj-ui-switch-m {
+    @height: @mHeight;
+    @width: @mWidth;
+    @radius: @mRadius;
+    @border: @mBorder;
+    .oj-ui-switch()
+}
+
+
+
+.oj-ui-switch() {
+    position: relative;
+    display: inline-block;
+    width: @width;
+    height: @height;
+    input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+
+        &:checked + .slider {
+            background-color: @onColor;
+        }
+        &:checked + .slider:before {
+            -webkit-transform: translateX(@height - 3*(@height/@mHeight));
+            -ms-transform: translateX(@height - 3*(@height/@mHeight));
+            transform: translateX(@height - 3*(@height/@mHeight));
+            border-color: @onColor;
+        }
+        &:focus + .slider {
+            box-shadow: 0 0 1px @onColor;
+        }
+    }
+
+    .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: @offColor;
+        -webkit-transition: .2s;
+        transition: .2s;
+        border-radius: @height;
+        &:before {
+            position: absolute;
+            box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+            border-radius: 50%;
+            border-width: @border;
+            border-color: @offColor;
+            border-style: solid;
+            content: "";
+            height: @radius;
+            width: @radius;
+            left: -2px*(@height/@mHeight);
+            bottom: -3px*(@height/@mHeight);
+            background-color: @sliderColor;
+            -webkit-transition: .2s;
+            transition: .2s;
+          }
+      }
+}
+  
