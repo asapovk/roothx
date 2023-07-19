@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { IState } from '../../_redux/types';
 import './styles.less';
 import { IFolder } from '../interfaces/Folder.interface';
@@ -52,7 +53,47 @@ export const NestedFolders = (
     tree.tag(
       {
         tagName: 'li',
+        eventListeners: {
+          dragenter: () => {
+            trigger('draggableFolders', 'dragFolderHover', {
+              parentId: folder.parentId,
+              targetIndex: index,
+            });
+          },
+          dragover: (e) => {
+            e.preventDefault();
+            if (isDragHovered) {
+              trigger('draggableFolders', 'cancelDragLeave', null);
+            }
+          },
+          dragleave: (e) => {
+            trigger('draggableFolders', 'dragHoverLeave', {
+              parentId: folder.parentId,
+              index: index,
+            });
+          },
+          dragend: () => {
+            //console.log('DDDD');
+            trigger('draggableFolders', 'dragFolderDrop', {
+              parentId: folder.parentId,
+              targetIndex: index,
+            });
+          },
+          dragstart: (e) => {
+            // const ctx = document.createElement('div');
+            // ctx.innerText = 'Переместить';
+            // ctx.setAttribute('style', dataTransferStyle);
+            // document.body.appendChild(ctx);
+            // e.dataTransfer.setDragImage(ctx, 0, 0);
+            trigger('draggableFolders', 'dragFolderStart', {
+              index: index,
+              parentId: folder.parentId,
+            });
+          },
+        },
         attributes: {
+          //@ts-ignore
+          draggable: true,
           class: classNames('folder-item', {
             hovered: isDragHovered,
             dragging: isDragged,
