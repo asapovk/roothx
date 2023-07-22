@@ -10,6 +10,7 @@ import { Tree } from '../../../../../packages/core/lib/NTree';
 import { Tags } from '../../../../../packages/core/lib/Tags';
 import { IState } from '../../_redux/types';
 import { Reflexio } from '../../root-redux/reflector';
+import { MakeNewFolder } from './MakeNewFolder';
 import { NestedFolders } from './NestedFolders';
 
 // import { useTrigger } from '../../../folders/src/_redux/useTrigger';
@@ -59,6 +60,7 @@ export const Sidebar = () => {
           click: () => trigger('setContent', 'openWindow', { id: '-1' }),
         },
       }),
+      MakeNewFolder(tags, 'make_new_f_btn'),
       tags.div({
         className: 'folders-list',
         child: list.reduce(
