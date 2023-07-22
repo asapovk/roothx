@@ -5,6 +5,7 @@ import { Search } from '../../../../__shared/ui/Svg/Search';
 import { Settings } from '../../../../__shared/ui/Svg/Settings';
 import { IState } from '../../_redux/types';
 import { Reflexio } from '../../root-redux/reflector';
+import { MainButton } from './MainButton';
 import './styles.less';
 //const vertialMenuItems  =  ['profile', 'contacts', 'setting' ]
 
@@ -32,16 +33,7 @@ export const MainMenu = () => {
       class: 'main-menu-container',
     },
     child: [
-      tags.div({
-        className: 'main-button',
-        child: tags.div(
-          {
-            className: 'horizontal-menu-item',
-            child: Search(tags, {}, 'main-main-icon'),
-          },
-          'main-main-div'
-        ),
-      }),
+      MainButton(tags),
       tags.div({
         className: 'horizontal-menu',
         child: [

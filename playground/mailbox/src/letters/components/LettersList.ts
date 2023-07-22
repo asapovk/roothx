@@ -46,16 +46,6 @@ export const LettersList = () => {
     },
     tagName: 'div',
     child: [
-      tags.tag({
-        child: 'New Letter',
-        tagName: 'button',
-        attributes: {
-          class: 'lettersListButton',
-        },
-        eventListeners: {
-          click: () => trigger('setContent', 'openWindow', { id: '-1' }),
-        },
-      }),
       tags.div({
         child: ComposeGrid(),
       }),

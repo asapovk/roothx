@@ -4,14 +4,34 @@
 
 .sidebar-container {
     position: absolute;
-    top: 60px;
     left: 0;
     width: 300px;
     height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: start;
-    align-items: center;
+
+    .lettersListButton {
+        border: none;
+        width: 280px;
+        height: 42px;
+        margin-left: 5px;
+        padding: 10px 10px 10px 10px;
+        background-color: var(--color-primary);
+        color: var(--color-text-on-background-strong);
+        border-radius: 5px;
+        text-align: center;
+        cursor: pointer;
+        &:hover {
+            background-color: var(--color-primary-hover);
+        }
+    }
+
+    .folders-list {
+
+        display: flex;
+        flex-direction: column;
+        justify-content: start;
+        align-items: center;
+
+
     .folder-item {
         cursor: pointer;
         width: 100%;
@@ -43,4 +63,5 @@
         //display: none;
         color: var(--color-text-on-background-strong);
     }
+}
 }

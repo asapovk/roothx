@@ -48,18 +48,33 @@ export const Sidebar = () => {
     attributes: {
       class: 'sidebar-container',
     },
-    child: list.reduce(
-      (v, f, i) => [
-        ...v,
-        ...NestedFolders(tags, {
-          folder: f,
-          index: i,
-          nestingLevel: 0,
-          key: `${f.parentId || 'root'}_${f.folderId}`,
-        }),
-      ],
-      []
-    ),
+    child: [
+      tags.tag({
+        child: 'New Letter',
+        tagName: 'button',
+        attributes: {
+          class: 'lettersListButton',
+        },
+        eventListeners: {
+          click: () => trigger('setContent', 'openWindow', { id: '-1' }),
+        },
+      }),
+      tags.div({
+        className: 'folders-list',
+        child: list.reduce(
+          (v, f, i) => [
+            ...v,
+            ...NestedFolders(tags, {
+              folder: f,
+              index: i,
+              nestingLevel: 0,
+              key: `${f.parentId || 'root'}_${f.folderId}`,
+            }),
+          ],
+          []
+        ),
+      }),
+    ],
   });
 
   // return (
