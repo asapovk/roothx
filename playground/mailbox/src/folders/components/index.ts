@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 // import { IState } from '../../../folders/src/_redux/types';
 // import './styles.less';
 // import React, { Fragment, memo, useEffect } from 'react';
@@ -15,7 +16,14 @@ import { NestedFolders } from './NestedFolders';
 const reflexio = new Reflexio<IState['folders']>();
 
 const tree = new Tree({
-  makeElement: (tag) => document.createElement(tag),
+  //@ts-ignore
+  makeElement: (tag) => {
+    if (tag === 'svg' || tag === 'path') {
+      return document.createElementNS('http://www.w3.org/2000/svg', tag);
+    } else {
+      return document.createElement(tag);
+    }
+  },
 });
 //@ds-replace
 const tags = new Tags(tree);

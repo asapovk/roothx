@@ -5,9 +5,9 @@ export class Tags {
   public root: Tree['root'];
   public tag: Tree['tag'];
   constructor(tree: Tree) {
-    this.tree = new Tree({
-      makeElement: (tag) => document.createElement(tag),
-    });
+    this.tree = tree; //new Tree({
+    //   makeElement: (tag) => document.createElement(tag),
+    // });
     this.root = (args, key) => this.tree.root(args, key);
     this.tag = (args, key) => this.tree.tag(args, key);
   }
@@ -67,7 +67,7 @@ export class Tags {
 
   public div(
     opts: {
-      child?: Array<Element | null> | Element | string | null;
+      child?: Array<Element | string | null> | Element | string | null;
       className?: string;
       style?: string;
       getNode?: (e: HTMLElement) => void;

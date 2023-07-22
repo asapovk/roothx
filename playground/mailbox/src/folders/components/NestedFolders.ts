@@ -6,6 +6,7 @@ import classNames from 'classnames';
 import { Reflexio } from '../../root-redux/reflector';
 import { Tree } from '../../../../../packages/core/lib/NTree';
 import { Tags } from '../../../../../packages/core/lib/Tags';
+import { Arrow } from '../../../../__shared/ui/Svg/Arrow';
 //import { Arrow } from '../../_ui/Svg/Arrow';
 
 //это если надо сдалать кастомный ghost
@@ -114,7 +115,29 @@ export const NestedFolders = (
                   folderId: folder.folderId,
                 }),
               className: 'name',
-              child: `${folder.name}`,
+              child: [
+                list.length
+                  ? Arrow(
+                      tree,
+                      {
+                        size: 's',
+                        style: {
+                          marginRight: '5px',
+                          transform: isOpened ? 'rotate(90deg)' : undefined,
+                        },
+                      },
+                      `${folder.parentId || 'root'}_${folder.folderId}as`
+                    )
+                  : null,
+                tree.tag(
+                  {
+                    attributes: {},
+                    child: `${folder.name}`,
+                    tagName: 'span',
+                  },
+                  `${folder.parentId || 'root'}_${folder.folderId}sp`
+                ),
+              ],
             },
             `${folder.parentId || 'root'}_${folder.folderId}name`
           ),

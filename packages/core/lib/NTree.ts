@@ -4,6 +4,10 @@ export interface ITagAttributes {
   class?: string;
   style?: string;
   value?: string;
+  width?: string;
+  height?: string;
+  viewBox?: string;
+  d?: string;
   id?: string;
 }
 
@@ -179,15 +183,19 @@ export class Tree {
     opts: {
       tagName: string;
       child:
-        | Array<Element | null | undefined>
+        | Array<Element | null | string | undefined>
         | Element
         | string
         | null
         | undefined;
       attributes: {
+        width?: string;
+        height?: string;
+        viewBox?: string;
         value?: string;
         style?: string;
         id?: string;
+        d?: string;
         class?: string;
       };
       eventListeners?: ITagListeners;
