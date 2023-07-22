@@ -82,6 +82,7 @@ export class Tags {
         getNode: opts.getNode,
         attributes: {
           class: opts.className,
+          style: opts.style,
         },
         eventListeners: opts.onClick
           ? {
