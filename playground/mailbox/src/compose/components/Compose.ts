@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { IState } from '../../_redux/types';
 import './Compose.less';
 import { Reflexio } from '../../root-redux/reflector';
@@ -21,7 +22,10 @@ export const Compose = () => {
       body: state.compose.body,
       to: state.compose.to,
     }),
-    Compose
+    () => {
+      console.log('i do nothing in compose');
+    }
+    //Compose
   );
 
   const { subject, body, to } = state;
@@ -34,6 +38,20 @@ export const Compose = () => {
         noCb: () => trigger('openPopup', 'close', null),
         cancelCb: () => console.log('cancel'),
       });
+      console.log('mountCompose');
+      //@ts-ignore
+      tinymce.init({
+        mode: 'exact',
+        selector: '#editor_target',
+      });
+    },
+    onUnmount() {
+      console.log('UNmountCompose');
+      //@ts-ignore
+      tinymce.activeEditor.remove({
+        selector: '#editor_target',
+      });
+      //@ts-ignore
     },
     tagName: 'div',
     attributes: {
@@ -60,6 +78,7 @@ export const Compose = () => {
               }),
               tags.textArea({
                 className: 'body',
+                id: 'editor_target',
                 value: state.body,
                 onChange: (e) =>
                   trigger('setContent', 'syncForm', {
@@ -80,7 +99,9 @@ export const Compose = () => {
               tags.button({
                 child: 'Закрыть',
                 className: 'composeButtonsGroupItm',
-                onClick: () => trigger('setContent', 'closeWindow', null),
+                onClick: () => {
+                  trigger('setContent', 'closeWindow', null);
+                },
               }),
             ],
           }),

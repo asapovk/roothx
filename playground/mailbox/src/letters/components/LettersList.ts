@@ -58,7 +58,7 @@ export const LettersList = () => {
               tags,
               {
                 size: 'l',
-                w: '600px',
+                w: '750px',
                 rightIcon: Search(tags, { size: 'l' }, 'letters_search_icon'),
               },
               'letters_search'

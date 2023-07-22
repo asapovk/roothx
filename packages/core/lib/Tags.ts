@@ -125,6 +125,7 @@ export class Tags {
     );
   public textArea(
     opts: {
+      id?: string;
       value?: string;
       onChange?: (e) => void;
       onFocus?: (e) => void;
@@ -149,6 +150,7 @@ export class Tags {
             : undefined,
         getNode: opts && opts.getNode ? opts.getNode : undefined,
         attributes: {
+          id: opts && opts.id ? opts.id : undefined,
           class: opts && opts.className ? opts.className : undefined,
           value: opts && opts.value ? opts.value : undefined,
         },

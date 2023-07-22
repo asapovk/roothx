@@ -96,6 +96,7 @@ export class Tree {
     },
     key?: string
   ) {
+    let isMounting = false;
     if (!this.rootElement) {
       this.mountRoot(
         key,
@@ -104,9 +105,10 @@ export class Tree {
         opts.eventListeners,
         opts.isMute
       );
-      if (opts.onMount) {
-        setTimeout(opts.onMount);
-      }
+      isMounting = true;
+      // if (opts.onMount) {
+      //   setTimeout(opts.onMount);
+      // }
       if (opts.onUnmount) {
         this.onUnmountRoot = opts.onUnmount;
       }
@@ -132,6 +134,9 @@ export class Tree {
         this.rootElement.unMute(resp);
       }
     }
+    if (isMounting && resp && opts.onMount) {
+      setTimeout(opts.onMount);
+    }
 
     return resp;
   }
@@ -141,10 +146,10 @@ export class Tree {
       this.cleanFactory();
     }
     //@ts-ignore
-    this.rootElement.node.remove(); //async
     if (this.onUnmountRoot) {
       this.onUnmountRoot();
     }
+    this.rootElement.node.remove(); //async
     this.rootElement = undefined;
     this.elements = {};
   };
