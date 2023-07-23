@@ -92,12 +92,12 @@ export const Compose = () => {
             className: 'composeButtonsGroup',
             child: [
               tags.button({
-                child: 'Сохранить',
+                child: 'Submit',
                 className: 'composeButtonsGroupItm',
                 onClick: () => trigger('submitLetter', 'init', null),
               }),
               tags.button({
-                child: 'Закрыть',
+                child: 'Close',
                 className: 'composeButtonsGroupItm',
                 onClick: () => {
                   trigger('setContent', 'closeWindow', null);
