@@ -38,7 +38,7 @@ export class SubmitLetterScript {
       id: openedComposeId,
       noCheck: true,
     }); // дропаем окно
-    this.opts.trigger('showNotification', 'init', 'Письмо успешно сохранено'); // кидаем нотификейшн
+    this.opts.trigger('showNotification', 'init', 'Letter is saved'); // кидаем нотификейшн
     // kill instance
     this.opts.drop(); // убиваем инстанс
   }

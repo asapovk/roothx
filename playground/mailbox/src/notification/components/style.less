@@ -1,13 +1,15 @@
-
+@import '../../../../__shared/ui/theme//theme.less';
 
 
 .notification {
     position: absolute;
+    font-family: Arial, Helvetica, sans-serif;
     top: 20px;
     right: 20px;
     padding: 10px;
-    width: 200px;
-    background-color: rgb(21, 13, 53);
+    min-width: 200px;
+    background-color: var(--color-background-hover);
     border-radius: 5px;
-    color: rgb(151, 148, 41);
+    border: solid 1px var(--color-primary);
+    color:  var(--color-primary);
 }
