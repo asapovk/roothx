@@ -3,7 +3,7 @@ import { IState } from '../../_redux/types';
 import './style.less';
 import { Reflexio } from '../../root-redux/reflector';
 import { Tree } from '../../../../../packages/core/lib/NTree';
-
+import cn from 'classnames';
 const reflexio = new Reflexio<IState['notification']['notifications']>();
 const tree = new Tree({
   makeElement: (tag) => document.createElement(tag),
@@ -14,13 +14,23 @@ export const Notification = () => {
     Notification
   );
 
+  const notification = state[0];
+
   return tree.root(
     {
-      attributes: {
-        class: 'notification',
-        //style: !state[0] ? 'display: none;' : undefined,
-      },
-      isMute: !state[0],
+      isMute: !notification,
+      attributes: notification
+        ? {
+            class: cn('notify', {
+              notifyPrimary: notification.type === 'primary',
+              notifySuccess: notification.type === 'success',
+              notifyError: notification.type === 'error',
+              notifyWarning: notification.type === 'warning',
+              notifyWhite: notification.type === 'white',
+            }),
+            //style: !state[0] ? 'display: none;' : undefined,
+          }
+        : undefined, //Need upgrade in core
       eventListeners: {
         click: () => trigger('showNotification', 'close', null),
       },

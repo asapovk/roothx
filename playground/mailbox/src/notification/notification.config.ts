@@ -10,7 +10,17 @@ export interface INotificationState {
 
 export interface INotificationTriggers {
   showNotification: TriggerPhaseWrapper<{
-    init: string;
+    init: {
+      message: string;
+      afterCloseAction?: {
+        type: string;
+        payload?: any;
+      };
+      awaitClose?: boolean;
+      blocksQueue?: boolean;
+      showTime?: number;
+      type?: 'white' | 'primary' | 'warning' | 'success' | 'error';
+    };
     close: null;
   }>;
 }
@@ -28,7 +38,9 @@ export const showNotificationBite = Bite<
 >(
   {
     init: (state, payload) => {
-      state.notifications = [{ content: payload }];
+      state.notifications = [
+        { content: payload.message, type: payload.type || 'primary' },
+      ];
     },
     close: (state, payload) => {
       state.notifications = [];

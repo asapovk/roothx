@@ -6,7 +6,10 @@ import {
   INotificationTriggers,
 } from '../notification/notification.config';
 import { IPopupState, IPopupTriggers } from '../popup/popup.config';
-import { IFoldersState, IFoldersTriggers } from '../folders/interfaces/Folder.interface';
+import {
+  IFoldersState,
+  IFoldersTriggers,
+} from '../folders/interfaces/Folder.interface';
 // import {
 //   ISettingsState,
 //   ISettingsTriggers,

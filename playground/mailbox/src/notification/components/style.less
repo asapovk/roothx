@@ -1,7 +1,7 @@
 @import '../../../../__shared/ui/theme//theme.less';
 
 
-.notification {
+.notify {
     position: absolute;
     font-family: Arial, Helvetica, sans-serif;
     top: 20px;
@@ -10,6 +10,29 @@
     min-width: 200px;
     background-color: var(--color-background-hover);
     border-radius: 5px;
+}
+
+.notifyWhite {
+    border: solid 1px var(--color-text-on-background-strong);
+    color:  var(--color-text-on-background-strong);
+}
+
+.notifyPrimary {
     border: solid 1px var(--color-primary);
     color:  var(--color-primary);
+}
+
+.notifySuccess {
+    border: solid 1px var(--color-success);
+    color:  var(--color-success);
+}
+
+.notifyWarning {
+    border: solid 1px var(--color-warning);
+    color:  var(--color-primary);
+}
+
+.notifyError {
+    border: solid 1px var(--color-error);
+    color:  var(--color-error);
 }
