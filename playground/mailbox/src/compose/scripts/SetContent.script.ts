@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { ScriptUpdateArgsType } from '@reflexio/reflexio-on-redux/lib/types';
 import { IState, ITriggers } from '../../../src/_redux/types';
 import { useSystem } from '@reflexio/reflexio-on-redux/lib';
@@ -176,12 +177,27 @@ export class SetContentScript {
       | 'closeWindow'
       | 'commitFormContent'
       | 'openFromList'
+      | 'validateForm'
     >
   ) {
     //console.log(this.opts.getCurrentState())
     // console.log(args.status);
     // console.log(args.payload);
     // console.log(this.system)
+    if (args.status === 'validateForm') {
+      //@ts-ignore
+      const id: string = args.payload.id;
+      if (!this.forms[id].subject) {
+        this.opts.trigger('setContent', 'throwValidationResult', {
+          error: 'Fill subject field',
+          ok: false,
+        });
+      } else {
+        this.opts.trigger('setContent', 'throwValidationResult', {
+          ok: true,
+        });
+      }
+    }
     if (args.status === 'syncForm') {
       this.handleSyncForm(args as any);
     }

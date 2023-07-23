@@ -43,6 +43,12 @@ export interface IComposeTriggers {
       text: string;
       input: 'subject' | 'body';
     };
+    validateForm: { id: string };
+    throwValidationResult: {
+      warning?: string;
+      error?: string;
+      ok: boolean;
+    };
     done: null;
   }>;
   submitLetter: TriggerPhaseWrapper<{
@@ -69,6 +75,8 @@ const setContentBite = Bite<
 >(
   {
     init: null,
+    validateForm: null,
+    throwValidationResult: null,
     changeItem: changeItemReducer,
     openFromList: null,
     openWindow: openWindowReducer,

@@ -22,6 +22,23 @@ export class SubmitLetterScript {
   ) {
     const { openedComposeId } = this.opts.getCurrentState().compose;
     // save
+    //First we need to validate form;
+    const valRes = await this.opts.hook(
+      'setContent',
+      'validateForm',
+      'throwValidationResult',
+      {
+        id: openedComposeId,
+      }
+    );
+    if (valRes.error) {
+      this.opts.trigger('showNotification', 'init', {
+        type: 'error',
+        message: valRes.error,
+      });
+
+      return;
+    }
     this.opts.trigger('setContent', 'commitFormContent', null); // сохранили данные из локал  в стейт
     const { subject, body } = this.opts.getCurrentState().compose; // читаем стейт
     // start
