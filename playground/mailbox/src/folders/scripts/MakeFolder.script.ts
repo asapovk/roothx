@@ -38,6 +38,18 @@ export class MakeNewFolderScript {
           type: 'error',
         });
       } else {
+        const newFolder: IFolder = {
+          count: 0,
+          folderId: `${Math.random()}`,
+          parentId: null,
+          isOpened: false,
+          name: this.value,
+        };
+        this.opts.trigger('folders', 'addNewFolder', {
+          folder: newFolder,
+          index: 0,
+          parentId: 'root',
+        });
         this.opts.trigger('dialog', 'closeDialog', null);
       }
     }
