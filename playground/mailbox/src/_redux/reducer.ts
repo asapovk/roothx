@@ -4,7 +4,7 @@ import { lettersSlice } from '../letters/letters.config';
 import { notificationSlice } from '../notification/notification.config';
 import { popupSlice } from '../popup/popup.config';
 import { sidebarSlice } from '../folders/folders.config';
-//import { settingsSlice } from 'src/settings/settings.config';
+import { appSlice } from '../app/app.config';
 
 const rootReducer = combineReducers({
   ...lettersSlice.reducer,
@@ -13,6 +13,7 @@ const rootReducer = combineReducers({
   ...notificationSlice.reducer,
   ...popupSlice.reducer,
   ...sidebarSlice.reducer,
+  ...appSlice.reducer,
 });
 
 export default rootReducer;

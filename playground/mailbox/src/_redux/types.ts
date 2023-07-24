@@ -10,6 +10,7 @@ import {
   IFoldersState,
   IFoldersTriggers,
 } from '../folders/interfaces/Folder.interface';
+import { IAppState, IAppTrigges } from '../app/app.config';
 // import {
 //   ISettingsState,
 //   ISettingsTriggers,
@@ -22,6 +23,7 @@ export type IState = {
   notification: INotificationState;
   popup: IPopupState;
   folders: IFoldersState;
+  app: IAppState;
 };
 
 export type ITriggers = ILettersTriggers &
@@ -29,4 +31,5 @@ export type ITriggers = ILettersTriggers &
   IComposeTriggers &
   INotificationTriggers &
   IPopupTriggers &
+  IAppTrigges &
   IFoldersTriggers;

@@ -30,6 +30,26 @@ export interface Element {
   unMute?: (element: Element) => void;
 }
 
+export function createPortal() {
+  let teleportingChild:
+    | Element
+    | string
+    | null
+    | Array<Element | string | null>;
+  const portal = {
+    fromPortal: () => teleportingChild,
+    toPortal: (
+      child: Element | string | null | Array<Element | string | null>
+    ) => {
+      teleportingChild = child;
+
+      return null;
+    },
+  };
+
+  return portal;
+}
+
 export function Root(element: HTMLElement): void {
   const rootElement = document.getElementById('app');
   if (rootElement) {

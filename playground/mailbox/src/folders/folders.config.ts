@@ -86,7 +86,7 @@ export const foldersBite = Bite<
     typing: null,
   },
   {
-    canTrigger: ['folders', 'loadFolders', 'draggableFolders'],
+    canTrigger: ['folders', 'loadFolders', 'draggableFolders', 'appController'],
     instance: 'stable',
     updateOn: ['folders'],
     triggerStatus: 'init',

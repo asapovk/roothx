@@ -11,10 +11,14 @@ import { Tags } from '../../../../../packages/core/lib/Tags';
 import { IState } from '../../_redux/types';
 import { Reflexio } from '../../root-redux/reflector';
 import { MakeNewFolder } from './MakeNewFolder';
+import { MakeNewFolderForm } from './MakeNewFolderForm';
 import { NestedFolders } from './NestedFolders';
 
 // import { useTrigger } from '../../../folders/src/_redux/useTrigger';
-const reflexio = new Reflexio<IState['folders']>();
+const reflexio = new Reflexio<{
+  folders: IState['folders'];
+  app: IState['app'];
+}>();
 
 const tree = new Tree({
   //@ts-ignore
@@ -33,13 +37,13 @@ export const Sidebar = () => {
   //   trigger('folders', 'init', null); //заводим главный скрипт отвечающий за логику папок
   // }, []);
 
-  const { state: sidebarState, trigger } = reflexio.useReflexio(
-    (state: IState) => state.folders,
+  const { state, trigger } = reflexio.useReflexio(
+    (state: IState) => ({ folders: state.folders, app: state.app }),
     Sidebar
   );
 
-  const list = sidebarState.foldersMap['root']?.children || [];
-  const isOpened = sidebarState.foldersMap['root']?.isOpened || false;
+  const list = state.folders.foldersMap['root']?.children || [];
+  const isOpened = state.folders.foldersMap['root']?.isOpened || false;
 
   return tags.root({
     onMount() {
@@ -60,7 +64,23 @@ export const Sidebar = () => {
           click: () => trigger('setContent', 'openWindow', { id: '-1' }),
         },
       }),
-      MakeNewFolder(tags, 'make_new_f_btn'),
+      MakeNewFolder(
+        tags,
+        {
+          clickNew: () => {
+            trigger('dialog', 'init', () =>
+              trigger('dialog', 'closeDialog', null)
+            );
+            trigger('dialog', 'openDialog', null);
+          },
+        },
+        'make_new_f_btn'
+      ),
+      MakeNewFolderForm(
+        tags,
+        { isShown: Boolean(state.app.dialog?.isOpen) },
+        'make_new_form'
+      ),
       tags.div({
         className: 'folders-list',
         child: list.reduce(

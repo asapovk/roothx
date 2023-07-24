@@ -5,7 +5,7 @@ import { LettersList } from './letters/components/LettersList';
 import { Notification } from './notification/components/Notification';
 import { Popup } from './popup/components/Window';
 import { MainMenu } from './main-menu/components';
-
+import { Dialog } from './app/components/Dialog';
 
 const tree = new Tree({
   //@ts-ignore
@@ -25,7 +25,14 @@ export const Application = () =>
       attributes: {
         id: 'app_root',
       },
-      child: [Sidebar(), Notification(), LettersList(), Popup(), MainMenu()],
+      child: [
+        Sidebar(),
+        Notification(),
+        LettersList(),
+        Popup(),
+        MainMenu(),
+        Dialog(),
+      ],
     },
     'app_root'
   );

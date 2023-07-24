@@ -4,6 +4,7 @@ import { sidebarSlice } from '../folders/folders.config';
 import { lettersSlice } from '../letters/letters.config';
 import { notificationSlice } from '..//notification/notification.config';
 import { popupSlice } from '../popup/popup.config';
+import { appSlice } from '../app/app.config';
 //import { settingsSlice } from 'src/settings/settings.config';
 import rootReducer from './reducer';
 import { System, useSystem } from '@reflexio/reflexio-on-redux/lib/System';
@@ -16,6 +17,7 @@ function configureStore() {
     notificationSlice.middleware,
     popupSlice.middleware,
     sidebarSlice.middleware,
+    appSlice.middleware,
   ];
 
   const store = createStore(

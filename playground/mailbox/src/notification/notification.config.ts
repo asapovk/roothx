@@ -21,6 +21,8 @@ export interface INotificationTriggers {
       showTime?: number;
       type?: 'white' | 'primary' | 'warning' | 'success' | 'error';
     };
+    startCloseSequence: null;
+    stopInitSequence: null;
     close: null;
   }>;
 }
@@ -42,6 +44,8 @@ export const showNotificationBite = Bite<
         { content: payload.message, type: payload.type || 'primary' },
       ];
     },
+    startCloseSequence: null,
+    stopInitSequence: null,
     close: (state, payload) => {
       state.notifications = [];
     },

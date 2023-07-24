@@ -1,9 +1,9 @@
-import { ScriptUpdateArgsType } from '@reflexio/reflexio-on-redux/lib/types';
-import { IState, ITriggers } from '../../_redux/types';
 import {
+  ScriptUpdateArgsType,
   ScriptOptsType,
   ScriptInitArgsType,
 } from '@reflexio/reflexio-on-redux/lib/types';
+import { IState, ITriggers } from '../../_redux/types';
 import {
   INotificationState,
   INotificationTriggers,
@@ -34,7 +34,7 @@ export class NotificationScrit {
     args: ScriptUpdateArgsType<
       INotificationTriggers,
       'showNotification',
-      'close'
+      'close' | 'stopInitSequence' | 'startCloseSequence'
     >
   ) {
     if (args.status === 'close') {
@@ -43,5 +43,11 @@ export class NotificationScrit {
         clearTimeout(this.timeout);
       }
     }
+    // if (args.status === 'stopInitSequence') {
+
+    // }
+    // if (args.status === 'startCloseSequence') {
+
+    // }
   }
 }
