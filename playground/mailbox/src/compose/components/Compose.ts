@@ -22,9 +22,7 @@ export const Compose = () => {
       body: state.compose.body,
       to: state.compose.to,
     }),
-    () => {
-      console.log('i do nothing in compose');
-    }
+    []
     //Compose
   );
 

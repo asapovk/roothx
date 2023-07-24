@@ -24,6 +24,7 @@ const reflexio = new Reflexio();
 export const MainMenu = () => {
   const { state, trigger } = reflexio.useReflexio(
     (state: IState) => state,
+    [],
     MainMenu
   );
 

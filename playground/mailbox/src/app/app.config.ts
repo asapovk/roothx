@@ -2,6 +2,7 @@ import { Bite, Slice } from '@reflexio/reflexio-on-redux';
 import { TriggerPhaseWrapper } from '@reflexio/reflexio-on-redux/lib/types';
 import { IState, ITriggers } from '../_redux/types';
 import { DialogScript } from './scripts/Dialog.script';
+import { AppControllerScript } from './scripts/App.script';
 
 export interface IAppState {
   sizeMode: '3col' | '2col' | '1col' | 'undefined';
@@ -40,13 +41,15 @@ const appControllerBite = Bite<
   {
     init: null,
     setReadiness: null,
-    setSizeMode: null,
+    setSizeMode(state, payload) {
+      state.sizeMode = payload;
+    },
   },
   {
     canTrigger: ['appController'],
     updateOn: ['appController'],
     instance: 'stable',
-    script: null,
+    script: AppControllerScript,
     triggerStatus: 'init',
   }
 );

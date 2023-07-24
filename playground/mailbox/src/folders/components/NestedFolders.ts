@@ -31,9 +31,7 @@ export const NestedFolders = (
 ) => {
   const { state: sidebarState, trigger } = reflexio.useReflexio(
     (state: IState) => state.folders,
-    () => {
-      console.log('i do nothing');
-    }
+    ['folders']
   );
 
   const list = sidebarState.foldersMap[folder.folderId]?.children || [];

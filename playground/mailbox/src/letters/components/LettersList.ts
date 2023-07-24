@@ -33,11 +33,13 @@ export const LettersList = () => {
       letters: state.letters.lettersList.data as Array<ILetter>,
       isLoading: state.letters.lettersList.loading as boolean,
     }),
+    ['lettersList'],
     LettersList
   );
 
   return tags.root({
     onMount: () => {
+      console.log('LETTERS MOUNT');
       trigger('lettersList', 'init', null);
       trigger('setContent', 'init', null);
     },

@@ -11,6 +11,7 @@ export const dialogPortal = createPortal();
 export const Dialog = () => {
   const { state: appState, trigger } = reflexio.useReflexio(
     (st: IState) => st.app,
+    ['dialog'],
     Dialog
   );
 

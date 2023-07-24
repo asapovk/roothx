@@ -6,7 +6,10 @@ import { Notification } from './notification/components/Notification';
 import { Popup } from './popup/components/Window';
 import { MainMenu } from './main-menu/components';
 import { Dialog } from './app/components/Dialog';
+import { IState } from './_redux/types';
+import { Reflexio } from './root-redux/reflector';
 
+const reflexio = new Reflexio<IState['app']>();
 const tree = new Tree({
   //@ts-ignore
   makeElement: (tag) => {
@@ -18,21 +21,30 @@ const tree = new Tree({
   },
 });
 
-export const Application = () =>
-  tree.root(
+export const Application = () => {
+  const { state, trigger } = reflexio.useReflexio(
+    (state: IState) => state.app,
+    [],
+    Application
+  );
+
+  trigger('appController', 'init', null);
+
+  return tree.root(
     {
       tagName: 'div',
       attributes: {
         id: 'app_root',
       },
       child: [
-        Sidebar(),
+        state.sizeMode === '3col' ? Sidebar() : null,
         Notification(),
         LettersList(),
+        state.sizeMode === '3col' ? MainMenu() : null,
         Popup(),
-        MainMenu(),
         Dialog(),
       ],
     },
     'app_root'
   );
+};

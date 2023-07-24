@@ -68,6 +68,7 @@ export const ComposeGrid = () => {
       items: state.compose.composeItems,
       opened: state.compose.openedComposeId,
     }),
+    [],
     ComposeGrid
   );
 

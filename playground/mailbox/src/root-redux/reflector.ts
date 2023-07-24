@@ -5,7 +5,8 @@ import { IState, ITriggers } from '../_redux/types';
 import { DispatcherType } from '@reflexio/reflexio-on-redux/lib/types';
 import { getActionType } from '@reflexio/reflexio-on-redux/lib/utils';
 import { LoadStore } from './loadStore';
-
+import { useSystem } from '@reflexio/reflexio-on-redux';
+import { matchActionType } from '../root-redux/utils';
 //const store = import(/* webpackChunkName: script */ '../_redux/index');
 
 export class Reflexio<T> {
@@ -13,6 +14,7 @@ export class Reflexio<T> {
   private store;
   private selector: (st: IState) => T;
   private contextFunction: Function;
+  private subscribtion: () => void;
 
   private triggerAction = (action) => {
     //@ts-ignore
@@ -26,8 +28,13 @@ export class Reflexio<T> {
   };
 
   private isMounted: boolean;
-  public useReflexio(selector: (st: IState) => T, context: Function) {
+  public useReflexio(
+    selector: (st: IState) => T,
+    conditon: Array<any>,
+    context?: Function
+  ) {
     if (!this.isMounted) {
+      const system = useSystem();
       this.store = LoadStore.getStore().loadedStore;
       if (this.store) {
         this.selector = selector;
@@ -35,8 +42,17 @@ export class Reflexio<T> {
         this.state = this.selector(this.store.getState());
         this.isMounted = true;
         //@ts-ignore
-        this.contextFunction = context;
-        this.store.subscribe(() => context());
+        if (context) {
+          this.contextFunction = context;
+          this.subscribtion = this.store.subscribe(() => {
+            const task = system.taksQueue.getCurrentTask();
+            if (
+              conditon.length ||
+              (task && matchActionType(task.type, conditon))
+            )
+              this.contextFunction();
+          });
+        }
       }
     } else {
       //@ts-ignore
@@ -48,6 +64,7 @@ export class Reflexio<T> {
     return {
       state: this.state,
       trigger: this.trigger,
+      subscribtion: this.subscribtion,
     };
   }
 }
