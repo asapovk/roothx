@@ -36,6 +36,12 @@ export interface IFoldersState {
 
 export interface IFoldersTriggers {
   // тут init done error отвечающие начальное загрузке списка папок с бека
+  makeNewFolder: TriggerPhaseWrapper<{
+    init: null;
+    submitForm: null;
+    addFolder: { folder: IFolder };
+    typeValue: { value: string };
+  }>;
   loadFolders: EffectiveTrigger<ILoadFoldersArgs, Array<IFolder>, Error>;
   // тут эвенты отвечающие за drag-n-drop
   draggableFolders: TriggerPhaseWrapper<{

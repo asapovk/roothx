@@ -5,6 +5,8 @@ import { dialogPortal } from '../../app/components/Dialog';
 
 interface IMakeNewFolderForm {
   isShown: boolean;
+  onSubmit: () => void;
+  onChange: (val: string) => void;
 }
 
 export const MakeNewFolderForm = (
@@ -22,11 +24,19 @@ export const MakeNewFolderForm = (
               child: TextInput(
                 tree,
                 {
+                  onChange(e) {
+                    opts.onChange(e.target.value);
+                  },
                   size: 'l',
-                  w: '300px',
+                  w: '340px',
                 },
                 `${key}_f_n_inp`
               ),
+            }),
+            tree.button({
+              className: 'folder-button',
+              child: 'submit',
+              onClick: () => opts.onSubmit(),
             }),
           ],
         })

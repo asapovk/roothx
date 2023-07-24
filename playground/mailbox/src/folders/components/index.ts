@@ -71,6 +71,7 @@ export const Sidebar = () => {
             trigger('dialog', 'init', () =>
               trigger('dialog', 'closeDialog', null)
             );
+            trigger('makeNewFolder', 'init', null);
             trigger('dialog', 'openDialog', null);
           },
         },
@@ -78,7 +79,12 @@ export const Sidebar = () => {
       ),
       MakeNewFolderForm(
         tags,
-        { isShown: Boolean(state.app.dialog?.isOpen) },
+        {
+          isShown: Boolean(state.app.dialog?.isOpen),
+          onSubmit: () => trigger('makeNewFolder', 'submitForm', null),
+          onChange: (val) =>
+            trigger('makeNewFolder', 'typeValue', { value: val }),
+        },
         'make_new_form'
       ),
       tags.div({

@@ -27,6 +27,7 @@ export class FoldersScript {
     // вызываем загрузку папок и ждем события done
     const result = await this.opts.hook('loadFolders', 'init', 'done', null);
     this.opts.trigger('draggableFolders', 'init', null);
+    //this.opts.trigger('makeNewFolder', 'init', null);
     // потом записываем дерево в стейт
     this.opts.trigger('folders', 'setMap', this.makeMap(result));
   }

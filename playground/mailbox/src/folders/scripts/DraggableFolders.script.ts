@@ -123,7 +123,7 @@ export class DraggableFoldersScript {
       }, 1000);
     }
     if (args.status === 'dragFolderHover') {
-      //очишаем таймаут для удаления старого ховера 
+      //очишаем таймаут для удаления старого ховера;
       clearTimeout(this.dragHoverTimeout);
       const state = this.opts.getCurrentState().folders;
       if (state.dropTardetFolder) {

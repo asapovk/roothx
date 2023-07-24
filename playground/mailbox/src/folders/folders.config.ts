@@ -8,6 +8,7 @@ import { IFoldersState, IFoldersTriggers } from './interfaces/Folder.interface';
 import { Bite, Slice } from '@reflexio/reflexio-on-redux';
 import { FoldersScript } from './scripts/Folders.script';
 import { DraggableFoldersScript } from './scripts/DraggableFolders.script';
+import { MakeNewFolderScript } from './scripts/MakeFolder.script';
 
 export const foldersInitialState: IFoldersState = {
   foldersMap: {},
@@ -50,6 +51,34 @@ export const draggableFoldersBite = Bite<
   }
 );
 
+export const makeNewFolderBite = Bite<
+  IFoldersTriggers,
+  ITriggers,
+  IFoldersState,
+  IState,
+  'makeNewFolder'
+>(
+  {
+    init: null,
+    addFolder: null,
+    submitForm: null,
+    typeValue: null,
+  },
+  {
+    canTrigger: [
+      'folders',
+      'appController',
+      'showNotification',
+      'dialog',
+      'makeNewFolder',
+    ],
+    instance: 'refreshing',
+    updateOn: ['makeNewFolder'],
+    triggerStatus: 'init',
+    script: MakeNewFolderScript,
+  }
+);
+
 export const foldersBite = Bite<
   IFoldersTriggers,
   ITriggers,
@@ -86,7 +115,13 @@ export const foldersBite = Bite<
     typing: null,
   },
   {
-    canTrigger: ['folders', 'loadFolders', 'draggableFolders', 'appController'],
+    canTrigger: [
+      'folders',
+      'loadFolders',
+      'draggableFolders',
+      'appController',
+      'makeNewFolder',
+    ],
     instance: 'stable',
     updateOn: ['folders'],
     triggerStatus: 'init',
@@ -110,6 +145,7 @@ export const sidebarSlice = Slice<
 >(
   'folders',
   {
+    makeNewFolder: makeNewFolderBite,
     folders: foldersBite,
     loadFolders: loadFoldersBite,
     draggableFolders: draggableFoldersBite,
