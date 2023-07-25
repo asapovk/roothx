@@ -10,6 +10,8 @@ Create simple react-like ui engine for research purpose
 
 ```bash
 
+cd playground
+
 yarn 
 
 yarn start
