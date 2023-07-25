@@ -55,6 +55,7 @@ export const Sidebar = () => {
     attributes: {
       class: 'sidebar-container',
     },
+    isMute: state.app.sizeMode !== '3col' ,
     child: [
       tags.tag({
         child: 'New Letter',

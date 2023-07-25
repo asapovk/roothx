@@ -22,11 +22,11 @@ const tree = new Tree({
   },
 });
 const tags = new Tags(tree);
-const reflexio = new Reflexio(store);
+const reflexio = new Reflexio<IState>(store);
 export const MainMenu = () => {
   const { state, trigger } = reflexio.useReflexio(
     (state: IState) => state,
-    [],
+    ['appController'],
     MainMenu
   );
 
@@ -35,6 +35,7 @@ export const MainMenu = () => {
     attributes: {
       class: 'main-menu-container',
     },
+    isMute: state.app.sizeMode !== '3col' ,
     child: [
       MainButton(tags),
       tags.div({
