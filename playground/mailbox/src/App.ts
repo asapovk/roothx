@@ -25,8 +25,8 @@ const tree = new Tree({
 export const Application = () => {
   const { state, trigger } = reflexio.useReflexio(
     (state: IState) => state.app,
-    [], //OPTIMIZE!!!
-    //['appController'],
+    //[], //OPTIMIZE!!!
+    ['appController'],
     Application
   );
 

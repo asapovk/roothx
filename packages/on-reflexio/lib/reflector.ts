@@ -47,13 +47,13 @@ export class Reflexio<T> {
         this.state = this.selector(this.store.getState());
         this.isMounted = true;
         //@ts-ignore
+        const system = this.store.system
         if (context) {
           this.contextFunction = context;
           this.subscribtion = this.store.subscribe(() => {
-            const system = useSystem();
-            console.log(system);
+            //const system = useSystem();
+            //console.log(system);
             const task = system.taksQueue.getCurrentTask();
-            console.log(task);
             if (
               !conditon.length ||
               (task && matchActionType(task.type, conditon))

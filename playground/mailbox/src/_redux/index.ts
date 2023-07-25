@@ -36,6 +36,7 @@ const store = configureStore();
 store.subscribe(() => {
   system.afterHandlers.forEach((s) => s());
 });
-
+//@ts-ignore
+store.system = system;
 export const dispatch = store.dispatch;
 export default store;
