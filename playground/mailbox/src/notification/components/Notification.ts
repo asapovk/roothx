@@ -1,10 +1,12 @@
 import { IState } from '../../_redux/types';
 //import { useTrigger } from 'src/_redux/useTrigger';
 import './style.less';
-import { Reflexio } from '../../root-redux/reflector';
+import { Reflexio } from '../../../../../packages/on-reflexio/lib/reflector';
 import { Tree } from '../../../../../packages/core/lib/NTree';
 import cn from 'classnames';
-const reflexio = new Reflexio<IState['notification']['notifications']>();
+import store from '../../_redux/index';
+
+const reflexio = new Reflexio<IState['notification']['notifications']>(store);
 const tree = new Tree({
   makeElement: (tag) => document.createElement(tag),
 });

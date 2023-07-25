@@ -2,9 +2,10 @@
 import { IState } from '../../_redux/types';
 import { Compose } from './Compose';
 import './ComposeGrid.less';
-import { Reflexio } from '../../root-redux/reflector';
+import { Reflexio } from '../../../../../packages/on-reflexio/lib/reflector';
 import { Tree } from '../../../../../packages/core/lib/NTree';
 import { Tags } from '../../../../../packages/core/lib/Tags';
+import store from '../../_redux/index';
 
 const paneltree = new Tree({
   makeElement: (tag) => document.createElement(tag),
@@ -57,7 +58,7 @@ const ComposePanel = ({
 const reflexio = new Reflexio<{
   items: Array<any>;
   opened: string | null;
-}>();
+}>(store);
 const tree = new Tree({
   makeElement: (tag) => document.createElement(tag),
 });

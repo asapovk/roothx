@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 //import store from '../_redux/index';
-import { IState, ITriggers } from '../_redux/types';
+import { IState, ITriggers } from '../../../playground/mailbox/src/_redux/types';
 
 import { DispatcherType } from '@reflexio/reflexio-on-redux/lib/types';
 import { getActionType } from '@reflexio/reflexio-on-redux/lib/utils';
-import { LoadStore } from './loadStore';
+//import { LoadStore } from '../../../playground/mailbox/src/_redux/loadStore';
 import { useSystem } from '@reflexio/reflexio-on-redux';
-import { matchActionType } from '../root-redux/utils';
+import { matchActionType } from './utils';
 //const store = import(/* webpackChunkName: script */ '../_redux/index');
 
 export class Reflexio<T> {
@@ -15,6 +15,11 @@ export class Reflexio<T> {
   private selector: (st: IState) => T;
   private contextFunction: Function;
   private subscribtion: () => void;
+
+
+  constructor(store: any) {
+    this.store = store;
+  }
 
   private triggerAction = (action) => {
     //@ts-ignore
@@ -34,8 +39,8 @@ export class Reflexio<T> {
     context?: Function
   ) {
     if (!this.isMounted) {
-      const system = useSystem();
-      this.store = LoadStore.getStore().loadedStore;
+  
+      //this.store = LoadStore.getStore().loadedStore;
       if (this.store) {
         this.selector = selector;
         //@ts-ignore
@@ -45,7 +50,10 @@ export class Reflexio<T> {
         if (context) {
           this.contextFunction = context;
           this.subscribtion = this.store.subscribe(() => {
+            const system = useSystem();
+            console.log(system);
             const task = system.taksQueue.getCurrentTask();
+            console.log(task);
             if (
               !conditon.length ||
               (task && matchActionType(task.type, conditon))

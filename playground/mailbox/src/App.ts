@@ -7,9 +7,10 @@ import { Popup } from './popup/components/Window';
 import { MainMenu } from './main-menu/components';
 import { Dialog } from './app/components/Dialog';
 import { IState } from './_redux/types';
-import { Reflexio } from './root-redux/reflector';
+import { Reflexio } from '../../../packages/on-reflexio/lib/reflector';
+import store from './_redux/index';
 
-const reflexio = new Reflexio<IState['app']>();
+const reflexio = new Reflexio<IState['app']>(store);
 const tree = new Tree({
   //@ts-ignore
   makeElement: (tag) => {
@@ -24,7 +25,8 @@ const tree = new Tree({
 export const Application = () => {
   const { state, trigger } = reflexio.useReflexio(
     (state: IState) => state.app,
-    ['appController'],
+    [], //OPTIMIZE!!!
+    //['appController'],
     Application
   );
 
@@ -32,6 +34,9 @@ export const Application = () => {
     {
       onMount() {
         trigger('appController', 'init', null);
+      },
+      onUpdate() {
+        console.log('root update');
       },
       tagName: 'div',
       attributes: {

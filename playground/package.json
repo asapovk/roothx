@@ -1,5 +1,5 @@
 {
-    "name": "rooth-mailbox-example",
+    "name": "rooth-example",
     "private": true,
     "license": "MIT",
     "author": "Konstantin Astapov",
@@ -9,8 +9,8 @@
       }
     },
     "scripts": {
-        "start": "webpack serve --config webpack/webpack.dev.config.js",
-        "build": "webpack --config webpack/webpack.prod.config.js"
+        "start": "webpack serve --config mailbox/webpack/webpack.dev.config.js",
+        "build": "webpack --config mailbox/webpack/webpack.prod.config.js"
       },
     "lint-staged": {
       "./src/**/*.{ts,tsx,js,jsx}": [

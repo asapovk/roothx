@@ -1,6 +1,6 @@
 import { Tree, Root } from '../../../../../../packages/core/lib//NTree';
 import { State } from '../../../../../../packages/core/lib/State';
-import { Button } from '../../../../../../packages/button/src/index';
+//import { Button } from '../../../../../../packages/button/src/index';
 import './styles.less';
 
 const tree = new Tree({
@@ -49,10 +49,10 @@ export const AuthForm = () => {
                 'pasword-input'
               ),
 
-              Button('pasword-button', tree, {
-                child: 'Submit' as any,
-                onClick: () => setModalOpen(true),
-              }),
+              // ta('pasword-button', tree, {
+              //   child: 'Submit' as any,
+              //   onClick: () => setModalOpen(true),
+              // }),
 
               // tree.tag({
               //   tagName: 'button',

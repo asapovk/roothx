@@ -1,0 +1,14 @@
+{
+    "name": "@roothx/on-reflexio",
+    "license": "MIT",
+    "version": "0.1.1",
+    "author": "Konstantin Astapov",
+    "description": "Reflexio plugin",
+    "devDependencies": {
+      "md5": "^2.3.0",
+      "redux": "^4.2.0",
+      "uuid": "^8.3.2",
+      "@reflexio/reflexio-on-redux": "*"
+    }
+  }
+  

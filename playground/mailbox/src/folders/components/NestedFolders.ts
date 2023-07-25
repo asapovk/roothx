@@ -3,17 +3,19 @@ import { IState } from '../../_redux/types';
 import './styles.less';
 import { IFolder } from '../interfaces/Folder.interface';
 import classNames from 'classnames';
-import { Reflexio } from '../../root-redux/reflector';
+import { Reflexio } from '../../../../../packages/on-reflexio/lib/reflector';
 import { Tree } from '../../../../../packages/core/lib/NTree';
 import { Tags } from '../../../../../packages/core/lib/Tags';
 import { Arrow } from '../../../../__shared/ui/Svg/Arrow';
+import store from '../../_redux/index';
+
 //import { Arrow } from '../../_ui/Svg/Arrow';
 
 //это если надо сдалать кастомный ghost
 const dataTransferStyle =
   'display: absolute; top: -150px; height: 40px; width: 160px;';
 
-const reflexio = new Reflexio<IState['folders']>();
+const reflexio = new Reflexio<IState['folders']>(store);
 
 export const NestedFolders = (
   tree: Tags,

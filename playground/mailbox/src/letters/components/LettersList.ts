@@ -6,12 +6,14 @@ import { ComposeGrid } from '../../compose/components/ComposeGrid';
 import './styles.less';
 import { Tree } from '../../../../../packages/core/lib/NTree';
 import { Tags } from '../../../../../packages/core/lib/Tags';
-import { Reflexio } from '../../root-redux/reflector';
+import { Reflexio } from '../../../../../packages/on-reflexio/lib/reflector';
 import { ILetter } from '../interfaces/Letter.interface';
 import { Text } from '../../../../__shared/ui/Text';
 import { Sidebar } from '../../folders/components';
 import { TextInput } from '../../../../__shared/ui/Input';
 import { Search } from '../../../../__shared/ui/Svg/Search';
+import store from '../../_redux/index';
+
 const tree = new Tree({
   //@ts-ignore
   makeElement: (tag) => {
@@ -26,14 +28,14 @@ const tags = new Tags(tree);
 const reflexio = new Reflexio<{
   letters: Array<ILetter>;
   isLoading: boolean;
-}>();
+}>(store);
 export const LettersList = () => {
   const { state, trigger } = reflexio.useReflexio(
     (state: IState) => ({
       letters: state.letters.lettersList.data as Array<ILetter>,
       isLoading: state.letters.lettersList.loading as boolean,
     }),
-    ['lettersList'],
+    ['lettersList', 'saveLetter'],
     LettersList
   );
 
@@ -42,6 +44,9 @@ export const LettersList = () => {
       console.log('LETTERS MOUNT');
       trigger('lettersList', 'init', null);
       trigger('setContent', 'init', null);
+    },
+    onUpdate() {
+        console.log('letters update');
     },
     attributes: {
       class: 'lettersListContainer',

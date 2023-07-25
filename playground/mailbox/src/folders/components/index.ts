@@ -9,16 +9,17 @@
 import { Tree } from '../../../../../packages/core/lib/NTree';
 import { Tags } from '../../../../../packages/core/lib/Tags';
 import { IState } from '../../_redux/types';
-import { Reflexio } from '../../root-redux/reflector';
+import { Reflexio } from '../../../../../packages/on-reflexio/lib/reflector';
 import { MakeNewFolder } from './MakeNewFolder';
 import { MakeNewFolderForm } from './MakeNewFolderForm';
 import { NestedFolders } from './NestedFolders';
+import store from '../../_redux/index';
 
 // import { useTrigger } from '../../../folders/src/_redux/useTrigger';
 const reflexio = new Reflexio<{
   folders: IState['folders'];
   app: IState['app'];
-}>();
+}>(store);
 
 const tree = new Tree({
   //@ts-ignore

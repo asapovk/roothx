@@ -3,10 +3,11 @@
 import { IState } from '../../_redux/types';
 import { IPopupState } from '../popup.config';
 import { Window } from '../../modal/index';
-import { Reflexio } from '../../root-redux/reflector';
+import { Reflexio } from '../../../../../packages/on-reflexio/lib/reflector';
 import { Tree } from '../../../../../packages/core/lib/NTree';
+import store from '../../_redux/index';
 
-const reflexio = new Reflexio<IState['popup']>();
+const reflexio = new Reflexio<IState['popup']>(store);
 const tree = new Tree({
   makeElement: (tag) => document.createElement(tag),
 });

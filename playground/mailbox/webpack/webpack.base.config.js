@@ -39,7 +39,7 @@ module.exports = {
               '@babel/preset-typescript',
               '@babel/preset-react',
             ],
-            plugins: ['./webpack/unique-key-argument.plugin.js'],
+            plugins: ['./mailbox/webpack/unique-key-argument.plugin.js'],
           },
         },
         include: [path.resolve(SourceDIR)],

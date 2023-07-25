@@ -14,9 +14,10 @@ export function matchActionType(actionType, updateOn) {
   if (updateOn.length === 0) {
     return true;
   }
-  const matchedTrigger = updateOn.find((t) => {
-    const firstKey = Object.keys(t)[0];
 
+  const matchedTrigger = updateOn.find((t) => {
+
+    const firstKey = Object.keys(t)[0];
     return t === trigger || firstKey === trigger;
   });
   if (matchedTrigger) {

@@ -1,15 +1,16 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { IState } from '../../_redux/types';
 import './Compose.less';
-import { Reflexio } from '../../root-redux/reflector';
+import { Reflexio } from '../../../../../packages/on-reflexio/lib/reflector';
 import { Element, Tree } from '../../../../../packages/core/lib/NTree';
 import { Tags } from '../../../../../packages/core/lib/Tags';
+import store from '../../_redux/index';
 
 const reflexio = new Reflexio<{
   subject: string;
   body: string;
   to: string;
-}>();
+}>(store);
 const tree = new Tree({
   makeElement: (tag) => document.createElement(tag),
 });
