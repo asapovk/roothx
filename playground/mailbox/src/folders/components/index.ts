@@ -39,7 +39,7 @@ export const Sidebar = () => {
 
   const { state, trigger } = reflexio.useReflexio(
     (state: IState) => ({ folders: state.folders, app: state.app }),
-    ['folders', 'draggableFolders'],
+    ['folders', 'draggableFolders', 'makeNewFolder', 'dialog'],
     Sidebar
   );
 

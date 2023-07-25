@@ -28,7 +28,7 @@ export interface IAppTrigges {
 
 export const appControllerState: IAppState = {
   isReady: false,
-  sizeMode: 'undefined',
+  sizeMode: '3col',
 };
 
 const appControllerBite = Bite<

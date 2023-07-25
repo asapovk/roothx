@@ -38,10 +38,10 @@ export const Application = () => {
         id: 'app_root',
       },
       child: [
-        state.sizeMode === '3col' ? Sidebar() : null,
+        Sidebar(),
         Notification(),
         LettersList(),
-        state.sizeMode === '3col' ? MainMenu() : null,
+        MainMenu(),
         Popup(),
         Dialog(),
       ],
