@@ -47,7 +47,7 @@ export class Reflexio<T> {
           this.subscribtion = this.store.subscribe(() => {
             const task = system.taksQueue.getCurrentTask();
             if (
-              conditon.length ||
+              !conditon.length ||
               (task && matchActionType(task.type, conditon))
             )
               this.contextFunction();
