@@ -13,7 +13,7 @@ const tree = new Tree({
 export const Popup = () => {
   const { state, trigger } = reflexio.useReflexio(
     (state: IState) => state.popup,
-    ['popup'],
+    ['openPopup'],
     Popup
   );
   //console.log('popuprender');

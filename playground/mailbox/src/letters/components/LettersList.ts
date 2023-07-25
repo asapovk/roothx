@@ -91,7 +91,13 @@ export const LettersList = () => {
                       `wrap_${l.uid}`
                     )
                   )
-                : 'Загрузка',
+                : Text(
+                    tags,
+                    {
+                      children: 'LOADING...',
+                    },
+                    'load-L_text_key'
+                  ),
           }),
         ],
       }),

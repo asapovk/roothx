@@ -22,7 +22,7 @@ export const Compose = () => {
       body: state.compose.body,
       to: state.compose.to,
     }),
-    []
+    ['setContent']
     //Compose
   );
 

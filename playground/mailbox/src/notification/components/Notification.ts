@@ -11,7 +11,7 @@ const tree = new Tree({
 export const Notification = () => {
   const { state, trigger } = reflexio.useReflexio(
     (state: IState) => state.notification.notifications,
-    [],
+    ['showNotification'],
     Notification
   );
 
