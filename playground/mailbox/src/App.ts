@@ -28,10 +28,11 @@ export const Application = () => {
     Application
   );
 
-  trigger('appController', 'init', null);
-
   return tree.root(
     {
+      onMount() {
+        trigger('appController', 'init', null);
+      },
       tagName: 'div',
       attributes: {
         id: 'app_root',
