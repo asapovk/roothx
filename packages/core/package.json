@@ -1,12 +1,11 @@
 {
     "name": "@roothx/core",
-    "version": "0.2.1",
-    "main": "index.js",
+    "version": "0.2.2",
     "license": "MIT",
     "author": "Konstantin Astapov",
-    "engines": {
-      "node": ">=16.15.0"
-    },
+    "keywords": ["roothx"],
+    "repository": "github:roothx/core",
+    "main": "lib/index.js",
     "scripts": {
         "build": "npx tsc",
         "test": "echo \"Error: no test specified\" && exit 1"

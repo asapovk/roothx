@@ -1,9 +1,12 @@
 {
     "name": "@roothx/on-reflexio",
     "license": "MIT",
-    "version": "0.2.1",
+    "version": "0.2.2",
     "author": "Konstantin Astapov",
     "description": "Reflexio plugin",
+    "keywords": ["roothx", "reflexio"],
+    "repository": "github:roothx/on-reflexio",
+    "main": "lib/index.js",
     "scripts": {
         "build": "npx tsc",
         "test": "echo \"Error: no test specified\" && exit 1"
@@ -12,6 +15,9 @@
       "md5": "^2.3.0",
       "redux": "^4.2.0",
       "uuid": "^8.3.2",
+      "@reflexio/reflexio-on-redux": "*"
+    },
+    "peerDependencies": {
       "@reflexio/reflexio-on-redux": "*"
     }
   }
