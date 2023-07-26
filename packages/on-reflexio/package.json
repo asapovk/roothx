@@ -1,9 +1,13 @@
 {
     "name": "@roothx/on-reflexio",
     "license": "MIT",
-    "version": "0.1.1",
+    "version": "0.2.1",
     "author": "Konstantin Astapov",
     "description": "Reflexio plugin",
+    "scripts": {
+        "build": "npx tsc",
+        "test": "echo \"Error: no test specified\" && exit 1"
+      },
     "devDependencies": {
       "md5": "^2.3.0",
       "redux": "^4.2.0",
