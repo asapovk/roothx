@@ -51,6 +51,53 @@ export const NestedFolders = (
     sidebarState?.dragStartFolder?.index === index;
 
   return [
+    ...(isDragHovered ? [tree.tag(
+      {
+        tagName: 'li',
+        eventListeners: {
+          dragover: (e) => {
+            e.preventDefault();
+            if (isDragHovered) {
+              trigger('draggableFolders', 'cancelDragLeave', null);
+            }
+          }
+        },
+        attributes: {
+          //@ts-ignore
+          // draggable: true,
+          class: classNames('folder-item', {
+            hovered: isDragHovered,
+            dragging: isDragged,
+          }),
+        },
+        child: [
+          ...Array.from(Array(nestingLevel).keys()).map((a, i) =>
+            tree.div(
+              { className: 'liner', child: ' ' },
+              `${folder.folderId}_${i}ll_emp`
+            )
+          ),
+          tree.div(
+            {
+              className: 'name',
+              child: [
+                tree.tag(
+                  {
+                    attributes: {},
+                    child: ` `,
+                    tagName: 'span',
+                  },
+                  `${folder.parentId || 'root'}_${folder.folderId}sp_empt`
+                ),
+              ],
+            },
+            `${folder.parentId || 'root'}_${folder.folderId}name_emp`
+          ),
+        ],
+      },
+      `f_li${folder.folderId}_emp`
+    )] : []),
+    //////////
     tree.tag(
       {
         tagName: 'li',
@@ -73,30 +120,12 @@ export const NestedFolders = (
               index: index,
             });
           },
-          dragend: () => {
-            //console.log('DDDD');
-            trigger('draggableFolders', 'dragFolderDrop', {
-              parentId: folder.parentId,
-              targetIndex: index,
-            });
-          },
-          dragstart: (e) => {
-            // const ctx = document.createElement('div');
-            // ctx.innerText = 'Переместить';
-            // ctx.setAttribute('style', dataTransferStyle);
-            // document.body.appendChild(ctx);
-            // e.dataTransfer.setDragImage(ctx, 0, 0);
-            trigger('draggableFolders', 'dragFolderStart', {
-              index: index,
-              parentId: folder.parentId,
-            });
-          },
         },
         attributes: {
           //@ts-ignore
-          draggable: true,
+          //draggable: true,
           class: classNames('folder-item', {
-            hovered: isDragHovered,
+            //hovered: isDragHovered,
             dragging: isDragged,
           }),
         },
@@ -131,7 +160,30 @@ export const NestedFolders = (
                   : null,
                 tree.tag(
                   {
-                    attributes: {},
+                    attributes: {
+                      //@ts-ignore
+                      draggable: true
+                    },
+                    eventListeners: {
+                      dragend: () => {
+                        //console.log('DDDD');
+                        trigger('draggableFolders', 'dragFolderDrop', {
+                          parentId: folder.parentId,
+                          targetIndex: index,
+                        });
+                      },
+                      dragstart: (e) => {
+                        // const ctx = document.createElement('div');
+                        // ctx.innerText = 'Переместить';
+                        // ctx.setAttribute('style', dataTransferStyle);
+                        // document.body.appendChild(ctx);
+                        // e.dataTransfer.setDragImage(ctx, 0, 0);
+                        trigger('draggableFolders', 'dragFolderStart', {
+                          index: index,
+                          parentId: folder.parentId,
+                        });
+                      },
+                    },
                     child: `${folder.name}`,
                     tagName: 'span',
                   },
