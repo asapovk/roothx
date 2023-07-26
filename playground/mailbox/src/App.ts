@@ -6,11 +6,11 @@ import { Notification } from './notification/components/Notification';
 import { Popup } from './popup/components/Window';
 import { MainMenu } from './main-menu/components';
 import { Dialog } from './app/components/Dialog';
-import { IState } from './_redux/types';
+import { IState, ITriggers } from './_redux/types';
 import { Reflexio } from '../../../packages/on-reflexio/lib/reflector';
-import store from './_redux/index';
+import {store, system} from './_redux/index';
 
-const reflexio = new Reflexio<IState['app']>(store);
+const reflexio = new Reflexio<ITriggers, IState>(store, system);
 const tree = new Tree({
   //@ts-ignore
   makeElement: (tag) => {

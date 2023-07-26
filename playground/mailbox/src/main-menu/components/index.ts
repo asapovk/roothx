@@ -3,11 +3,11 @@ import { Tree } from '../../../../../packages/core/lib/NTree';
 import { Tags } from '../../../../../packages/core/lib/Tags';
 import { Search } from '../../../../__shared/ui/Svg/Search';
 import { Settings } from '../../../../__shared/ui/Svg/Settings';
-import { IState } from '../../_redux/types';
+import { IState, ITriggers } from '../../_redux/types';
 import { Reflexio } from '../../../../../packages/on-reflexio/lib/reflector';
 import { MainButton } from './MainButton';
 import './styles.less';
-import store from '../../_redux/index';
+import {store, system} from '../../_redux/index';
 
 //const vertialMenuItems  =  ['profile', 'contacts', 'setting' ]
 
@@ -22,7 +22,7 @@ const tree = new Tree({
   },
 });
 const tags = new Tags(tree);
-const reflexio = new Reflexio<IState>(store);
+const reflexio = new Reflexio<ITriggers, IState>(store, system);
 export const MainMenu = () => {
   const { state, trigger } = reflexio.useReflexio(
     (state: IState) => state,

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 //import { useSelector } from 'react-redux';
-import { IState } from '../../_redux/types';
+import { IState, ITriggers } from '../../_redux/types';
 import { ComposeGrid } from '../../compose/components/ComposeGrid';
 //import { useReflector } from '../../../../../packages/redux-react/dist/lib';
 import './styles.less';
@@ -12,7 +12,7 @@ import { Text } from '../../../../__shared/ui/Text';
 import { Sidebar } from '../../folders/components';
 import { TextInput } from '../../../../__shared/ui/Input';
 import { Search } from '../../../../__shared/ui/Svg/Search';
-import store from '../../_redux/index';
+import {store, system} from '../../_redux/index';
 
 const tree = new Tree({
   //@ts-ignore
@@ -25,10 +25,7 @@ const tree = new Tree({
   },
 });
 const tags = new Tags(tree);
-const reflexio = new Reflexio<{
-  letters: Array<ILetter>;
-  isLoading: boolean;
-}>(store);
+const reflexio = new Reflexio<ITriggers, IState>(store, system);
 export const LettersList = () => {
   const { state, trigger } = reflexio.useReflexio(
     (state: IState) => ({

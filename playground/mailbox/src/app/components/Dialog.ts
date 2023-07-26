@@ -1,10 +1,10 @@
 import './styles.less';
 import { Tree, createPortal } from '../../../../../packages/core/lib/NTree';
 import { Reflexio } from '../../../../../packages/on-reflexio/lib/reflector';
-import { IState } from '../../_redux/types';
-import store from '../../_redux/index';
+import { IState, ITriggers } from '../../_redux/types';
+import {store, system} from '../../_redux/index';
 
-const reflexio = new Reflexio<IState['app']>(store);
+const reflexio = new Reflexio<ITriggers, IState>(store, system);
 const tree = new Tree({
   makeElement: (tag) => document.createElement(tag),
 });

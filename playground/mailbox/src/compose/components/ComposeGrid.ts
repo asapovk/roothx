@@ -1,11 +1,12 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import { IState } from '../../_redux/types';
+import { IState, ITriggers } from '../../_redux/types';
 import { Compose } from './Compose';
 import './ComposeGrid.less';
 import { Reflexio } from '../../../../../packages/on-reflexio/lib/reflector';
 import { Tree } from '../../../../../packages/core/lib/NTree';
 import { Tags } from '../../../../../packages/core/lib/Tags';
-import store from '../../_redux/index';
+import {store, system} from '../../_redux/index';
+
 
 const paneltree = new Tree({
   makeElement: (tag) => document.createElement(tag),
@@ -55,10 +56,7 @@ const ComposePanel = ({
     'compose_panel_root_key'
   );
 
-const reflexio = new Reflexio<{
-  items: Array<any>;
-  opened: string | null;
-}>(store);
+const reflexio = new Reflexio<ITriggers, IState>(store, system);
 const tree = new Tree({
   makeElement: (tag) => document.createElement(tag),
 });

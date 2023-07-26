@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import { IState } from '../../_redux/types';
+import { IState, ITriggers } from '../../_redux/types';
 import './styles.less';
 import { IFolder } from '../interfaces/Folder.interface';
 import classNames from 'classnames';
@@ -7,7 +7,7 @@ import { Reflexio } from '../../../../../packages/on-reflexio/lib/reflector';
 import { Tree } from '../../../../../packages/core/lib/NTree';
 import { Tags } from '../../../../../packages/core/lib/Tags';
 import { Arrow } from '../../../../__shared/ui/Svg/Arrow';
-import store from '../../_redux/index';
+import {store, system} from '../../_redux/index';
 
 //import { Arrow } from '../../_ui/Svg/Arrow';
 
@@ -15,7 +15,7 @@ import store from '../../_redux/index';
 const dataTransferStyle =
   'display: absolute; top: -150px; height: 40px; width: 160px;';
 
-const reflexio = new Reflexio<IState['folders']>(store);
+const reflexio = new Reflexio<ITriggers, IState>(store, system);
 
 export const NestedFolders = (
   tree: Tags,
