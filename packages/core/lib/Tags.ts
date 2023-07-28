@@ -5,9 +5,7 @@ export class Tags {
   public root: Tree['root'];
   public tag: Tree['tag'];
   constructor(tree: Tree) {
-    this.tree = tree; //new Tree({
-    //   makeElement: (tag) => document.createElement(tag),
-    // });
+    this.tree = tree; 
     this.root = (args, key) => this.tree.root(args, key);
     this.tag = (args, key) => this.tree.tag(args, key);
   }
@@ -17,7 +15,7 @@ export class Tags {
       text: string;
       className?: string;
       style?: string;
-      getNode?: (e: HTMLElement) => void;
+      withNode?: (e: HTMLElement, isMounting) => void;
       onClick?: (e) => void;
     },
     key?: string
@@ -26,7 +24,7 @@ export class Tags {
       {
         tagName: 'p',
         child: opts.text,
-        getNode: opts.getNode,
+        withNode: opts.withNode,
         attributes: {},
         eventListeners: opts.onClick
           ? {
@@ -44,7 +42,7 @@ export class Tags {
       size?: number;
       className?: string;
       style?: string;
-      getNode?: (e: HTMLElement) => void;
+      withNode?: (e: HTMLElement, isMounting: boolean) => void;
       onClick?: (e) => void;
     },
     key?: string
@@ -53,7 +51,7 @@ export class Tags {
       {
         tagName: `h${opts.size || 1}`,
         child: opts.text,
-        getNode: opts.getNode,
+        withNode: opts.withNode,
         attributes: {},
         eventListeners: opts.onClick
           ? {
@@ -70,7 +68,7 @@ export class Tags {
       child?: Array<Element | string | null> | Element | string | null;
       className?: string;
       style?: string;
-      getNode?: (e: HTMLElement) => void;
+      withNode?: (e: HTMLElement, isMounting: boolean) => void;
       onClick?: (e) => void;
     },
     key?: string
@@ -79,7 +77,7 @@ export class Tags {
       {
         tagName: 'div',
         child: opts.child || ('' as string),
-        getNode: opts.getNode,
+        withNode: opts.withNode,
         attributes: {
           class: opts.className,
           style: opts.style,
@@ -99,7 +97,7 @@ export class Tags {
       child?: Element | string;
       className?: string;
       style?: string;
-      getNode?: (e: HTMLElement) => void;
+      withNode?: (e: HTMLElement, isMounting: boolean) => void;
       onClick?: (e) => void;
     },
     key?: string
@@ -108,7 +106,7 @@ export class Tags {
       {
         tagName: 'button',
         child: opts.child || '',
-        getNode: opts.getNode,
+        withNode: opts.withNode,
         attributes:
           opts && opts.className
             ? {
@@ -134,7 +132,7 @@ export class Tags {
       disabled?: boolean;
       className?: string;
       style?: string;
-      getNode?: (e: HTMLElement) => void;
+      withNode?: (e: HTMLElement, isMounting: boolean) => void;
     },
     key?: string
   ) {
@@ -148,7 +146,7 @@ export class Tags {
                 change: opts.onChange,
               }
             : undefined,
-        getNode: opts && opts.getNode ? opts.getNode : undefined,
+        withNode: opts && opts.withNode ? opts.withNode : undefined,
         attributes: {
           id: opts && opts.id ? opts.id : undefined,
           class: opts && opts.className ? opts.className : undefined,
@@ -170,7 +168,7 @@ export class Tags {
       type?: 'text' | 'password';
       className?: string;
       style?: string;
-      getNode?: (e: HTMLElement) => void;
+      withNode?: (e: HTMLElement, isMounting: boolean) => void;
     },
     key?: string
   ) {
@@ -184,7 +182,7 @@ export class Tags {
                 change: opts.onChange,
               }
             : undefined,
-        getNode: opts && opts.getNode ? opts.getNode : undefined,
+        withNode: opts && opts.withNode ? opts.withNode : undefined,
         attributes: {
           class: opts && opts.className ? opts.className : undefined,
           value: opts && opts.value ? opts.value : undefined,

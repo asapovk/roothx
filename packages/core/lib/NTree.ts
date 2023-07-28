@@ -101,6 +101,7 @@ export class Tree {
   public root(
     opts: {
       tagName: string;
+      withNode?: (el: HTMLElement, isMounting: boolean) => void;
       child:
         | string
         | Element
@@ -123,7 +124,8 @@ export class Tree {
         opts.child as Element,
         opts.attributes,
         opts.eventListeners,
-        opts.isMute
+        opts.tagName,
+        opts.isMute,
       );
       isMounting = true;
       // if (opts.onMount) {
@@ -153,6 +155,9 @@ export class Tree {
       } else {
         this.rootElement.unMute(resp);
       }
+    }
+    if(opts.withNode) {
+      opts.withNode(this.rootElement.node, isMounting)
     }
     if (isMounting && resp && opts.onMount) {
       setTimeout(opts.onMount);
@@ -187,23 +192,6 @@ export class Tree {
     return this.rootElement;
   }
 
-  public null() {
-    if (this.rootElement) {
-      this.unmountRoot();
-    }
-
-    return null;
-
-    //remove elements without calc ?
-    // this.root.clean();
-
-    //this.unmountRoot();
-
-    // console.log('NULL');
-
-    // return null;
-  }
-
   public tag(
     opts: {
       tagName: string;
@@ -224,12 +212,12 @@ export class Tree {
         class?: string;
       };
       eventListeners?: ITagListeners;
-      getNode?: (el: HTMLElement) => void;
+      withNode?: (el: HTMLElement, isMounting: boolean) => void;
     },
     key?: string
   ) {
     let elem: Element;
-
+    let isMounting: boolean = true;
     if (!this.elements[key as any]) {
       elem = this.mountElement(
         key,
@@ -238,10 +226,8 @@ export class Tree {
         opts.attributes,
         opts.eventListeners
       );
-      if (opts.getNode) {
-        opts.getNode(elem.node);
-      }
     } else {
+      isMounting = false;
       elem = this.updateElement(
         key,
         opts.child as Element,
@@ -249,6 +235,10 @@ export class Tree {
         opts.eventListeners
       );
     }
+
+      if (opts.withNode) {
+        opts.withNode(elem.node, isMounting);
+      }
 
     this.touchedElements[key as string] = true;
 
@@ -259,7 +249,8 @@ export class Tree {
     key: string,
     child: string | Element | Array<Element> | null,
     attributes: ITagAttributes = {},
-    eventListeners?: ITagListeners,
+    eventListeners: ITagListeners,
+    tagName: string,
     isMute?: boolean
   ) {
     const divElement = this.opts.makeElement('div');
@@ -270,7 +261,7 @@ export class Tree {
     this.rootElement = {
       isRoot: true,
       isMute: isMute || false,
-      tagName: 'div',
+      tagName: tagName,
       innerText: typeof child === 'string' ? child : (null as any),
       clean: this.unmountRoot, //to remove root inside childred Root from parent
       attributes: {},
@@ -381,6 +372,7 @@ export class Tree {
   };
 
   private unmountElement(key: string) {
+    console.log(`unmount ${key}`)
     if (this.elements[key].isRoot) {
       //@ts-ignore
       this.elements[key].clean();
