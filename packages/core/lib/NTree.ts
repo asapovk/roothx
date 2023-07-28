@@ -372,7 +372,6 @@ export class Tree {
   };
 
   private unmountElement(key: string) {
-    console.log(`unmount ${key}`)
     if (this.elements[key].isRoot) {
       //@ts-ignore
       this.elements[key].clean();
