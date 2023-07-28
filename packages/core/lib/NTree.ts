@@ -253,7 +253,7 @@ export class Tree {
     tagName: string,
     isMute?: boolean
   ) {
-    const divElement = this.opts.makeElement('div');
+    const divElement = this.opts.makeElement(tagName);
     this.mountNoneTextChilds(key, divElement, child as any);
     if (typeof child === 'string') {
       divElement.textContent = child;
