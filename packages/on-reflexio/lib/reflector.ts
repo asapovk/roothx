@@ -64,7 +64,10 @@ export class Reflexio<Triggers, State> {
     return {
       state: this.state,
       trigger: this.trigger,
-      subscribtion: this.subscribtion,
+      subscribtion: () => {
+        this.isMounted = false;
+        this.subscribtion();
+      }
     };
   }
 }
