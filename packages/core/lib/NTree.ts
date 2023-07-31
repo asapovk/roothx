@@ -356,10 +356,12 @@ export class Tree {
   private unmuteChildRoot = (child: Element) => {
     const elementObject = this.elements[child.id];
     elementObject.node = child.node;
-    const parentElement = this.rootElement;
-    elementObject.isMute = false;
-    if (parentElement && parentElement.node) {
-      parentElement.node.appendChild(child.node);
+    if(child.parentId) {
+      const parentElement = this.elements[child.parentId] || this.rootElement;
+      elementObject.isMute = false;
+      if (parentElement && parentElement.node) {
+        parentElement.node.appendChild(child.node);
+    }
     }
   };
 

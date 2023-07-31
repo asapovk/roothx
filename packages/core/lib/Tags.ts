@@ -94,7 +94,7 @@ export class Tags {
 
   public button = (
     opts: {
-      child?: Element | string;
+      child?: Element | string | null | Array<Element>;
       className?: string;
       style?: string;
       withNode?: (e: HTMLElement, isMounting: boolean) => void;
