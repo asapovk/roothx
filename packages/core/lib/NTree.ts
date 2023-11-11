@@ -58,7 +58,7 @@ export function Root(element: HTMLElement): void {
 }
 
 export class TreeFactory {
-  constructor(private opts: {makeElement: (tagName: string)=> HTMLElement}) {
+  constructor(private opts: {makeElement: (tagName: string)=> HTMLElement, keyPrefix?: string}) {
 
   }
   private instances: { [key: string]: Tree } = {};
@@ -68,7 +68,7 @@ export class TreeFactory {
       return this.instances[key];
     } else {
       this.instances[key] = new Tree(
-        { makeElement: this.opts.makeElement},
+        { makeElement: this.opts.makeElement, keyPrefix: this.opts.keyPrefix},
         () => {
           delete this.instances[key];
         }
