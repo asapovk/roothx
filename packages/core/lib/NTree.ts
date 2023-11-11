@@ -83,6 +83,7 @@ export class TreeFactory {
 
 interface ITreeOpts {
   makeElement: (tagName: string) => HTMLElement;
+  keyPrefix?: string; 
 }
 
 export class Tree {
@@ -91,7 +92,10 @@ export class Tree {
     if (cleanFactory) {
       this.cleanFactory = cleanFactory;
     }
+    this.keyPrefix = opts.keyPrefix;
   }
+
+  private keyPrefix: string; 
 
   private rootElement?: Element;
 
@@ -120,10 +124,12 @@ export class Tree {
     },
     key?: string
   ) {
+    const keyWithPrefix = this.keyPrefix && key ? this.keyPrefix + key: key;
+  
     let isMounting = false;
     if (!this.rootElement) {
       this.mountRoot(
-        key,
+        keyWithPrefix,
         opts.child as Element,
         opts.attributes,
         opts.eventListeners,
@@ -139,7 +145,7 @@ export class Tree {
       }
     } else {
       //@ts-ignore
-      this.rootElement.id = key;
+      this.rootElement.id = keyWithPrefix;
       this.updateRoot(
         opts.child as Element,
         opts.attributes,
@@ -220,11 +226,12 @@ export class Tree {
     },
     key?: string
   ) {
+    let keyWithPrefix = key && this.keyPrefix ? this.keyPrefix + key : key;
     let elem: Element;
     let isMounting: boolean = true;
-    if (!this.elements[key as any]) {
+    if (!this.elements[keyWithPrefix as any]) {
       elem = this.mountElement(
-        key,
+        keyWithPrefix,
         opts.tagName,
         opts.child as Element,
         opts.attributes,
@@ -233,7 +240,7 @@ export class Tree {
     } else {
       isMounting = false;
       elem = this.updateElement(
-        key,
+        keyWithPrefix,
         opts.child as Element,
         opts.attributes,
         opts.eventListeners
@@ -244,7 +251,7 @@ export class Tree {
         opts.withNode(elem.node, isMounting);
       }
 
-    this.touchedElements[key as string] = true;
+    this.touchedElements[keyWithPrefix as string] = true;
 
     return elem;
   }

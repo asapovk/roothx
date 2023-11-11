@@ -23,6 +23,7 @@ const tree = new Tree({
       return document.createElement(tag);
     }
   },
+  keyPrefix: 'sound'
 });
 const tags = new Tags(tree);
 const reflexio = new Reflexio<ITriggers, IState>(store, system);
