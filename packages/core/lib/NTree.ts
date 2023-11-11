@@ -177,7 +177,8 @@ export class Tree {
     if (this.onUnmountRoot) {
       this.onUnmountRoot();
     }
-    this.rootElement.node.remove(); //async
+
+    this.rootElement && this.rootElement.node.remove(); //async
     this.rootElement = undefined;
     this.elements = {};
   };
