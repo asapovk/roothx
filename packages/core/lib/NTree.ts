@@ -1,5 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 
+import { Tags } from "./Tags";
+
 export interface ITagAttributes {
   class?: string;
   style?: string;
@@ -61,18 +63,19 @@ export class TreeFactory {
   constructor(private opts: {makeElement: (tagName: string)=> HTMLElement}) {
 
   }
-  private instances: { [key: string]: Tree } = {};
+  private instances: { [key: string]:  Tags } = {};
 
-  public getInstance(key: string): Tree {
+  public getInstance(key: string): Tags {
     if (this.instances[key]) {
       return this.instances[key];
     } else {
-      this.instances[key] = new Tree(
+      const tree = new Tree(
         { makeElement: this.opts.makeElement, keyPrefix: key},
         () => {
           delete this.instances[key];
         }
       );
+      this.instances[key] = new Tags(tree);
 
       return this.instances[key];
     }
