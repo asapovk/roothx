@@ -29,10 +29,10 @@ const tags = new Tags(tree);
 const reflexio = new Reflexio<ITriggers, IState>(store, system);
 export const LettersList = () => {
   const { state, trigger } = reflexio.useReflexio(
-    (state: IState) => ({
-      letters: state.letters.lettersList.data as Array<ILetter>,
-      isLoading: state.letters.lettersList.loading as boolean,
-    }),
+    (state: IState) => {
+      return {letters: state.letters?.lettersList?.data as Array<ILetter>,
+      isLoading: state.letters?.lettersList?.loading as boolean,
+    }},
     ['lettersList', 'saveLetter'],
     LettersList
   );

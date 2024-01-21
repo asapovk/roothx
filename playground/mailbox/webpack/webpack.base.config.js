@@ -13,16 +13,26 @@ const BuildDIR = ProjectDIR + './build/';
 
 module.exports = {
   entry: {
-    //script: SourceDIR + '_redux/index.ts',
+    //script: SourceDIR + 'playground/mailbox/src/_redux/index.ts',
     app: SourceDIR + 'playground/mailbox/src/root.ts',
+    // letter: {
+    //   import: SourceDIR + 'playground/mailbox/src/letters/letters.config.ts',
+    //   dependOn: 'reflexio',
+    // },
+    // main: {
+    //   import: SourceDIR + 'playground/mailbox/src/root.ts',
+    //   dependOn: 'reflexio',
+    // },
+    // reflexio: '@reflexio/reflexio-on-redux',
   },
-  mode: 'production',
-  // optimization: {
-  //   minimize: true,
-  // },
+  mode: 'development',
+  optimization: {
+    minimize: false,
+  },
   devtool: 'source-map',
   externals: {},
   output: {
+    chunkFilename: '[name].[hash].js',
     publicPath: '/',
     path: path.resolve(BuildDIR),
     filename: '[name].js',

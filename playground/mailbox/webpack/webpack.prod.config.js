@@ -3,7 +3,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = Object.assign(baseConfig, {
-  mode: 'production',
+  //mode: 'production',
   devtool: 'source-map',
   plugins: [
     ...baseConfig.plugins,

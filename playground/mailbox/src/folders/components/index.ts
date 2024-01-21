@@ -41,13 +41,13 @@ export const Sidebar = () => {
     Sidebar
   );
 
-  const list = state.folders.foldersMap['root']?.children || [];
-  const isOpened = state.folders.foldersMap['root']?.isOpened || false;
+  const list = state.folders?.foldersMap['root']?.children || [];
+  const isOpened = state.folders?.foldersMap['root']?.isOpened || false;
 
   return tags.root({
-    onMount() {
-      trigger('folders', 'init', null);
-    },
+    // onMount() {
+    //   trigger('folders', 'init', null);
+    // },
     tagName: 'div',
     attributes: {
       class: 'sidebar-container',

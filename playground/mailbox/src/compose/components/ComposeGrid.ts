@@ -64,8 +64,8 @@ const tags = new Tags(tree);
 export const ComposeGrid = () => {
   const { state, trigger } = reflexio.useReflexio(
     (state: IState) => ({
-      items: state.compose.composeItems,
-      opened: state.compose.openedComposeId,
+      items: state.compose?.composeItems || [],
+      opened: state.compose?.openedComposeId,
     }),
     ['setContent'],
     ComposeGrid

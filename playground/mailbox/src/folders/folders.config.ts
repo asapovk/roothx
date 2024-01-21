@@ -152,3 +152,6 @@ export const sidebarSlice = Slice<
   },
   foldersInitialState
 );
+
+
+export default sidebarSlice;

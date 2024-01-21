@@ -24,6 +24,7 @@ export class FoldersScript {
   public async init(
     args: ScriptInitArgsType<IFoldersTriggers, 'folders', 'init'>
   ) {
+    console.log('FOLDERS INIT');
     // вызываем загрузку папок и ждем события done
     const result = await this.opts.hook('loadFolders', 'init', 'done', null);
     this.opts.trigger('draggableFolders', 'init', null);

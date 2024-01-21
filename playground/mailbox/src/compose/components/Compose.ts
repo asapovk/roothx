@@ -15,9 +15,9 @@ const tags = new Tags(tree);
 export const Compose = () => {
   const { state, trigger } = reflexio.useReflexio(
     (state: IState) => ({
-      subject: state.compose.subject,
-      body: state.compose.body,
-      to: state.compose.to,
+      subject: state.compose?.subject,
+      body: state.compose?.body,
+      to: state.compose?.to,
     }),
     ['setContent']
     //Compose
