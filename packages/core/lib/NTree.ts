@@ -187,8 +187,18 @@ export class Tree {
       this.onUnmountRoot();
     }
 
-    this.rootElement && this.rootElement.node.remove(); //async
+    this.rootElement && this.rootElement.node.remove();
+
     this.rootElement = undefined;
+
+    // Properly unmount each tracked child element so their DOM nodes are
+    // removed and any nested Root children have their own unmount lifecycle
+    // called. Previously `this.elements = {}` only dropped the JS references
+    // while leaving stale DOM nodes in the document and skipping nested-root
+    // cleanup — causing memory leaks and ghost nodes after unmount.
+    Object.keys(this.elements).forEach((k) => {
+      this.unmountElement(k);
+    });
     this.elements = {};
   };
 

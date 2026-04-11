@@ -1,13 +1,14 @@
 {
     "name": "@roothx/core",
-    "version": "0.3.9",
+    "version": "0.4.0",
     "license": "MIT",
     "author": "Konstantin Astapov",
     "keywords": ["roothx"],
     "repository": "github:roothx/core",
     "main": "lib/index.js",
     "scripts": {
-        "build": "npx tsc",
+        "build": "npx tsc && cp README.md dist/README.md",
+        "publish:npm": "npm run build && cd dist && npm publish --access public",
         "test": "echo \"Error: no test specified\" && exit 1"
       },
     "devDependencies": {
